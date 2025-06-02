@@ -1,0 +1,44 @@
+body{
+    padding: 0;
+    margin: 0;
+  }
+  
+  #container{
+    background-color:#212228;
+    background-image: linear-gradient(#292a30 .1em, transparent .1em), 
+    linear-gradient(90deg, #292a30 .1em, transparent .1em);
+    background-size: 4em 4em;
+    height: 100vh;
+  }
+  
+  
+  .card{
+    width: 100px;
+    height: 100px;
+    background-color: #5269ff;
+    border-radius: 100px;
+    cursor: pointer;
+    position: fixed;
+    /* Center text inside the card */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Optional: Set text color for better visibility */
+    font-size: 16px; /* Optional: Adjust font size */
+    text-align: center; /* Optional: Ensure text alignment */
+  }
+
+  .card.tool{
+    background-color: #5abd13;
+    border-radius: 10px;
+  }
+
+  #connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Prevent interference with node dragging */
+}
+
