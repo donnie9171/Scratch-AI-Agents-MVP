@@ -2,9 +2,11 @@ const canvas = document.getElementById('connections');
 const ctx = canvas.getContext('2d');
 
 function resizeCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    if (window.updateConnections) window.updateConnections(); // Redraw lines after resize
+    const container = document.getElementById('container');
+    const canvas = document.getElementById('connections');
+    canvas.width = container.scrollWidth;
+    canvas.height = container.scrollHeight;
+    if (window.updateConnections) window.updateConnections();
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);

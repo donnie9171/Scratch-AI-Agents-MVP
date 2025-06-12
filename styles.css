@@ -4,12 +4,37 @@ body{
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
-#container{
-  background-color:#212228;
-  background-image: linear-gradient(#292a30 .1em, transparent .1em), 
-  linear-gradient(90deg, #292a30 .1em, transparent .1em);
-  background-size: 4em 4em;
-  height: 100vh;
+#scroll-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 100vw;
+    height: 100vh;
+    /* Optional: background for scroll area */
+    background: #212228;
+    overscroll-behavior: contain;
+}
+
+#container {
+    position: relative;
+    min-width: 2000px;  /* Set large enough for scrolling */
+    min-height: 1200px;
+    background-color: #212228;
+    background-image: linear-gradient(#292a30 .1em, transparent .1em), 
+    linear-gradient(90deg, #292a30 .1em, transparent .1em);
+    background-size: 4em 4em;
+}
+
+#connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 
 
@@ -18,8 +43,7 @@ body{
   height: 100px;
   background-color: #5269ff;
   border-radius: 100px;
-  cursor: pointer;
-  position: fixed;
+  position: absolute;
   /* Center text inside the card */
   display: flex;
   justify-content: center;
@@ -34,6 +58,12 @@ body{
   cursor: grab;
 }
 
+.card.selected {
+    outline: 3px solid #ffab19;
+    outline-offset: 3px;
+    z-index: 100;
+}
+
 .card:active {
   cursor: grabbing;
 }
@@ -41,15 +71,6 @@ body{
 .card.tool{
   background-color: #5abd13;
   border-radius: 10px;
-}
-
-#connections {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Prevent interference with node dragging */
 }
 
 .button {
@@ -160,4 +181,33 @@ body{
     transform: translateY(-50%);
     /* background: #5abd13;
     border-color: #5abd13; */
+}
+
+#inspector-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 25vw;
+    height: 100vh;
+    background: #23243a;
+    color: #fff;
+    z-index: 2000;
+    box-shadow: -2px 0 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    overflow-y: auto;
+}
+#inspector-modal.active {
+    display: block;
+}
+body.inspector-open #scroll-area {
+    margin-right: 25vw;
+    transition: margin 0.2s;
+}
+#inspector-content {
+    padding: 24px;
+}
+#close-inspector {
+    float: right;
+    margin-bottom: 12px;
 }

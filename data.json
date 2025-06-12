@@ -2,18 +2,20 @@
   {
     "id": "agent1",
     "type": "agent",
-    "inputs": [],
+    "inputs": [
+      "agent1749704906127",
+      "tool1749705434274"
+    ],
     "outputs": [
       "tool1",
-      "tool2",
       "agent2"
     ],
     "data": {
       "label": "Agent: Ollama"
     },
     "position": {
-      "top": 236,
-      "left": 276
+      "top": 386,
+      "left": 414
     }
   },
   {
@@ -29,8 +31,8 @@
       "label": "Agent2: Gemini"
     },
     "position": {
-      "top": 365,
-      "left": 494
+      "top": 495,
+      "left": 581
     }
   },
   {
@@ -40,28 +42,131 @@
       "agent1",
       "agent2"
     ],
-    "outputs": [],
+    "outputs": [
+      "tool1749704923959"
+    ],
     "data": {
       "label": "Tool1: Code"
     },
     "position": {
-      "top": 201,
-      "left": 818
+      "top": 285,
+      "left": 767
     }
   },
   {
-    "id": "tool2",
+    "id": "agent1749704906127",
+    "type": "agent",
+    "inputs": [
+      "agent1749705452442"
+    ],
+    "outputs": [
+      "agent1"
+    ],
+    "data": {
+      "label": "Agent"
+    },
+    "position": {
+      "top": 453,
+      "left": 241
+    }
+  },
+  {
+    "id": "tool1749704910309",
     "type": "tool",
     "inputs": [
-      "agent1"
+      "tool1749704923959",
+      "agent1749705798168"
     ],
     "outputs": [],
     "data": {
-      "label": "Tool2: Text"
+      "label": "Tool"
     },
     "position": {
-      "top": 60,
-      "left": 601
+      "top": 432,
+      "left": 1167
+    }
+  },
+  {
+    "id": "tool1749704923460",
+    "type": "tool",
+    "inputs": [
+      "agent1749705798168"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Tool"
+    },
+    "position": {
+      "top": 643,
+      "left": 1124
+    }
+  },
+  {
+    "id": "tool1749704923959",
+    "type": "tool",
+    "inputs": [
+      "tool1",
+      "agent1749705798168"
+    ],
+    "outputs": [
+      "tool1749704910309"
+    ],
+    "data": {
+      "label": "Tool"
+    },
+    "position": {
+      "top": 313,
+      "left": 977
+    }
+  },
+  {
+    "id": "tool1749705434274",
+    "type": "tool",
+    "inputs": [
+      "agent1749705452442"
+    ],
+    "outputs": [
+      "agent1"
+    ],
+    "data": {
+      "label": "Tool"
+    },
+    "position": {
+      "top": 255,
+      "left": 221
+    }
+  },
+  {
+    "id": "agent1749705452442",
+    "type": "agent",
+    "inputs": [],
+    "outputs": [
+      "tool1749705434274",
+      "agent1749704906127"
+    ],
+    "data": {
+      "label": "Agent"
+    },
+    "position": {
+      "top": 349,
+      "left": 22
+    }
+  },
+  {
+    "id": "agent1749705798168",
+    "type": "agent",
+    "inputs": [],
+    "outputs": [
+      "tool1749704923959",
+      "tool1749704910309",
+      "tool1749704923460"
+    ],
+    "data": {
+      "label": "Agent"
+    },
+    "position": {
+      "top": 558,
+      "left": 812
     }
   }
 ]
