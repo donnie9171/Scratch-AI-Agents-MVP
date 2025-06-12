@@ -1,0 +1,67 @@
+[
+  {
+    "id": "agent1",
+    "type": "agent",
+    "inputs": [],
+    "outputs": [
+      "tool1",
+      "tool2",
+      "agent2"
+    ],
+    "data": {
+      "label": "Agent: Ollama"
+    },
+    "position": {
+      "top": 236,
+      "left": 276
+    }
+  },
+  {
+    "id": "agent2",
+    "type": "agent",
+    "inputs": [
+      "agent1"
+    ],
+    "outputs": [
+      "tool1"
+    ],
+    "data": {
+      "label": "Agent2: Gemini"
+    },
+    "position": {
+      "top": 365,
+      "left": 494
+    }
+  },
+  {
+    "id": "tool1",
+    "type": "tool",
+    "inputs": [
+      "agent1",
+      "agent2"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Tool1: Code"
+    },
+    "position": {
+      "top": 201,
+      "left": 818
+    }
+  },
+  {
+    "id": "tool2",
+    "type": "tool",
+    "inputs": [
+      "agent1"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Tool2: Text"
+    },
+    "position": {
+      "top": 60,
+      "left": 601
+    }
+  }
+]

@@ -1,44 +1,163 @@
 body{
-    padding: 0;
-    margin: 0;
-  }
-  
-  #container{
-    background-color:#212228;
-    background-image: linear-gradient(#292a30 .1em, transparent .1em), 
-    linear-gradient(90deg, #292a30 .1em, transparent .1em);
-    background-size: 4em 4em;
-    height: 100vh;
-  }
-  
-  
-  .card{
-    width: 100px;
-    height: 100px;
-    background-color: #5269ff;
-    border-radius: 100px;
-    cursor: pointer;
-    position: fixed;
-    /* Center text inside the card */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white; /* Optional: Set text color for better visibility */
-    font-size: 16px; /* Optional: Adjust font size */
-    text-align: center; /* Optional: Ensure text alignment */
-  }
-
-  .card.tool{
-    background-color: #5abd13;
-    border-radius: 10px;
-  }
-
-  #connections {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Prevent interference with node dragging */
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
+#container{
+  background-color:#212228;
+  background-image: linear-gradient(#292a30 .1em, transparent .1em), 
+  linear-gradient(90deg, #292a30 .1em, transparent .1em);
+  background-size: 4em 4em;
+  height: 100vh;
+}
+
+
+.card{
+  width: 100px;
+  height: 100px;
+  background-color: #5269ff;
+  border-radius: 100px;
+  cursor: pointer;
+  position: fixed;
+  /* Center text inside the card */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Optional: Set text color for better visibility */
+  font-size: 16px; /* Optional: Adjust font size */
+  text-align: center; /* Optional: Ensure text alignment */
+  padding: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  cursor: grab;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.card.tool{
+  background-color: #5abd13;
+  border-radius: 10px;
+}
+
+#connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevent interference with node dragging */
+}
+
+.button {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 24px;
+    background: #5269ff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    outline: none;
+}
+
+.button:hover, .button:focus {
+    background: #4052c7;
+}
+
+#controls {
+    padding: 10px;
+    margin: 15px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 100px;
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+    top: 0;
+    left: 0;
+}
+
+#json-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+#json-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#json-modal-text {
+    width: 60vw;
+    height: 40vh;
+    font-family: monospace;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#json-modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.node-point {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #5269ff;
+    z-index: 2;
+    box-sizing: border-box;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.tool .node-point {
+    border-color: #5abd13;
+}
+
+.node-point.active,
+.card.connecting,
+.node-point.connecting {
+  cursor: grabbing;
+}
+
+.node-point.active {
+    background: #ffab19;
+    border-color: #ffab19;
+}
+
+.input-point {
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* background: #ff5a5a;
+    border-color: #ff5a5a; */
+}
+
+.output-point {
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* background: #5abd13;
+    border-color: #5abd13; */
+}

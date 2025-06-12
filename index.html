@@ -7,22 +7,33 @@
     <title>Scratch AI Agents MVP</title>
 </head>
 <body>
-    <!-- Hello, this is the Scratch AI Agents MVP!
-    <button id="send-test-request">Send Test Ollama Request</button> -->
+    <div id="controls">
+        <button id="save-nodes" class="button">Save</button>
+        <button id="load-nodes" class="button">Load</button>
+    </div>
+
+    <div id="json-modal">
+        <div id="json-modal-content">
+            <textarea id="json-modal-text"></textarea>
+            <div id="json-modal-buttons">
+                <button id="copy-json-modal" class="button">Copy</button>
+                <button id="close-json-modal" class="button">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="container">
         <canvas id="connections"></canvas>
-        <div class="card agent" data-id="agent1">
-            Agent
-        </div>
-        <div class="card tool" data-id="tool1">
-            Tool1: Code
-        </div>
-        <div class="card tool" data-id="tool2">
-            Tool2: Text
-        </div>
+        <!-- Nodes will be added here dynamically -->
     </div>
     <script src="ollama.js"></script>
     <script src="dragAndDrop.js"></script>
-    <script src="connectNodes.js"></script>
+    <script src="renderNodeConnections.js"></script>
+    <script src="loadNodes.js"></script>
+    <script src="saveLoadModal.js"></script>
+    <script>
+        window.loadNodes();
+    </script>
+    <script src="dragNodeConnections.js"></script>
 </body>
 </html>
