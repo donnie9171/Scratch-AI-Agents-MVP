@@ -1,4 +1,6 @@
-const canvas = document.getElementById('connections');
+// Use the existing canvas variable if already declared
+var canvas = window.canvas || document.getElementById('connections');
+window.canvas = canvas;
 const ctx = canvas.getContext('2d');
 
 function resizeCanvas() {
@@ -43,6 +45,7 @@ window.updateConnections = function() {
             const y1 = fromRect.top + fromRect.height / 2 - canvasRect.top;
             const x2 = toRect.left + toRect.width / 2 - canvasRect.left;
             const y2 = toRect.top + toRect.height / 2 - canvasRect.top;
+
             ctx.beginPath();
             ctx.moveTo(x1, y1);
 
@@ -54,9 +57,24 @@ window.updateConnections = function() {
                 x2, y2
             );
 
-            ctx.strokeStyle = 'white';
-            ctx.lineWidth = 2;
+            // --- CUT MODE HIGHLIGHT ---
+            let isHovered = false;
+            if (window.cutMode && window.hoveredConnection) {
+                isHovered =
+                    window.hoveredConnection.from === node.id &&
+                    window.hoveredConnection.to === targetId;
+            }
+            if (isHovered) {
+                ctx.strokeStyle = '#ff5a5a';
+                ctx.setLineDash([6, 6]);
+                ctx.lineWidth = 3;
+            } else {
+                ctx.strokeStyle = 'white';
+                ctx.setLineDash([]);
+                ctx.lineWidth = 2;
+            }
             ctx.stroke();
+            ctx.setLineDash([]);
         });
     });
 };
