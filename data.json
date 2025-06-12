@@ -2,35 +2,19 @@
   {
     "id": "agent1",
     "type": "agent",
-    "inputs": [],
+    "inputs": [
+      "receiver1749714294585"
+    ],
     "outputs": [
       "tool1",
-      "tool2",
-      "agent2"
+      "tool2"
     ],
     "data": {
-      "label": "Agent: Ollama"
+      "label": "Emotion Agent"
     },
     "position": {
-      "top": 294,
-      "left": 304
-    }
-  },
-  {
-    "id": "agent2",
-    "type": "agent",
-    "inputs": [
-      "agent1"
-    ],
-    "outputs": [
-      "tool1"
-    ],
-    "data": {
-      "label": "Agent2: Gemini"
-    },
-    "position": {
-      "top": 539,
-      "left": 667
+      "top": 356,
+      "left": 306
     }
   },
   {
@@ -38,15 +22,17 @@
     "type": "tool",
     "inputs": [
       "agent1",
-      "agent2"
+      "tool2"
     ],
-    "outputs": [],
+    "outputs": [
+      "broadcaster1749714441034"
+    ],
     "data": {
-      "label": "Tool1: Code"
+      "label": "test edit"
     },
     "position": {
-      "top": 371,
-      "left": 1138
+      "top": 389,
+      "left": 736
     }
   },
   {
@@ -55,13 +41,45 @@
     "inputs": [
       "agent1"
     ],
-    "outputs": [],
+    "outputs": [
+      "tool1"
+    ],
     "data": {
-      "label": "Tool2: Text"
+      "label": "another test edit"
     },
     "position": {
-      "top": 175,
-      "left": 925
+      "top": 209,
+      "left": 505
+    }
+  },
+  {
+    "id": "receiver1749714294585",
+    "type": "receiver",
+    "inputs": [],
+    "outputs": [
+      "agent1"
+    ],
+    "data": {
+      "label": "Receiver"
+    },
+    "position": {
+      "top": 408,
+      "left": 81
+    }
+  },
+  {
+    "id": "broadcaster1749714441034",
+    "type": "broadcaster",
+    "inputs": [
+      "tool1"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Broadcaster"
+    },
+    "position": {
+      "top": 436,
+      "left": 998
     }
   }
 ]

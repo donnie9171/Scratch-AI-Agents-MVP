@@ -22,21 +22,25 @@ function showInspector(node) {
     const card = document.querySelector(`.card[data-id="${node.id}"]`);
     if (card) card.classList.add('selected');
 
-    document.getElementById('inspector-title').textContent = node.data?.label || node.id;
+    // Editable label input
+    document.getElementById('inspector-title').innerHTML = `
+        <input id="inspector-label-input" type="text" value="${node.data?.label || node.id}" style="font-size:1.2em; width:90%; padding:4px; border-radius:6px; border:1px solid #888; background:#18192a; color:#fff;">
+    `;
     document.getElementById('inspector-details').innerHTML = `
         <pre>${JSON.stringify(node, null, 2)}</pre>
     `;
     document.getElementById('inspector-modal').classList.add('active');
     document.body.classList.add('inspector-open');
-}
 
-document.getElementById('close-inspector').onclick = function() {
-    document.getElementById('inspector-modal').classList.remove('active');
-    document.body.classList.remove('inspector-open');
-    // Remove selection highlight from any node
-    document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
-    currentInspectedNodeId = null;
-};
+    // Save label on input change
+    const labelInput = document.getElementById('inspector-label-input');
+    labelInput.addEventListener('change', function() {
+        node.data = node.data || {};
+        node.data.label = labelInput.value;
+        localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+        if (window.loadNodes) window.loadNodes();
+    });
+}
 
 document.getElementById('delete-inspector').onclick = function() {
     if (!currentInspectedNodeId || !window.nodeData) return;
@@ -49,6 +53,14 @@ document.getElementById('delete-inspector').onclick = function() {
     });
     localStorage.setItem('nodes', JSON.stringify(window.nodeData));
     if (window.loadNodes) window.loadNodes();
+    document.getElementById('inspector-modal').classList.remove('active');
+    document.body.classList.remove('inspector-open');
+    // Remove selection highlight
+    document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
+    currentInspectedNodeId = null;
+};
+
+document.getElementById('close-inspector').onclick = function() {
     document.getElementById('inspector-modal').classList.remove('active');
     document.body.classList.remove('inspector-open');
     // Remove selection highlight

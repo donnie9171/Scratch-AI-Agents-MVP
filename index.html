@@ -10,8 +10,10 @@
     <div id="controls">
         <button id="save-nodes" class="button">Save</button>
         <button id="load-nodes" class="button">Load</button>
-        <button id="new-agent" class="button">New Agent</button>
-        <button id="new-tool" class="button">New Tool</button>
+        <button id="new-receiver" class="button">Receiver</button>
+        <button id="new-agent" class="button">Agent</button>
+        <button id="new-tool" class="button">Tool</button>
+        <button id="new-broadcaster" class="button">Broadcaster</button>
         <button id="cut" class="button">Cut Mode</button>
     </div>
 
@@ -27,9 +29,11 @@
 
     <div id="inspector-modal">
         <div id="inspector-content">
-            <button id="close-inspector" class="button">Close</button>
-<button id="delete-inspector" class="button" style="background:#ff5a5a; color:#fff; margin-bottom:12px;">Delete node</button>
-            <h2 id="inspector-title"></h2>
+            <div id="inspector-header-row">
+                <h2 id="inspector-title"></h2>
+                <button id="delete-inspector" class="button" style="background:#ff5a5a; color:#fff;">Delete node</button>
+                <button id="close-inspector" class="button">Close</button>
+            </div>
             <div id="inspector-details"></div>
         </div>
     </div>
@@ -40,7 +44,7 @@
             <!-- Nodes will be added here dynamically -->
         </div>
     </div>
-    <div id="cut-tooltip">Cut mode: Click a connection to remove it. Press Escape to exit.</div>
+    <div id="cut-tooltip">Cut mode: Click on something to remove it. <br/> Press Escape to exit.</div>
     <script src="ollama.js"></script>
     <script src="dragAndDrop.js"></script>
     <script src="loadNodes.js"></script>
@@ -53,6 +57,20 @@
     <script>
         window.loadNodes();
     </script>
-
+    <div id="scratch-iframe-bar">
+        <input id="scratch-project-id" type="text" placeholder="Enter Scratch Project ID or URL">
+        <button id="load-scratch-project" class="button">Load</button>
+    </div>
+    <iframe
+        id="scratch-iframe"
+        src="https://turbowarp.org/414716080/embed"
+        width="482"
+        height="412"
+        allowtransparency="true"
+        frameborder="0"
+        scrolling="no"
+        allowfullscreen>
+    </iframe>
+    <script src="scratchIframe.js"></script>
 </body>
 </html>

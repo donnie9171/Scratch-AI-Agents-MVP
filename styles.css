@@ -4,9 +4,6 @@ body{
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
-body.cut-mode {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 512 512'><path fill='%23ff5a5a' d='M256 192l-39.5-39.5c4.9-12.6 7.5-26.2 7.5-40.5C224 50.1 173.9 0 112 0S0 50.1 0 112s50.1 112 112 112c14.3 0 27.9-2.7 40.5-7.5L192 256l-39.5 39.5c-12.6-4.9-26.2-7.5-40.5-7.5C50.1 288 0 338.1 0 400s50.1 112 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z'/></svg>") 8 8, auto;
-}
 #cut-tooltip {
     position: fixed;
     top: 16px;
@@ -20,6 +17,7 @@ body.cut-mode {
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     display: none;
     pointer-events: none;
+    text-align: center;
 }
 body.cut-mode #cut-tooltip {
     display: block;
@@ -85,6 +83,12 @@ body.cut-mode #cut-tooltip {
     z-index: 100;
 }
 
+.card.cut-hover {
+    outline: 3px dotted #ff5a5a !important;
+    outline-offset: 3px;
+    z-index: 101;
+}
+
 .card:active {
   cursor: grabbing;
 }
@@ -92,6 +96,34 @@ body.cut-mode #cut-tooltip {
 .card.tool{
   background-color: #5abd13;
   border-radius: 10px;
+}
+
+.card.receiver{
+  background-color: #ffab19;
+  border-radius: 10px;
+  border-bottom-right-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
+.card.broadcaster{
+  background-color: #ffab19;
+  border-radius: 10px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+}
+
+body.cut-mode {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 512 512'><path fill='%23ff5a5a' d='M256 192l-39.5-39.5c4.9-12.6 7.5-26.2 7.5-40.5C224 50.1 173.9 0 112 0S0 50.1 0 112s50.1 112 112 112c14.3 0 27.9-2.7 40.5-7.5L192 256l-39.5 39.5c-12.6-4.9-26.2-7.5-40.5-7.5C50.1 288 0 338.1 0 400s50.1 112 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z'/></svg>") 8 8, auto !important;
+}
+
+/* Always show scissors cursor in cut mode, even on handles and cards */
+body.cut-mode .card,
+body.cut-mode .card:active,
+body.cut-mode .card.selected,
+body.cut-mode .node-point,
+body.cut-mode .node-point.active,
+body.cut-mode .node-point.connecting {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 512 512'><path fill='%23ff5a5a' d='M256 192l-39.5-39.5c4.9-12.6 7.5-26.2 7.5-40.5C224 50.1 173.9 0 112 0S0 50.1 0 112s50.1 112 112 112c14.3 0 27.9-2.7 40.5-7.5L192 256l-39.5 39.5c-12.6-4.9-26.2-7.5-40.5-7.5C50.1 288 0 338.1 0 400s50.1 112 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z'/></svg>") 8 8, auto !important;
 }
 
 .button {
@@ -177,6 +209,14 @@ body.cut-mode #cut-tooltip {
     border-color: #5abd13;
 }
 
+.receiver .node-point {
+    border-color: #ffab19;
+}
+
+.broadcaster .node-point {
+    border-color: #ffab19;
+}
+
 .node-point.active,
 .card.connecting,
 .node-point.connecting {
@@ -207,14 +247,15 @@ body.cut-mode #cut-tooltip {
 #inspector-modal {
     display: none;
     position: fixed;
-    top: 0;
+    left: 0;
     right: 0;
-    width: 25vw;
-    height: 100vh;
+    bottom: 0;
+    height: 33vh;
+    width: 100vw;
     background: #23243a;
     color: #fff;
     z-index: 2000;
-    box-shadow: -2px 0 12px rgba(0,0,0,0.2);
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
     transition: transform 0.2s;
     overflow-y: auto;
 }
@@ -222,13 +263,71 @@ body.cut-mode #cut-tooltip {
     display: block;
 }
 body.inspector-open #scroll-area {
-    margin-right: 25vw;
+    margin-bottom: 33vh;
     transition: margin 0.2s;
 }
 #inspector-content {
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
-#close-inspector {
-    float: right;
-    margin-bottom: 12px;
+
+#inspector-header-row {
+    display: flex;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background: #23243a;
+    z-index: 1;
+    /* Use box-sizing and padding to avoid overflow */
+    box-sizing: border-box;
+}
+
+#inspector-title {
+    margin: 10px;
+    flex: 1 1 auto;
+}
+
+#close-inspector,
+#delete-inspector {
+    margin: 10px;
+    margin-left: 0px;
+    flex: 0 0 auto;
+}
+
+#inspector-details {
+    padding: 10px;
+    width: 100%;
+}
+
+#scratch-iframe-bar {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 4001;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: #23243a;
+    padding: 6px 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+#scratch-project-id {
+    width: 300px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    background: #18192a;
+    color: #fff;
+}
+#scratch-iframe {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 4000;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 2px 10px;
+    background: #23243a;
 }

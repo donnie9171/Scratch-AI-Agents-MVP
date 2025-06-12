@@ -30,16 +30,29 @@ function renderNodes(nodes) {
         div.dataset.id = node.id;
         div.textContent = node.data.label;
 
-        // Create input and output points
-        const inputPoint = document.createElement('div');
-        inputPoint.className = 'node-point input-point';
-        inputPoint.title = 'Input';
-        div.appendChild(inputPoint);
+        // Add connection points
+        if (node.type === 'receiver') {
+            const outputPoint = document.createElement('div');
+            outputPoint.className = 'node-point output-point';
+            outputPoint.title = 'Output';
+            div.appendChild(outputPoint);
+        } else if (node.type === 'broadcaster') {
+            const inputPoint = document.createElement('div');
+            inputPoint.className = 'node-point input-point';
+            inputPoint.title = 'Input';
+            div.appendChild(inputPoint);
+        } else {
+            // Default: both points
+            const inputPoint = document.createElement('div');
+            inputPoint.className = 'node-point input-point';
+            inputPoint.title = 'Input';
+            div.appendChild(inputPoint);
 
-        const outputPoint = document.createElement('div');
-        outputPoint.className = 'node-point output-point';
-        outputPoint.title = 'Output';
-        div.appendChild(outputPoint);
+            const outputPoint = document.createElement('div');
+            outputPoint.className = 'node-point output-point';
+            outputPoint.title = 'Output';
+            div.appendChild(outputPoint);
+        }
 
         if (node.position && typeof node.position.top === 'number' && typeof node.position.left === 'number') {
             div.style.top = `${node.position.top}px`;

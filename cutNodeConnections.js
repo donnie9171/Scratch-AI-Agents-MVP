@@ -108,3 +108,70 @@ function pointToLineDistance(px, py, x1, y1, x2, y2) {
     const dx = px - xx, dy = py - yy;
     return Math.sqrt(dx * dx + dy * dy);
 }
+
+// Track hovered node for cut mode
+let lastCutHoverNode = null;
+
+document.getElementById('container').addEventListener('mousemove', function(e) {
+    if (!window.cutMode) return;
+
+    // Only trigger if not hovering a connection
+    if (window.hoveredConnection) {
+        if (lastCutHoverNode) {
+            lastCutHoverNode.classList.remove('cut-hover');
+            lastCutHoverNode = null;
+        }
+        return;
+    }
+
+    const card = e.target.closest('.card');
+    // Remove highlight from previous
+    if (lastCutHoverNode && lastCutHoverNode !== card) {
+        lastCutHoverNode.classList.remove('cut-hover');
+        lastCutHoverNode = null;
+    }
+    // Highlight new card
+    if (card) {
+        card.classList.add('cut-hover');
+        lastCutHoverNode = card;
+    }
+});
+
+document.getElementById('container').addEventListener('mouseleave', function() {
+    if (lastCutHoverNode) {
+        lastCutHoverNode.classList.remove('cut-hover');
+        lastCutHoverNode = null;
+    }
+});
+
+// Remove highlight when exiting cut mode
+function removeCutHoverHighlight() {
+    if (lastCutHoverNode) {
+        lastCutHoverNode.classList.remove('cut-hover');
+        lastCutHoverNode = null;
+    }
+}
+const origSetCutMode = setCutMode;
+setCutMode = function(active) {
+    origSetCutMode(active);
+    if (!active) removeCutHoverHighlight();
+};
+
+document.getElementById('container').addEventListener('click', function(e) {
+    if (!window.cutMode) return;
+    // Don't delete if clicking a connection (handled elsewhere)
+    if (window.hoveredConnection) return;
+    const card = e.target.closest('.card');
+    if (card && card.dataset.id) {
+        const nodeId = card.dataset.id;
+        // Remove the node and its connections
+        window.nodeData = window.nodeData.filter(n => n.id !== nodeId);
+        window.nodeData.forEach(n => {
+            n.inputs = (n.inputs || []).filter(id => id !== nodeId);
+            n.outputs = (n.outputs || []).filter(id => id !== nodeId);
+        });
+        localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+        if (window.loadNodes) window.loadNodes();
+        if (window.updateConnections) window.updateConnections();
+    }
+});
