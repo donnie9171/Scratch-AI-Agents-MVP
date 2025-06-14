@@ -7,14 +7,17 @@
     <title>Scratch AI Agents MVP</title>
 </head>
 <body>
-    <div id="controls">
+    <div id="controls" class="floating-menu">
         <button id="save-nodes" class="button">Save</button>
         <button id="load-nodes" class="button">Load</button>
+        <button id="cut" class="button">Cut Mode</button>
+    </div>
+    <div id="node-creation-controls" class="floating-menu" style="top:60px;">
         <button id="new-receiver" class="button">Receiver</button>
         <button id="new-agent" class="button">Agent</button>
-        <button id="new-tool" class="button">Tool</button>
+        <button id="new-variable-tool" class="button">Variable Tool</button>
+        <button id="new-notepad-tool" class="button">Notepad Tool</button>
         <button id="new-broadcaster" class="button">Broadcaster</button>
-        <button id="cut" class="button">Cut Mode</button>
     </div>
 
     <div id="json-modal">
@@ -34,7 +37,10 @@
                 <button id="delete-inspector" class="button" style="background:#ff5a5a; color:#fff;">Delete node</button>
                 <button id="close-inspector" class="button">Close</button>
             </div>
-            <div id="inspector-details"></div>
+            <div id="inspector-main-row">
+                <div id="inspector-details"></div>
+                <div id="inspector-tool-panel"></div>
+            </div>
         </div>
     </div>
 
@@ -44,7 +50,7 @@
             <!-- Nodes will be added here dynamically -->
         </div>
     </div>
-    <div id="cut-tooltip">Cut mode: Click on something to remove it. <br/> Press Escape to exit.</div>
+    <div id="cut-tooltip">Cut mode: Click on something to remove it. Press Escape to exit.</div>
     <script src="ollama.js"></script>
     <script src="dragAndDrop.js"></script>
     <script src="loadNodes.js"></script>

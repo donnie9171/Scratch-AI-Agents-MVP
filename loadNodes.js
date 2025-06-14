@@ -28,9 +28,48 @@ function renderNodes(nodes) {
         const div = document.createElement('div');
         div.className = `card ${node.type}`;
         div.dataset.id = node.id;
-        div.textContent = node.data.label;
 
-        // Add connection points
+        // ...existing code...
+        let icon = '';
+        let toolColor = '';
+        if (node.type === 'agent') icon = '🤖';
+        else if (node.type === 'tool') {
+            if (node.toolType === 'variable') {
+                icon = '🔢';
+                toolColor = '#ff8c17';
+            } else if (node.toolType === 'notepad') {
+                icon = '📝';
+                toolColor = '#5ac05b';
+            } else {
+                icon = '🛠️';
+                toolColor = '#5abd13';
+            }
+        }
+        else if (node.type === 'receiver') icon = '📥';
+        else if (node.type === 'broadcaster') icon = '📢';
+        else icon = '🔹';
+
+        // Use custom icon if provided
+        if (node.data && node.data.icon) {
+            icon = node.data.icon;
+        }
+
+        div.innerHTML = `
+            <!-- <span class="node-icon">${icon}</span> -->
+            <span class="node-label">${node.data.label || node.id}</span>
+        `;
+
+        // Set tool color if applicable
+        if (node.type === 'tool' && toolColor) {
+            div.style.backgroundColor = toolColor;
+            div.style.borderRadius = '10px';
+        }
+
+        if (node.type === 'tool' && node.toolType) {
+            div.setAttribute('data-tool-type', node.toolType);
+        }
+
+        // Add connection points (existing logic)
         if (node.type === 'receiver') {
             const outputPoint = document.createElement('div');
             outputPoint.className = 'node-point output-point';
@@ -42,7 +81,6 @@ function renderNodes(nodes) {
             inputPoint.title = 'Input';
             div.appendChild(inputPoint);
         } else {
-            // Default: both points
             const inputPoint = document.createElement('div');
             inputPoint.className = 'node-point input-point';
             inputPoint.title = 'Input';

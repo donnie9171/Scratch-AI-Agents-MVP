@@ -14,7 +14,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let currentInspectedNodeId = null;
 
+// Registry for tool panel renderers
+window.inspectorToolPanels = {};
+
+// Example: Register a panel for "tool" type nodes
+window.inspectorToolPanels['tool'] = function(node, panelEl) {
+    panelEl.innerHTML = `<div style="color:#fff;">Custom Tool Panel for ${node.data?.label || node.id}</div>`;
+    // You can add more logic here or import from another JS file
+};
+
 function showInspector(node) {
+    window.currentInspectedNodeId = node.id;
     // Remove previous selection
     document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
     currentInspectedNodeId = node.id;
@@ -29,6 +39,45 @@ function showInspector(node) {
     document.getElementById('inspector-details').innerHTML = `
         <pre>${JSON.stringify(node, null, 2)}</pre>
     `;
+
+// Render tool panel if available
+    const toolPanel = document.getElementById('inspector-tool-panel');
+    toolPanel.innerHTML = '';
+
+    // Determine the panel key (for tools, use toolType if present)
+    let panelKey = node.type;
+    if (node.type === 'tool' && node.toolType) {
+        panelKey = `tool:${node.toolType}`;
+    }
+
+    // Function to render the panel if registered
+    function renderPanel() {
+        const panelRenderer = window.inspectorToolPanels[panelKey] || window.inspectorToolPanels[node.type];
+        if (panelRenderer) {
+            panelRenderer(node, toolPanel);
+        }
+    }
+
+    // If the panel is already registered, render it
+    if (window.inspectorToolPanels[panelKey]) {
+        renderPanel();
+    } else if (node.type === 'tool' && node.toolType) {
+        // Try to load the JS file for this tool type
+        const scriptId = `inspector-panel-${node.toolType}`;
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.id = scriptId;
+            script.src = `inspectorPanelTool_${node.toolType}.js`;
+            script.onload = renderPanel;
+            document.body.appendChild(script);
+        } else {
+            // If script is loading, wait for it to load and then render
+            setTimeout(renderPanel, 100);
+        }
+    } else {
+        renderPanel();
+    }
+
     document.getElementById('inspector-modal').classList.add('active');
     document.body.classList.add('inspector-open');
 
@@ -67,3 +116,5 @@ document.getElementById('close-inspector').onclick = function() {
     document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
     currentInspectedNodeId = null;
 };
+
+window.showInspector = showInspector;

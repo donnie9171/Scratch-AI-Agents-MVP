@@ -77,4 +77,10 @@ window.updateConnections = function() {
             ctx.setLineDash([]);
         });
     });
+    if (window.currentInspectedNodeId && window.nodeData) {
+        const node = window.nodeData.find(n => n.id === window.currentInspectedNodeId);
+        if (node && typeof window.showInspector === 'function') {
+            window.showInspector(node);
+        }
+    }
 };

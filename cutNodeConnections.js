@@ -92,6 +92,14 @@ canvas.addEventListener('click', function(e) {
     window.hoveredConnection = null;
     if (window.loadNodes) window.loadNodes();
     if (window.updateConnections) window.updateConnections();
+    if (
+        typeof window.showInspector === 'function' &&
+        window.currentInspectedNodeId &&
+        window.nodeData
+    ) {
+        const node = window.nodeData.find(n => n.id === window.currentInspectedNodeId);
+        if (node) window.showInspector(node);
+    }
 });
 
 // Helper function

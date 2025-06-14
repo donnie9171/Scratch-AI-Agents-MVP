@@ -52,6 +52,14 @@ function setupConnectionEvents() {
                     localStorage.setItem('nodes', JSON.stringify(window.nodeData));
                     if (window.updateConnections) window.updateConnections();
                 }
+                if (
+                    typeof window.showInspector === 'function' &&
+                    window.currentInspectedNodeId &&
+                    window.nodeData
+                ) {
+                    const node = window.nodeData.find(n => n.id === window.currentInspectedNodeId);
+                    if (node) window.showInspector(node);
+                }
             }
             // Highlight the selected input point
             input.classList.add('active');

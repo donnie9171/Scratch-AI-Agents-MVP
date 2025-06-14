@@ -1,85 +1,149 @@
 [
   {
-    "id": "agent1",
-    "type": "agent",
-    "inputs": [
-      "receiver1749714294585"
-    ],
-    "outputs": [
-      "tool1",
-      "tool2"
-    ],
-    "data": {
-      "label": "Emotion Agent"
-    },
-    "position": {
-      "top": 356,
-      "left": 306
-    }
-  },
-  {
-    "id": "tool1",
-    "type": "tool",
-    "inputs": [
-      "agent1",
-      "tool2"
-    ],
-    "outputs": [
-      "broadcaster1749714441034"
-    ],
-    "data": {
-      "label": "test edit"
-    },
-    "position": {
-      "top": 389,
-      "left": 736
-    }
-  },
-  {
-    "id": "tool2",
-    "type": "tool",
-    "inputs": [
-      "agent1"
-    ],
-    "outputs": [
-      "tool1"
-    ],
-    "data": {
-      "label": "another test edit"
-    },
-    "position": {
-      "top": 209,
-      "left": 505
-    }
-  },
-  {
-    "id": "receiver1749714294585",
+    "id": "receiver1749733112216",
     "type": "receiver",
     "inputs": [],
     "outputs": [
-      "agent1"
+      "agent1749733154654"
     ],
     "data": {
-      "label": "Receiver"
+      "label": "Player Responded"
     },
     "position": {
-      "top": 408,
-      "left": 81
+      "top": 457,
+      "left": 54
     }
   },
   {
-    "id": "broadcaster1749714441034",
-    "type": "broadcaster",
+    "id": "tool1749733122100",
+    "type": "tool",
+    "inputs": [],
+    "outputs": [
+      "agent1749733154654"
+    ],
+    "data": {
+      "label": "Get Dialogue List"
+    },
+    "position": {
+      "top": 251,
+      "left": 103
+    }
+  },
+  {
+    "id": "agent1749733154654",
+    "type": "agent",
     "inputs": [
-      "tool1"
+      "receiver1749733112216",
+      "tool1749733122100"
+    ],
+    "outputs": [
+      "tool1749733250953"
+    ],
+    "data": {
+      "label": "Character Agent"
+    },
+    "position": {
+      "top": 382,
+      "left": 301
+    }
+  },
+  {
+    "id": "tool1749733250953",
+    "type": "tool",
+    "inputs": [
+      "agent1749733154654"
+    ],
+    "outputs": [
+      "agent1749733268086",
+      "broadcaster1749733339602"
+    ],
+    "data": {
+      "label": "Character's response"
+    },
+    "position": {
+      "top": 431,
+      "left": 515
+    }
+  },
+  {
+    "id": "agent1749733268086",
+    "type": "agent",
+    "inputs": [
+      "tool1749733250953"
+    ],
+    "outputs": [
+      "tool1749733306002",
+      "tool1749733316054",
+      "tool1749733325387",
+      "broadcaster1749733339602"
+    ],
+    "data": {
+      "label": "Expression Agent"
+    },
+    "position": {
+      "top": 324,
+      "left": 738
+    }
+  },
+  {
+    "id": "tool1749733306002",
+    "type": "tool",
+    "inputs": [
+      "agent1749733268086"
     ],
     "outputs": [],
     "data": {
-      "label": "Broadcaster"
+      "label": "Angry (set costume angry)"
     },
     "position": {
-      "top": 436,
-      "left": 998
+      "top": 55,
+      "left": 988
+    }
+  },
+  {
+    "id": "tool1749733316054",
+    "type": "tool",
+    "inputs": [
+      "agent1749733268086"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Tired (set costume tired)"
+    },
+    "position": {
+      "top": 189,
+      "left": 990
+    }
+  },
+  {
+    "id": "tool1749733325387",
+    "type": "tool",
+    "inputs": [
+      "agent1749733268086"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Laughing (set costume laughing)"
+    },
+    "position": {
+      "top": 325,
+      "left": 992
+    }
+  },
+  {
+    "id": "broadcaster1749733339602",
+    "type": "broadcaster",
+    "inputs": [
+      "agent1749733268086",
+      "tool1749733250953"
+    ],
+    "outputs": [],
+    "data": {
+      "label": "Character responded"
+    },
+    "position": {
+      "top": 490,
+      "left": 1053
     }
   }
 ]
