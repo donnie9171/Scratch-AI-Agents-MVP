@@ -136,8 +136,60 @@
         "label": "Character Prompt"
       },
       "position": {
-        "top": 215,
-        "left": 99
+        "top": 225,
+        "left": 101
+      }
+    },
+    {
+      "id": "tool1751434789746",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "tool1751434792187"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "outputValue": ""
+      },
+      "position": {
+        "top": 135,
+        "left": 462
+      }
+    },
+    {
+      "id": "tool1751434792187",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "tool1751434789746"
+      ],
+      "outputs": [
+        "agent1751434840616"
+      ],
+      "data": {
+        "label": "Variable Tool",
+        "outputValue": ""
+      },
+      "position": {
+        "top": 84,
+        "left": 716
+      }
+    },
+    {
+      "id": "agent1751434840616",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1751434792187"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Agent"
+      },
+      "position": {
+        "top": 77,
+        "left": 946
       }
     }
   ]

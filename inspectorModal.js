@@ -37,8 +37,8 @@ function showInspector(node) {
         <input id="inspector-label-input" type="text" value="${node.data?.label || node.id}" style="font-size:1.2em; width:90%; padding:4px; border-radius:6px; border:1px solid #888; background:#18192a; color:#fff;">
     `;
 
-    const dataCluster = card.getAttribute('data-cluster');
-    const dataSortOrder = card.getAttribute('data-sort-order');
+    const dataCluster = window.runtimeState.getNodeState(node.id).cluster;
+    const dataSortOrder = window.runtimeState.getNodeState(node.id).sortOrder;
 
     document.getElementById('inspector-details').innerHTML = `
         <p>Cluster: ${dataCluster}</p>

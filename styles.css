@@ -453,3 +453,20 @@ body.inspector-open #scroll-area {
 .variable-badge.off {
     background: #6c6c6c;
 }
+
+.run-status-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    z-index: 10;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    pointer-events: none;
+}

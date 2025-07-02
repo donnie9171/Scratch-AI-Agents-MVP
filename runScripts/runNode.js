@@ -23,7 +23,8 @@ class RunNode {
     }
 
     setOutputValue(value){
-        this.node.data.outputValue = value; // Store output value in node data
+        // this.node.data.outputValue = value; // Store output value in node data
+        window.runtimeState.setNodeState(this.node.id, { outputValue: value })
         return;
     }
 }

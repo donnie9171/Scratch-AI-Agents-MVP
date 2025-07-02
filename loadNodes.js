@@ -127,6 +127,46 @@ function renderNodes(nodes) {
     if (window.initDragAndDrop) window.initDragAndDrop();
     if (window.initConnections) window.initConnections(nodes);
     if (window.setupConnectionEvents) window.setupConnectionEvents();
-    if (window.runAllNodes) window.runAllNodes();
 }
 
+// Add this function somewhere accessible (e.g., in loadNodes.js or a shared utils file)
+window.updateNodeRunStatusBadge = function(node) {
+    const el = document.querySelector(`.card[data-id="${node.id}"]`);
+    if (!el) return;
+    let badge = el.querySelector('.run-status-badge');
+    if (!badge) {
+        badge = document.createElement('div');
+        badge.className = 'run-status-badge';
+        el.appendChild(badge);
+    }
+
+    let status = null;
+    let badgeIcon = '';
+    let badgeBg = '';
+    let badgeDisplay = 'none';
+
+    if (window.runtimeState && typeof window.runtimeState.getNodeState === 'function') {
+        status = window.runtimeState.getNodeState(node.id).runStatus || null;
+    }
+
+    if (status === 'queued') {
+        badgeIcon = '⏳';
+        badgeBg = '#cccccc';
+        badgeDisplay = 'flex';
+    } else if (status === 'running') {
+        badgeIcon = '🔄';
+        badgeBg = '#5269ff';
+        badgeDisplay = 'flex';
+    } else if (status === 'error') {
+        badgeIcon = '⚠️';
+        badgeBg = '#ff5a5a';
+        badgeDisplay = 'flex';
+    } else if (status === 'complete') {
+        badgeIcon = '✅';
+        badgeBg = '#5ac05b';
+        badgeDisplay = 'flex';
+    }
+    badge.style.display = badgeDisplay;
+    badge.style.background = badgeBg;
+    badge.innerHTML = `<span>${badgeIcon}</span>`;
+};

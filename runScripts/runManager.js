@@ -1,30 +1,45 @@
 // Example: runManager.js
 
-// 1. Define the context object
-const context = {
+// 1. Define the runtimeState object
+const runtimeState = {
+    nodesState: {
+        // "nodeID": {
+        //   cluster: 0,
+        //   sortOrder: 0,
+        //   runStatus: "queued" | "running" | "error" | "complete",
+        //   outputValue: null,
+        // }
+    },
     getNodeById(id) {
-        // Use the global nodeData array
         return window.nodeData.find(node => node.id === id);
     },
-    // You can add more shared state or helpers here if needed
+    setNodeState(id, state) {
+        if (!this.nodesState[id]) this.nodesState[id] = {};
+        Object.assign(this.nodesState[id], state);
+    },
+    getNodeState(id) {
+        return this.nodesState[id] || {};
+    }
 };
+
+window.runtimeState = runtimeState;
 
 // 2. Choose the correct runner class based on node type
 function getRunnerForNode(node) {
     switch (node.type) {
         case 'tool':
-            if (node.toolType === 'variable') return new window.RunVariableNode(node, context);
-            if (node.toolType === 'notepad') return new window.RunTextNode(node, context);
+            if (node.toolType === 'variable') return new window.RunVariableNode(node, runtimeState);
+            if (node.toolType === 'notepad') return new window.RunTextNode(node, runtimeState);
             // Add more tool types as needed
             break;
         default:
-            return new window.RunNode(node, context); // fallback
+            return new window.RunNode(node, runtimeState); // fallback
     }
 }
 
 // 3. Run a node by ID
 async function runNodeById(nodeId) {
-    const node = context.getNodeById(nodeId);
+    const node = runtimeState.getNodeById(nodeId);
     if (!node) {
         console.warn('Node not found:', nodeId);
         return;
@@ -87,51 +102,6 @@ function topologicalSort(cluster) {
     return sorted;
 }
 
-// Main: Run all clusters in depth order
-async function runAllNodes() {
-    const nodes = window.nodeData;
-    const clusters = findClusters(nodes);
-
-    // Map nodeId to cluster index and sort order for debugging
-    const nodeDebugInfo = {};
-
-    clusters.forEach((cluster, clusterIdx) => {
-        const ordered = topologicalSort(cluster);
-        ordered.forEach((node, sortIdx) => {
-            nodeDebugInfo[node.id] = {
-                cluster: clusterIdx,
-                sortOrder: sortIdx
-            };
-        });
-    });
-
-    // Attach debug info to node DOM elements
-    clusters.forEach((cluster, clusterIdx) => {
-        const ordered = topologicalSort(cluster);
-        ordered.forEach((node, sortIdx) => {
-            const el = document.querySelector(`.card[data-id="${node.id}"]`);
-            if (el) {
-                el.setAttribute('data-cluster', clusterIdx);
-                el.setAttribute('data-sort-order', sortIdx);
-                // Optionally, show as a badge or tooltip
-                el.title = `Cluster: ${clusterIdx}, Order: ${sortIdx}`;
-            }
-        });
-    });
-
-    // Run nodes in order
-    // for (const cluster of clusters) {
-    //     const ordered = topologicalSort(cluster);
-    //     for (const node of ordered) {
-    //         const runner = getRunnerForNode(node);
-    //         await runner.run();
-    //     }
-    // }
-}
-
-// Export for use elsewhere
-window.runAllNodes = runAllNodes;
-
 async function runNodeCluster(nodeId){
     const nodes = window.nodeData;
     const clusters = findClusters(nodes);
@@ -150,6 +120,11 @@ async function runNodeCluster(nodeId){
                 cluster: clusterIdx,
                 sortOrder: sortIdx
             };
+            // Store cluster and sortOrder in runtimeState
+            runtimeState.setNodeState(node.id, {
+                cluster: clusterIdx,
+                sortOrder: sortIdx
+            });
         });
     });
 
@@ -159,10 +134,8 @@ async function runNodeCluster(nodeId){
         ordered.forEach((node, sortIdx) => {
             const el = document.querySelector(`.card[data-id="${node.id}"]`);
             if (el) {
-                el.setAttribute('data-cluster', clusterIdx);
-                el.setAttribute('data-sort-order', sortIdx);
-                // Optionally, show as a badge or tooltip
                 el.title = `Cluster: ${clusterIdx}, Order: ${sortIdx}`;
+                runtimeState.setNodeState(node.id, { cluster: clusterIdx, sortOrder: sortIdx });
             }
         });
     });
@@ -172,9 +145,23 @@ async function runNodeCluster(nodeId){
         return;
     }
     const ordered = topologicalSort(clusters[clusterIdx]);
+    for (const node of ordered){
+        runtimeState.setNodeState(node.id, { runStatus: "queued" });
+        window.updateNodeRunStatusBadge(node);
+    }
     for (const node of ordered) {
         const runner = getRunnerForNode(node);
-        await runner.run();
+        const el = document.querySelector(`.card[data-id="${node.id}"]`);
+        runtimeState.setNodeState(node.id, { runStatus: "running" });
+        window.updateNodeRunStatusBadge(node);
+        try {
+            await runner.run();
+            runtimeState.setNodeState(node.id, { runStatus: "complete" });
+            window.updateNodeRunStatusBadge(node);
+        } catch (e) {
+            runtimeState.setNodeState(node.id, { runStatus: "error" });
+            window.updateNodeRunStatusBadge(node);
+        }
     }
 }
 
