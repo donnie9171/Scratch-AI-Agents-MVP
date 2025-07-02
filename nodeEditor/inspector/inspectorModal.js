@@ -74,7 +74,7 @@ function showInspector(node) {
         if (!document.getElementById(scriptId)) {
             const script = document.createElement('script');
             script.id = scriptId;
-            script.src = `inspectorPanelTool_${node.toolType}.js`;
+            script.src = `nodeEditor/inspector/inspectorPanelTool_${node.toolType}.js`;
             script.onload = renderPanel;
             document.body.appendChild(script);
         } else {
