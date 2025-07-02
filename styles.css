@@ -470,3 +470,11 @@ body.inspector-open #scroll-area {
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     pointer-events: none;
 }
+
+.spin {
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

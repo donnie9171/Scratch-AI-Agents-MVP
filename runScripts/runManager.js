@@ -32,6 +32,8 @@ function getRunnerForNode(node) {
             if (node.toolType === 'notepad') return new window.RunTextNode(node, runtimeState);
             // Add more tool types as needed
             break;
+        case 'agent':
+            return new window.RunAgentNode(node, runtimeState);
         default:
             return new window.RunNode(node, runtimeState); // fallback
     }
