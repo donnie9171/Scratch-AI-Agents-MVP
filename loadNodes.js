@@ -1,22 +1,43 @@
 window.loadNodes = function() {
-    let nodes;
+    let saveObj;
     const saved = localStorage.getItem('nodes');
     if (saved) {
         try {
-            nodes = JSON.parse(saved);
+            saveObj = JSON.parse(saved);
         } catch (e) {
-            nodes = null;
+            saveObj = null;
         }
     }
-    if (nodes) {
-        renderNodes(nodes);
+    if (saveObj && saveObj.nodes) {
+        window.lastScratchProjectId = saveObj.metadata?.lastScratchProjectId || null;
+        renderNodes(saveObj.nodes);
+        window.nodeData = saveObj.nodes;
+        // Reload the iframe with the project ID from save data
+        if (window.lastScratchProjectId) {
+            if (typeof window.reloadScratchIframe === 'function') {
+                window.reloadScratchIframe(window.lastScratchProjectId);
+            }
+            // Also update the input field if present
+            const input = document.getElementById('scratch-project-id');
+            if (input) input.value = window.lastScratchProjectId;
+        }
     } else {
         fetch('data.json')
         .then(res => res.json())
-        .then(nodes => {
-            renderNodes(nodes);
+        .then(saveObj => {
+            window.lastScratchProjectId = saveObj.metadata?.lastScratchProjectId || null;
+            renderNodes(saveObj.nodes);
+            window.nodeData = saveObj.nodes;
             // Save initial data to localStorage
-            localStorage.setItem('nodes', JSON.stringify(nodes));
+            localStorage.setItem('nodes', JSON.stringify(saveObj));
+            // Reload the iframe with the project ID from save data
+            if (window.lastScratchProjectId) {
+                if (typeof window.reloadScratchIframe === 'function') {
+                    window.reloadScratchIframe(window.lastScratchProjectId);
+                }
+                const input = document.getElementById('scratch-project-id');
+                if (input) input.value = window.lastScratchProjectId;
+            }
         });
     }
 };
@@ -28,8 +49,7 @@ function renderNodes(nodes) {
         const div = document.createElement('div');
         div.className = `card ${node.type}`;
         div.dataset.id = node.id;
-
-        // ...existing code...
+        
         let icon = '';
         let toolColor = '';
         if (node.type === 'agent') icon = '🤖';
@@ -40,6 +60,9 @@ function renderNodes(nodes) {
             } else if (node.toolType === 'notepad') {
                 icon = '📝';
                 toolColor = '#5ac05b';
+            } else if (node.toolType === 'costume') {
+                icon = '🎭';
+                toolColor = '#9965ff';
             } else {
                 icon = '🛠️';
                 toolColor = '#5abd13';
@@ -104,5 +127,6 @@ function renderNodes(nodes) {
     if (window.initDragAndDrop) window.initDragAndDrop();
     if (window.initConnections) window.initConnections(nodes);
     if (window.setupConnectionEvents) window.setupConnectionEvents();
+    if (window.runAllNodes) window.runAllNodes();
 }
 

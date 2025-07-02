@@ -22,7 +22,13 @@ window.initDragAndDrop = function() {
                             left: parseInt(card.style.left, 10)
                         };
                         // Save updated nodes to localStorage
-                        localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+                        const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
                     }
                 }
                 if (window.updateConnections) window.updateConnections();

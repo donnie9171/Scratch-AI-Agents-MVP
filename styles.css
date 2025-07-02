@@ -165,13 +165,13 @@ body.cut-mode .node-point.connecting {
     width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,0.6);
-    z-index: 1000;
+    z-index: 10000;
     align-items: center;
     justify-content: center;
 }
 
 #json-modal-content {
-    background: #fff;
+    background: #212228;
     padding: 20px;
     border-radius: 8px;
     max-width: 90vw;
@@ -181,6 +181,8 @@ body.cut-mode .node-point.connecting {
 }
 
 #json-modal-text {
+    background-color: #18192a;
+    color: #fff;
     width: 60vw;
     height: 40vh;
     font-family: monospace;
@@ -200,23 +202,54 @@ body.cut-mode .node-point.connecting {
     height: 20px;
     border-radius: 50%;
     background: #fff;
-    border: 2px solid #5269ff;
+    border: 2px solid;
     z-index: 2;
     box-sizing: border-box;
     transition: background 0.2s, border-color 0.2s;
     cursor: pointer;
 }
 
-.tool .node-point {
-    border-color: #5abd13;
+/* Make input/output points border color follow parent card's background */
+.card .node-point {
+    border-color: inherit !important;
 }
 
-.receiver .node-point {
-    border-color: #ffab19;
+/* For each tool type, set the card's border color to match its background */
+.card.tool {
+    background-color: #5abd13;
+    border-radius: 10px;
+    border: 2px solid #5abd13;
 }
-
-.broadcaster .node-point {
-    border-color: #ffab19;
+.card.tool[data-tool-type="variable"] {
+    background-color: #ff8c17 !important;
+    border-color: #ff8c17 !important;
+}
+.card.tool[data-tool-type="notepad"] {
+    background-color: #5ac05b !important;
+    border-color: #5ac05b !important;
+}
+.card.tool[data-tool-type="costume"] {
+    background-color: #9965ff !important;
+    border-color: #9965ff !important;
+}
+.card.receiver {
+    background-color: #ffab19;
+    border-radius: 10px;
+    border-bottom-right-radius: 100px;
+    border-top-right-radius: 100px;
+    border: 2px solid #ffab19;
+}
+.card.broadcaster {
+    background-color: #ffab19;
+    border-radius: 10px;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border: 2px solid #ffab19;
+}
+.card.agent {
+    background-color: #5269ff;
+    border-radius: 100px;
+    border: 2px solid #5269ff;
 }
 
 .node-point.active,
@@ -308,7 +341,8 @@ body.inspector-open #scroll-area {
 }
 
 #close-inspector,
-#delete-inspector {
+#delete-inspector,
+#run-inspector {
     margin: 10px;
     margin-left: 0px;
     flex: 0 0 auto;
@@ -322,7 +356,7 @@ body.inspector-open #scroll-area {
 #scratch-iframe-bar {
     position: fixed;
     top: 16px;
-    right: 16px;
+    right: 32px;
     z-index: 4001;
     display: flex;
     gap: 8px;
@@ -333,7 +367,7 @@ body.inspector-open #scroll-area {
     box-shadow: 0 4px 24px rgba(0,0,0,0.18);
 }
 #scratch-project-id {
-    width: 300px;
+    width: 288px;
     padding: 4px 8px;
     border-radius: 6px;
     border: 1px solid #888;
@@ -342,13 +376,14 @@ body.inspector-open #scroll-area {
 }
 #scratch-iframe {
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: 72px;
+    right: 32px;
     z-index: 4000;
     box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     border-radius: 12px;
-    padding: 2px 10px;
+    /* padding: 10px 10px; */
     background: #23243a;
+    overflow: hidden;
 }
 
 .card.tool {
@@ -360,6 +395,9 @@ body.inspector-open #scroll-area {
 }
 .card.tool[data-tool-type="notepad"] {
     background-color: #5ac05b !important;
+}
+.card.tool[data-tool-type="costume"] {
+    background-color: #9965ff !important;
 }
 
 #inspector-details {

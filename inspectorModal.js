@@ -36,7 +36,14 @@ function showInspector(node) {
     document.getElementById('inspector-title').innerHTML = `
         <input id="inspector-label-input" type="text" value="${node.data?.label || node.id}" style="font-size:1.2em; width:90%; padding:4px; border-radius:6px; border:1px solid #888; background:#18192a; color:#fff;">
     `;
+
+    const dataCluster = card.getAttribute('data-cluster');
+    const dataSortOrder = card.getAttribute('data-sort-order');
+
     document.getElementById('inspector-details').innerHTML = `
+        <p>Cluster: ${dataCluster}</p>
+        <p>Sort order: ${dataSortOrder}</p>
+        <p>Node data:</p>
         <pre>${JSON.stringify(node, null, 2)}</pre>
     `;
 
@@ -86,7 +93,13 @@ function showInspector(node) {
     labelInput.addEventListener('change', function() {
         node.data = node.data || {};
         node.data.label = labelInput.value;
-        localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+        const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
         if (window.loadNodes) window.loadNodes();
     });
 }
@@ -100,7 +113,13 @@ document.getElementById('delete-inspector').onclick = function() {
         n.inputs = (n.inputs || []).filter(id => id !== currentInspectedNodeId);
         n.outputs = (n.outputs || []).filter(id => id !== currentInspectedNodeId);
     });
-    localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+    const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
     if (window.loadNodes) window.loadNodes();
     document.getElementById('inspector-modal').classList.remove('active');
     document.body.classList.remove('inspector-open');
@@ -116,5 +135,11 @@ document.getElementById('close-inspector').onclick = function() {
     document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
     currentInspectedNodeId = null;
 };
+
+document.getElementById('run-inspector').onclick = function() {
+    if (!currentInspectedNodeId || !window.nodeData) return;
+    console.log(`Running node: ${currentInspectedNodeId}`);
+    window.runNodeCluster(currentInspectedNodeId);
+}
 
 window.showInspector = showInspector;

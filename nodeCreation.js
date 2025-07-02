@@ -16,6 +16,10 @@ document.getElementById('new-notepad-tool').onclick = function() {
     addNewNode('tool', 'notepad');
 };
 
+document.getElementById('new-costume-tool').onclick = function() {
+    addNewNode('tool', 'costume');
+};
+
 // Update addNewNode to accept a subtype
 function addNewNode(type, subtype) {
     if (!window.nodeData) return;
@@ -40,6 +44,12 @@ function addNewNode(type, subtype) {
         node.inputs = [];
     }
     window.nodeData.push(node);
-    localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+    const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
     if (window.loadNodes) window.loadNodes();
 }

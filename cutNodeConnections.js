@@ -88,7 +88,13 @@ canvas.addEventListener('click', function(e) {
         toNode.inputs = (toNode.inputs || []).filter(id => id !== from);
     }
     // Save and update
-    localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+    const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
     window.hoveredConnection = null;
     if (window.loadNodes) window.loadNodes();
     if (window.updateConnections) window.updateConnections();
@@ -178,7 +184,13 @@ document.getElementById('container').addEventListener('click', function(e) {
             n.inputs = (n.inputs || []).filter(id => id !== nodeId);
             n.outputs = (n.outputs || []).filter(id => id !== nodeId);
         });
-        localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+        const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
         if (window.loadNodes) window.loadNodes();
         if (window.updateConnections) window.updateConnections();
     }

@@ -1,11 +1,153 @@
+window.reloadScratchIframe = function(projectId) {
+    const iframe = document.getElementById('scratch-iframe');
+    if (!iframe) return;
+    // Force reload by clearing src first
+    iframe.src = '';
+    setTimeout(() => {
+        iframe.src = `projectPlayer.html#${projectId}`;
+    }, 10);
+};
+
 document.getElementById('load-scratch-project').onclick = function() {
     let input = document.getElementById('scratch-project-id').value.trim();
-    // Extract project ID if a full URL is pasted
     let match = input.match(/(\d{5,})/);
     if (!match) {
         alert('Please enter a valid Scratch project ID or URL.');
         return;
     }
     const projectId = match[1];
-    document.getElementById('scratch-iframe').src = `https://turbowarp.org/${projectId}/embed`;
+    // Save last loaded project ID to localStorage (legacy)
+    localStorage.setItem('lastScratchProjectId', projectId);
+
+    // Save to node save structure
+    window.lastScratchProjectId = projectId;
+    if (window.nodeData) {
+        const saveObj = {
+            metadata: {
+                lastScratchProjectId: window.lastScratchProjectId || null
+            },
+            nodes: window.nodeData
+        };
+        localStorage.setItem('nodes', JSON.stringify(saveObj));
+    }
+    window.reloadScratchIframe(projectId);
 };
+
+// On page load, restore last loaded project if available
+window.addEventListener('DOMContentLoaded', function() {
+    let lastId = null;
+    // Try new structure first
+    const saved = localStorage.getItem('nodes');
+    if (saved) {
+        try {
+            const saveObj = JSON.parse(saved);
+            lastId = saveObj.metadata?.lastScratchProjectId || null;
+        } catch (e) {}
+    }
+    // Fallback to legacy
+    if (!lastId) lastId = localStorage.getItem('lastScratchProjectId');
+    if (lastId) {
+        document.getElementById('scratch-project-id').value = lastId;
+        window.lastScratchProjectId = lastId;
+        window.reloadScratchIframe(lastId);
+    }
+});
+
+document.getElementById('GreenFlagBtn').onclick = function() {
+    const iframe = document.getElementById('scratch-iframe');
+    if (iframe && iframe.contentWindow && typeof iframe.contentWindow.start === 'function') {
+        iframe.contentWindow.start();
+    } else if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({type: 'start'}, '*');
+    }
+    // Return focus to the iframe
+    if (iframe) iframe.focus();
+};
+document.getElementById('StopBtn').onclick = function() {
+    const iframe = document.getElementById('scratch-iframe');
+    if (iframe && iframe.contentWindow && typeof iframe.contentWindow.stop === 'function') {
+        iframe.contentWindow.stop();
+    } else if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({type: 'stop'}, '*');
+    }
+    // Return focus to the iframe
+    if (iframe) iframe.focus();
+};
+
+const iframe = document.getElementById('scratch-iframe');
+iframe.addEventListener('load', function() {
+    // Wait for the iframe to finish loading, then assign its scaffolding to the parent window
+    if (iframe.contentWindow && iframe.contentWindow.scaffolding) {
+        window.scaffolding = iframe.contentWindow.scaffolding;
+    } else {
+        // If scaffolding might be set later, you can poll for it:
+        const checkScaffolding = setInterval(() => {
+            if (iframe.contentWindow && iframe.contentWindow.scaffolding) {
+                window.scaffolding = iframe.contentWindow.scaffolding;
+                clearInterval(checkScaffolding);
+            }
+        }, 100);
+    }
+});
+
+window.getScratchVariableValue = function(variableName) {
+    if (!variableName) return '';
+    try {
+        if (
+            window.scaffolding &&
+            window.scaffolding.vm &&
+            window.scaffolding.vm.runtime &&
+            window.scaffolding.vm.runtime.targets
+        ) {
+            const targets = window.scaffolding.vm.runtime.targets;
+            for (const target of targets) {
+                if (target.variables) {
+                    for (const [id, variable] of Object.entries(target.variables)) {
+                        let varName = variable.name || (Array.isArray(variable) ? variable[0] : undefined);
+                        if (
+                            varName &&
+                            varName.toLowerCase() === variableName.toLowerCase()
+                        ) {
+                            return (typeof variable.value !== "undefined")
+                                ? variable.value
+                                : (Array.isArray(variable) ? variable[1] : '');
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        return '(error reading variable)';
+    }
+    return '';
+}
+
+window.setScratchVariableValue = function(variableName, value) {
+    if (!variableName || typeof value === 'undefined') return;
+    try {
+        if (
+            window.scaffolding &&
+            window.scaffolding.vm &&
+            window.scaffolding.vm.runtime &&
+            window.scaffolding.vm.runtime.targets
+        ) {
+            const targets = window.scaffolding.vm.runtime.targets;
+            for (const target of targets) {
+                if (target.variables) {
+                    for (const [id, variable] of Object.entries(target.variables)) {
+                        let varName = variable.name || (Array.isArray(variable) ? variable[0] : undefined);
+                        if (
+                            varName &&
+                            varName.toLowerCase() === variableName.toLowerCase()
+                        ) {
+                            variable.value = value;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Error setting variable:', e);
+    }
+}

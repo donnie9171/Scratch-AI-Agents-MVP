@@ -1,149 +1,144 @@
-[
-  {
-    "id": "receiver1749733112216",
-    "type": "receiver",
-    "inputs": [],
-    "outputs": [
-      "agent1749733154654"
-    ],
-    "data": {
-      "label": "Player Responded"
-    },
-    "position": {
-      "top": 457,
-      "left": 54
-    }
+{
+  "metadata": {
+    "lastScratchProjectId": "1169786824"
   },
-  {
-    "id": "tool1749733122100",
-    "type": "tool",
-    "inputs": [],
-    "outputs": [
-      "agent1749733154654"
-    ],
-    "data": {
-      "label": "Get Dialogue List"
+  "nodes": [
+    {
+      "id": "receiver1749733112216",
+      "type": "receiver",
+      "inputs": [],
+      "outputs": [
+        "agent1749733154654"
+      ],
+      "data": {
+        "label": "Player Responded"
+      },
+      "position": {
+        "top": 544,
+        "left": 42
+      }
     },
-    "position": {
-      "top": 251,
-      "left": 103
-    }
-  },
-  {
-    "id": "agent1749733154654",
-    "type": "agent",
-    "inputs": [
-      "receiver1749733112216",
-      "tool1749733122100"
-    ],
-    "outputs": [
-      "tool1749733250953"
-    ],
-    "data": {
-      "label": "Character Agent"
+    {
+      "id": "agent1749733154654",
+      "type": "agent",
+      "inputs": [
+        "receiver1749733112216",
+        "tool1749917946734",
+        "tool1750037882709"
+      ],
+      "outputs": [
+        "tool1749917979988"
+      ],
+      "data": {
+        "label": "Character Agent"
+      },
+      "position": {
+        "top": 382,
+        "left": 301
+      }
     },
-    "position": {
-      "top": 382,
-      "left": 301
-    }
-  },
-  {
-    "id": "tool1749733250953",
-    "type": "tool",
-    "inputs": [
-      "agent1749733154654"
-    ],
-    "outputs": [
-      "agent1749733268086",
-      "broadcaster1749733339602"
-    ],
-    "data": {
-      "label": "Character's response"
+    {
+      "id": "agent1749733268086",
+      "type": "agent",
+      "inputs": [
+        "tool1749917979988"
+      ],
+      "outputs": [
+        "broadcaster1749733339602",
+        "tool1749948102005"
+      ],
+      "data": {
+        "label": "Expression Agent"
+      },
+      "position": {
+        "top": 346,
+        "left": 752
+      }
     },
-    "position": {
-      "top": 431,
-      "left": 515
-    }
-  },
-  {
-    "id": "agent1749733268086",
-    "type": "agent",
-    "inputs": [
-      "tool1749733250953"
-    ],
-    "outputs": [
-      "tool1749733306002",
-      "tool1749733316054",
-      "tool1749733325387",
-      "broadcaster1749733339602"
-    ],
-    "data": {
-      "label": "Expression Agent"
+    {
+      "id": "broadcaster1749733339602",
+      "type": "broadcaster",
+      "inputs": [
+        "agent1749733268086",
+        "tool1749917979988"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Character responded"
+      },
+      "position": {
+        "top": 475,
+        "left": 1103
+      }
     },
-    "position": {
-      "top": 324,
-      "left": 738
-    }
-  },
-  {
-    "id": "tool1749733306002",
-    "type": "tool",
-    "inputs": [
-      "agent1749733268086"
-    ],
-    "outputs": [],
-    "data": {
-      "label": "Angry (set costume angry)"
+    {
+      "id": "tool1749917946734",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "agent1749733154654"
+      ],
+      "data": {
+        "label": "Get dialogue history",
+        "variableName": "dialogue history"
+      },
+      "position": {
+        "top": 366,
+        "left": 83
+      }
     },
-    "position": {
-      "top": 55,
-      "left": 988
-    }
-  },
-  {
-    "id": "tool1749733316054",
-    "type": "tool",
-    "inputs": [
-      "agent1749733268086"
-    ],
-    "outputs": [],
-    "data": {
-      "label": "Tired (set costume tired)"
+    {
+      "id": "tool1749917979988",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "agent1749733154654"
+      ],
+      "outputs": [
+        "agent1749733268086",
+        "broadcaster1749733339602"
+      ],
+      "data": {
+        "label": "Character Response"
+      },
+      "position": {
+        "top": 454,
+        "left": 510
+      }
     },
-    "position": {
-      "top": 189,
-      "left": 990
-    }
-  },
-  {
-    "id": "tool1749733325387",
-    "type": "tool",
-    "inputs": [
-      "agent1749733268086"
-    ],
-    "outputs": [],
-    "data": {
-      "label": "Laughing (set costume laughing)"
+    {
+      "id": "tool1749948102005",
+      "type": "tool",
+      "toolType": "costume",
+      "inputs": [
+        "agent1749733268086"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Set character costume",
+        "spriteName": "sprite 1"
+      },
+      "position": {
+        "top": 248,
+        "left": 951
+      }
     },
-    "position": {
-      "top": 325,
-      "left": 992
+    {
+      "id": "tool1750037882709",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1749733154654"
+      ],
+      "data": {
+        "label": "Character Prompt"
+      },
+      "position": {
+        "top": 215,
+        "left": 99
+      }
     }
-  },
-  {
-    "id": "broadcaster1749733339602",
-    "type": "broadcaster",
-    "inputs": [
-      "agent1749733268086",
-      "tool1749733250953"
-    ],
-    "outputs": [],
-    "data": {
-      "label": "Character responded"
-    },
-    "position": {
-      "top": 490,
-      "left": 1053
-    }
-  }
-]
+  ]
+}

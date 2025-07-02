@@ -5,7 +5,13 @@ document.getElementById('load-nodes').onclick = function() {
 
 document.getElementById('save-nodes').onclick = function() {
     if (window.nodeData) {
-        const dataStr = JSON.stringify(window.nodeData, null, 2);
+        const saveObj = {
+            metadata: {
+                lastScratchProjectId: window.lastScratchProjectId || null
+            },
+            nodes: window.nodeData
+        };
+        const dataStr = JSON.stringify(saveObj, null, 2);
         document.getElementById('json-modal-text').value = dataStr;
         document.getElementById('json-modal').style.display = 'flex';
     }

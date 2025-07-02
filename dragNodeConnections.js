@@ -49,7 +49,13 @@ function setupConnectionEvents() {
                         toNode.inputs.push(fromNode.id);
                     }
                     // Save and update
-                    localStorage.setItem('nodes', JSON.stringify(window.nodeData));
+                    const saveObj = {
+    metadata: {
+        lastScratchProjectId: window.lastScratchProjectId || null
+    },
+    nodes: window.nodeData
+};
+localStorage.setItem('nodes', JSON.stringify(saveObj));
                     if (window.updateConnections) window.updateConnections();
                 }
                 if (
