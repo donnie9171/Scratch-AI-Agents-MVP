@@ -12,6 +12,11 @@ window.loadNodes = function() {
         window.lastScratchProjectId = saveObj.metadata?.lastScratchProjectId || null;
         renderNodes(saveObj.nodes);
         window.nodeData = saveObj.nodes;
+        window.nodeData.forEach(node => {
+        if (node.type === "receiver") {
+            setupReceiverNode(node);
+        }
+        });
         // Reload the iframe with the project ID from save data
         if (window.lastScratchProjectId) {
             if (typeof window.reloadScratchIframe === 'function') {
@@ -28,6 +33,11 @@ window.loadNodes = function() {
             window.lastScratchProjectId = saveObj.metadata?.lastScratchProjectId || null;
             renderNodes(saveObj.nodes);
             window.nodeData = saveObj.nodes;
+            window.nodeData.forEach(node => {
+            if (node.type === "receiver") {
+                setupReceiverNode(node);
+            }
+            });
             // Save initial data to localStorage
             localStorage.setItem('nodes', JSON.stringify(saveObj));
             // Reload the iframe with the project ID from save data

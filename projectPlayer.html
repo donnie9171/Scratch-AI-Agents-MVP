@@ -190,6 +190,33 @@
       };
       setProgress(0.1);
 
+      // Patch startHats to listen for broadcasts
+      const originalStartHats = vm.runtime.startHats;
+
+      vm.runtime.startHats = function(opcode, opts, ...rest) {
+        if (opcode === 'event_whenbroadcastreceived') {
+          console.log('[Broadcast fired inside VM]', opts.BROADCAST_OPTION);
+
+          // Emit your own event, or postMessage to your parent window
+          if (window.parent) {
+            window.parent.postMessage(
+              { type: 'scratchBroadcast', message: opts.BROADCAST_OPTION },
+              '*'
+            );
+          }
+        }
+        return originalStartHats.call(this, opcode, opts, ...rest);
+      };
+
+      window.addEventListener("message", (event) => {
+        if (event.data.type === 'triggerScratchBroadcast') {
+          const broadcastMessage = event.data.message;
+          vm.runtime.startHats('event_whenbroadcastreceived', {
+            BROADCAST_OPTION: broadcastMessage
+          });
+        }
+      });
+
       //connect scaffolding to menu bar button controls
       const greenFlagBtn = window.parent.document.getElementById("GreenFlagBtn");
       const pauseBtn = window.parent.document.getElementById("PauseBtn");

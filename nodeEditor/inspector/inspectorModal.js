@@ -81,6 +81,45 @@ function showInspector(node) {
             // If script is loading, wait for it to load and then render
             setTimeout(renderPanel, 100);
         }
+    } else if (node.type === 'agent') {
+        // Load the agent panel script
+        const scriptId = 'inspector-panel-agent';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.id = scriptId;
+            script.src = 'nodeEditor/inspector/inspectorPanelAgent.js';
+            script.onload = renderPanel;
+            document.body.appendChild(script);
+        } else {
+            // If script is loading, wait for it to load and then render
+            setTimeout(renderPanel, 100);
+        }
+    } else if (node.type === 'broadcaster') {
+        // Load the broadcaster panel script
+        const scriptId = 'inspector-panel-broadcaster';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.id = scriptId;
+            script.src = 'nodeEditor/inspector/inspectorPanelBroadcaster.js';
+            script.onload = renderPanel;
+            document.body.appendChild(script);
+        } else {
+            // If script is loading, wait for it to load and then render
+            setTimeout(renderPanel, 100);
+        }
+    } else if (node.type === 'receiver') {
+        // Load the receiver panel script
+        const scriptId = 'inspector-panel-receiver';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.id = scriptId; 
+                        script.src = 'nodeEditor/inspector/inspectorPanelReceiver.js';
+            script.onload = renderPanel;
+            document.body.appendChild(script);
+        } else {
+            // If script is loading, wait for it to load and then render
+            setTimeout(renderPanel, 100);
+        }
     } else {
         renderPanel();
     }
@@ -138,8 +177,34 @@ document.getElementById('close-inspector').onclick = function() {
 
 document.getElementById('run-inspector').onclick = function() {
     if (!currentInspectedNodeId || !window.nodeData) return;
-    console.log(`Running node: ${currentInspectedNodeId}`);
     window.runNodeCluster(currentInspectedNodeId);
 }
 
 window.showInspector = showInspector;
+
+function updateAgentPanel() {
+    const panelEl = document.getElementById('inspector-tool-panel');
+    if (!panelEl) {
+        return;
+    }
+    const promptEl = panelEl.querySelector('#agent-prompt');
+    const inferenceEl = panelEl.querySelector('#agent-inference');
+
+    if (!promptEl || !inferenceEl) {
+        return;
+    }
+
+    if (window.runtimeState.getNodeState(window.currentInspectedNodeId) && window.runtimeState.getNodeState(window.currentInspectedNodeId).prompt) {
+        promptEl.textContent = window.runtimeState.getNodeState(window.currentInspectedNodeId).prompt;
+    } else {
+        promptEl.textContent = 'No prompt set';
+    }
+
+    if (window.runtimeState.getNodeState(window.currentInspectedNodeId) && window.runtimeState.getNodeState(window.currentInspectedNodeId).inference) {
+        inferenceEl.textContent = window.runtimeState.getNodeState(window.currentInspectedNodeId).inference;
+    } else {
+        inferenceEl.textContent = 'No inference yet';
+    }
+}
+
+window.updateAgentPanel = updateAgentPanel;

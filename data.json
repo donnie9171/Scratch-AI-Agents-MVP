@@ -1,195 +1,228 @@
 {
   "metadata": {
-    "lastScratchProjectId": "1169786824"
+    "lastScratchProjectId": "1194432805"
   },
   "nodes": [
     {
-      "id": "receiver1749733112216",
-      "type": "receiver",
-      "inputs": [],
-      "outputs": [
-        "agent1749733154654"
-      ],
-      "data": {
-        "label": "Player Responded"
-      },
-      "position": {
-        "top": 544,
-        "left": 42
-      }
-    },
-    {
-      "id": "agent1749733154654",
-      "type": "agent",
-      "inputs": [
-        "receiver1749733112216",
-        "tool1749917946734",
-        "tool1750037882709"
-      ],
-      "outputs": [
-        "tool1749917979988"
-      ],
-      "data": {
-        "label": "Character Agent"
-      },
-      "position": {
-        "top": 382,
-        "left": 301
-      }
-    },
-    {
-      "id": "agent1749733268086",
-      "type": "agent",
-      "inputs": [
-        "tool1749917979988"
-      ],
-      "outputs": [
-        "broadcaster1749733339602",
-        "tool1749948102005"
-      ],
-      "data": {
-        "label": "Expression Agent"
-      },
-      "position": {
-        "top": 346,
-        "left": 752
-      }
-    },
-    {
-      "id": "broadcaster1749733339602",
-      "type": "broadcaster",
-      "inputs": [
-        "agent1749733268086",
-        "tool1749917979988"
-      ],
-      "outputs": [],
-      "data": {
-        "label": "Character responded"
-      },
-      "position": {
-        "top": 475,
-        "left": 1103
-      }
-    },
-    {
-      "id": "tool1749917946734",
-      "type": "tool",
-      "toolType": "variable",
-      "inputs": [],
-      "outputs": [
-        "agent1749733154654"
-      ],
-      "data": {
-        "label": "Get dialogue history",
-        "variableName": "dialogue history"
-      },
-      "position": {
-        "top": 366,
-        "left": 83
-      }
-    },
-    {
-      "id": "tool1749917979988",
+      "id": "tool1751511660236",
       "type": "tool",
       "toolType": "notepad",
       "inputs": [
-        "agent1749733154654"
+        "receiver1751553306965"
       ],
       "outputs": [
-        "agent1749733268086",
-        "broadcaster1749733339602"
+        "tool1751512844517",
+        "tool1751556904065"
       ],
       "data": {
-        "label": "Character Response"
+        "label": "P1 System prompt ",
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \nDo not include any explanation, punctuation, or text besides your choice.\n\nYou are player 2. The opponent is player 1. \n\nUse the provided game history to analyze player 1's patterns and predict their next move. Look for biases, streaks, or tendencies in player 1’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history:"
       },
       "position": {
-        "top": 454,
-        "left": 510
+        "top": 206,
+        "left": 348
       }
     },
     {
-      "id": "tool1749948102005",
-      "type": "tool",
-      "toolType": "costume",
-      "inputs": [
-        "agent1749733268086"
-      ],
-      "outputs": [],
-      "data": {
-        "label": "Set character costume",
-        "spriteName": "sprite 1"
-      },
-      "position": {
-        "top": 248,
-        "left": 951
-      }
-    },
-    {
-      "id": "tool1750037882709",
-      "type": "tool",
-      "toolType": "notepad",
-      "inputs": [],
-      "outputs": [
-        "agent1749733154654"
-      ],
-      "data": {
-        "label": "Character Prompt"
-      },
-      "position": {
-        "top": 225,
-        "left": 101
-      }
-    },
-    {
-      "id": "tool1751434789746",
-      "type": "tool",
-      "toolType": "notepad",
-      "inputs": [],
-      "outputs": [
-        "tool1751434792187"
-      ],
-      "data": {
-        "label": "Notepad Tool",
-        "outputValue": ""
-      },
-      "position": {
-        "top": 135,
-        "left": 462
-      }
-    },
-    {
-      "id": "tool1751434792187",
-      "type": "tool",
-      "toolType": "variable",
-      "inputs": [
-        "tool1751434789746"
-      ],
-      "outputs": [
-        "agent1751434840616"
-      ],
-      "data": {
-        "label": "Variable Tool",
-        "outputValue": ""
-      },
-      "position": {
-        "top": 84,
-        "left": 716
-      }
-    },
-    {
-      "id": "agent1751434840616",
+      "id": "agent1751511695715",
       "type": "agent",
       "toolType": null,
       "inputs": [
-        "tool1751434792187"
+        "tool1751512844517"
+      ],
+      "outputs": [
+        "tool1751511728857"
+      ],
+      "data": {
+        "label": "Player 1"
+      },
+      "position": {
+        "top": 204,
+        "left": 740
+      }
+    },
+    {
+      "id": "tool1751511728857",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1751511695715"
+      ],
+      "outputs": [
+        "broadcaster1751555553556"
+      ],
+      "data": {
+        "label": "P1's choice",
+        "variableName": "P1 Choice"
+      },
+      "position": {
+        "top": 202,
+        "left": 914
+      }
+    },
+    {
+      "id": "tool1751512844517",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "tool1751511660236",
+        "tool1751551991923"
+      ],
+      "outputs": [
+        "agent1751511695715"
+      ],
+      "data": {
+        "label": "Parse input debug",
+        "notepadContent": ""
+      },
+      "position": {
+        "top": 202,
+        "left": 542
+      }
+    },
+    {
+      "id": "tool1751551930169",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "receiver1751553306965"
+      ],
+      "outputs": [
+        "tool1751552027291"
+      ],
+      "data": {
+        "label": " P2 System prompt ",
+        "notepadContent": ""
+      },
+      "position": {
+        "top": 530,
+        "left": 351
+      }
+    },
+    {
+      "id": "tool1751551991923",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "tool1751512844517",
+        "tool1751552027291"
+      ],
+      "data": {
+        "label": "get game history",
+        "variableName": "Game History"
+      },
+      "position": {
+        "top": 366,
+        "left": 352
+      }
+    },
+    {
+      "id": "tool1751552027291",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "tool1751551930169",
+        "tool1751551991923"
+      ],
+      "outputs": [
+        "agent1751552066224"
+      ],
+      "data": {
+        "label": "input debug",
+        "notepadContent": ""
+      },
+      "position": {
+        "top": 533,
+        "left": 554
+      }
+    },
+    {
+      "id": "agent1751552066224",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1751552027291"
+      ],
+      "outputs": [
+        "tool1751552074493"
+      ],
+      "data": {
+        "label": "Player 2"
+      },
+      "position": {
+        "top": 531,
+        "left": 739
+      }
+    },
+    {
+      "id": "tool1751552074493",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1751552066224"
+      ],
+      "outputs": [
+        "broadcaster1751555553556"
+      ],
+      "data": {
+        "label": "P2's choice",
+        "variableName": "P2 Choice"
+      },
+      "position": {
+        "top": 532,
+        "left": 915
+      }
+    },
+    {
+      "id": "receiver1751553306965",
+      "type": "receiver",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [
+        "tool1751511660236",
+        "tool1751551930169"
+      ],
+      "data": {
+        "label": "start workflow"
+      },
+      "position": {
+        "top": 365,
+        "left": 157
+      }
+    },
+    {
+      "id": "broadcaster1751555553556",
+      "type": "broadcaster",
+      "toolType": null,
+      "inputs": [
+        "tool1751511728857",
+        "tool1751552074493"
       ],
       "outputs": [],
       "data": {
-        "label": "Agent"
+        "label": "check"
       },
       "position": {
-        "top": 77,
-        "left": 946
+        "top": 367,
+        "left": 1129
+      }
+    },
+    {
+      "id": "tool1751556904065",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "tool1751511660236"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Variable Tool",
+        "variableName": "auto round count"
+      },
+      "position": {
+        "top": 61,
+        "left": 543
       }
     }
   ]

@@ -5,7 +5,12 @@ class RunTextNode extends window.RunNode {
             // If there are inputs, we can process them
             const inputNodes = this.getInputs();
             for (const inputNode of inputNodes) {
-                outputValue += window.runtimeState.getNodeState(inputNode.id)?.outputValue || '';
+                if(inputNode.type !== "receiver"){
+                    outputValue += window.runtimeState.getNodeState(inputNode.id)?.outputValue || '';
+                }else{
+                    outputValue = this.node.data?.notepadContent || ''; // use this notepad content if input is a receiver
+                }
+                
             }
             this.node.data.notepadContent = outputValue;
         }else{

@@ -34,6 +34,10 @@ function getRunnerForNode(node) {
             break;
         case 'agent':
             return new window.RunAgentNode(node, runtimeState);
+        case 'receiver':
+            return new window.RunReceiverNode(node, runtimeState);
+        case 'broadcaster':
+            return new window.RunBroadcasterNode(node, runtimeState);
         default:
             return new window.RunNode(node, runtimeState); // fallback
     }

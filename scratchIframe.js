@@ -151,3 +151,18 @@ window.setScratchVariableValue = function(variableName, value) {
         console.error('Error setting variable:', e);
     }
 }
+
+window.addEventListener("message", (event) => {
+  if (event.data.type === 'scratchBroadcast') {
+    console.log('Broadcast from inside iframe:', event.data.message);
+  }
+});
+
+window.sendBroadcastMessage = function(message) {
+    const iframe = document.getElementById('scratch-iframe');
+    if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: 'triggerScratchBroadcast', message }, '*');
+    } else {
+        console.warn('Scratch iframe not found or not loaded.');
+    }
+}

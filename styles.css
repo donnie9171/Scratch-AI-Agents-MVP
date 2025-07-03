@@ -478,3 +478,9 @@ body.inspector-open #scroll-area {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+
+pre {
+    white-space: pre-wrap; /* wrap long lines */
+    word-break: break-word; /* break long words if needed */
+    overflow-wrap: break-word; /* ensures breaking inside words */
+}

@@ -1,5 +1,5 @@
 // Select the button by its ID
-const button = document.getElementById('send-test-request');
+const button = document.getElementById('testOllama');
 
 // Add a click event listener to the button
 button.addEventListener('click', async () => {
