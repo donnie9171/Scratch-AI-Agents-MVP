@@ -300,13 +300,11 @@ body.cut-mode .node-point.connecting {
     display: none;
     position: fixed;
     left: 0;
-    right: 0;
     bottom: 0;
-    height: 33vh;
     width: 100vw;
     background: #23243a;
     color: #fff;
-    z-index: 2000;
+    z-index: 5000;
     box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
     transition: transform 0.2s;
     overflow: hidden; /* Prevents double scrollbars */
@@ -319,6 +317,7 @@ body.inspector-open #scroll-area {
     transition: margin 0.2s;
 }
 #inspector-content {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -483,4 +482,60 @@ pre {
     white-space: pre-wrap; /* wrap long lines */
     word-break: break-word; /* break long words if needed */
     overflow-wrap: break-word; /* ensures breaking inside words */
+}
+
+/* Styles for comment node */
+.comment {
+    background-color: #ffe646;
+    border: 1px dashed #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    font-style: italic;
+    color: #333;
+}
+
+/* Styles for markdown editor and preview */
+#markdown-editor {
+    width: 98%;
+    height: 95%;
+    font-family: monospace;
+    color: #aaa; 
+    background: #18192a;
+    resize: none;
+}
+
+#markdown-preview {
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#inspector-resize-handle {
+    width: 40px;
+    height: 5px;
+    background: #888;
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: ns-resize;
+    border-radius: 3px;
+}
+
+#inspector-tool-panel.node-type-comment {
+    padding: 0;
+}
+
+.hide-button {
+    background: #5269ff;
+    border: none;
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }

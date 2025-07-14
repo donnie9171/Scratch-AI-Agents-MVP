@@ -113,6 +113,8 @@ function renderNodes(nodes) {
             inputPoint.className = 'node-point input-point';
             inputPoint.title = 'Input';
             div.appendChild(inputPoint);
+        } else if (node.type === 'comment') {
+            // No input or output points for comment nodes
         } else {
             const inputPoint = document.createElement('div');
             inputPoint.className = 'node-point input-point';

@@ -11,16 +11,15 @@
         "receiver1751553306965"
       ],
       "outputs": [
-        "tool1751512844517",
-        "tool1751556904065"
+        "tool1751512844517"
       ],
       "data": {
         "label": "P1 System prompt ",
-        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \nDo not include any explanation, punctuation, or text besides your choice.\n\nYou are player 2. The opponent is player 1. \n\nUse the provided game history to analyze player 1's patterns and predict their next move. Look for biases, streaks, or tendencies in player 1’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history:"
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \nDo not include any explanation, punctuation, or text besides your choice.\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. pick a valid move to start the game):"
       },
       "position": {
-        "top": 206,
-        "left": 348
+        "top": 380,
+        "left": 308
       }
     },
     {
@@ -37,8 +36,8 @@
         "label": "Player 1"
       },
       "position": {
-        "top": 204,
-        "left": 740
+        "top": 448,
+        "left": 652
       }
     },
     {
@@ -49,15 +48,15 @@
         "agent1751511695715"
       ],
       "outputs": [
-        "broadcaster1751555553556"
+        "agent1752063728055"
       ],
       "data": {
         "label": "P1's choice",
         "variableName": "P1 Choice"
       },
       "position": {
-        "top": 202,
-        "left": 914
+        "top": 472,
+        "left": 813
       }
     },
     {
@@ -73,30 +72,11 @@
       ],
       "data": {
         "label": "Parse input debug",
-        "notepadContent": ""
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \nDo not include any explanation, punctuation, or text besides your choice.\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. pick a valid move to start the game):Round1: P1: scissors, P2: paper, Winner: P1. ,Round2: P1: scissors, P2: paper, Winner: P1. ,Round3: P1: paper, P2: scissors, Winner: P2. ,Round4: P1: rock, P2: paper, Winner: P2. ,Round5: P1: paper, P2: scissors, Winner: P2. ,Round6: P1: paper, P2: scissors, Winner: P2. ,Round7: P1: paper, P2: scissors, Winner: P2. ,Round8: P1: paper, P2: scissors, Winner: P2. ,Round9: P1: paper, P2: scissors, Winner: P2. ,Round10: P1: paper, P2: scissors, Winner: P2. ,Round11: P1: paper, P2: scissors, Winner: P2. ,Round12: P1: scissors, P2: paper, Winner: P1. ,Round13: P1: rock, P2: paper, Winner: P2. ,Round14: P1: scissors, P2: paper, Winner: P1. ,Round15: P1: paper, P2: scissors, Winner: P2. ,Round16: P1: scissors, P2: paper, Winner: P1. ,Round17: P1: rock, P2: paper, Winner: P2. ,Round18: P1: rock, P2: paper, Winner: P2. ,Round19: P1: scissors, P2: paper, Winner: P1. "
       },
       "position": {
-        "top": 202,
-        "left": 542
-      }
-    },
-    {
-      "id": "tool1751551930169",
-      "type": "tool",
-      "toolType": "notepad",
-      "inputs": [
-        "receiver1751553306965"
-      ],
-      "outputs": [
-        "tool1751552027291"
-      ],
-      "data": {
-        "label": " P2 System prompt ",
-        "notepadContent": ""
-      },
-      "position": {
-        "top": 530,
-        "left": 351
+        "top": 427,
+        "left": 492
       }
     },
     {
@@ -105,73 +85,15 @@
       "toolType": "variable",
       "inputs": [],
       "outputs": [
-        "tool1751512844517",
-        "tool1751552027291"
+        "tool1751512844517"
       ],
       "data": {
         "label": "get game history",
         "variableName": "Game History"
       },
       "position": {
-        "top": 366,
-        "left": 352
-      }
-    },
-    {
-      "id": "tool1751552027291",
-      "type": "tool",
-      "toolType": "notepad",
-      "inputs": [
-        "tool1751551930169",
-        "tool1751551991923"
-      ],
-      "outputs": [
-        "agent1751552066224"
-      ],
-      "data": {
-        "label": "input debug",
-        "notepadContent": ""
-      },
-      "position": {
-        "top": 533,
-        "left": 554
-      }
-    },
-    {
-      "id": "agent1751552066224",
-      "type": "agent",
-      "toolType": null,
-      "inputs": [
-        "tool1751552027291"
-      ],
-      "outputs": [
-        "tool1751552074493"
-      ],
-      "data": {
-        "label": "Player 2"
-      },
-      "position": {
-        "top": 531,
-        "left": 739
-      }
-    },
-    {
-      "id": "tool1751552074493",
-      "type": "tool",
-      "toolType": "variable",
-      "inputs": [
-        "agent1751552066224"
-      ],
-      "outputs": [
-        "broadcaster1751555553556"
-      ],
-      "data": {
-        "label": "P2's choice",
-        "variableName": "P2 Choice"
-      },
-      "position": {
-        "top": 532,
-        "left": 915
+        "top": 552,
+        "left": 305
       }
     },
     {
@@ -180,15 +102,15 @@
       "toolType": null,
       "inputs": [],
       "outputs": [
-        "tool1751511660236",
-        "tool1751551930169"
+        "tool1751511660236"
       ],
       "data": {
-        "label": "start workflow"
+        "label": "start workflow",
+        "receiverMessage": "start workflow"
       },
       "position": {
-        "top": 365,
-        "left": 157
+        "top": 477,
+        "left": 78
       }
     },
     {
@@ -196,33 +118,71 @@
       "type": "broadcaster",
       "toolType": null,
       "inputs": [
-        "tool1751511728857",
-        "tool1751552074493"
+        "tool1752063744885"
       ],
       "outputs": [],
       "data": {
-        "label": "check"
+        "label": "check",
+        "broadcastMessage": "check"
       },
       "position": {
-        "top": 367,
-        "left": 1129
+        "top": 538,
+        "left": 1417
       }
     },
     {
-      "id": "tool1751556904065",
+      "id": "tool1752063579963",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1752063728055"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "notepadContent": "You are a cheating rock-paper-scissors bot. \nYou always see the opponent’s move before choosing your own move. Your goal is to always win.\n\nHere are the rules you follow to decide your move:\n- If the opponent plays rock, you play paper.\n- If the opponent plays paper, you play scissors.\n- If the opponent plays scissors, you play rock.\n\nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase. \nDo not include any explanation, punctuation, or text besides your choice.\n\nWhat is your move? \n(Answer with only one word.)\n\nThe opponent played: \n"
+      },
+      "position": {
+        "top": 322,
+        "left": 840
+      }
+    },
+    {
+      "id": "agent1752063728055",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1752063579963",
+        "tool1751511728857"
+      ],
+      "outputs": [
+        "tool1752063744885"
+      ],
+      "data": {
+        "label": "cheating bot"
+      },
+      "position": {
+        "top": 377,
+        "left": 1026
+      }
+    },
+    {
+      "id": "tool1752063744885",
       "type": "tool",
       "toolType": "variable",
       "inputs": [
-        "tool1751511660236"
+        "agent1752063728055"
       ],
-      "outputs": [],
+      "outputs": [
+        "broadcaster1751555553556"
+      ],
       "data": {
         "label": "Variable Tool",
-        "variableName": "auto round count"
+        "variableName": "P2 Choice"
       },
       "position": {
-        "top": 61,
-        "left": 543
+        "top": 482,
+        "left": 1215
       }
     }
   ]

@@ -53,7 +53,7 @@ class RunAgentNode extends window.RunNode {
                 if (jsonData.message && jsonData.message.content) {
                   inference += jsonData.message.content;
                   window.runtimeState.setNodeState(this.node.id, {
-                    prompt: prompt + "\n" + question,
+                    prompt: question,
                     inference: inference,
                   });
                   window.updateAgentPanel();

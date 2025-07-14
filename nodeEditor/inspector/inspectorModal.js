@@ -51,6 +51,12 @@ function showInspector(node) {
     const toolPanel = document.getElementById('inspector-tool-panel');
     toolPanel.innerHTML = '';
 
+    // Add the type of the currently active node as a class to the inspector-tool-panel
+    if (toolPanel) {
+        toolPanel.className = ''; // Clear existing classes
+        toolPanel.classList.add(`node-type-${node.type}`);
+    }
+
     // Determine the panel key (for tools, use toolType if present)
     let panelKey = node.type;
     if (node.type === 'tool' && node.toolType) {
@@ -114,6 +120,20 @@ function showInspector(node) {
             const script = document.createElement('script');
             script.id = scriptId; 
                         script.src = 'nodeEditor/inspector/inspectorPanelReceiver.js';
+            script.onload = renderPanel;
+            document.body.appendChild(script);
+        } else {
+            // If script is loading, wait for it to load and then render
+            setTimeout(renderPanel, 100);
+        }
+        
+    }else if (node.type === 'comment') {
+        // Load the comment panel script
+        const scriptId = 'inspector-panel-comment';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.id = scriptId;
+            script.src = 'nodeEditor/inspector/inspectorPanelComment.js';
             script.onload = renderPanel;
             document.body.appendChild(script);
         } else {
@@ -208,3 +228,36 @@ function updateAgentPanel() {
 }
 
 window.updateAgentPanel = updateAgentPanel;
+
+// Add a resizable handle to the inspector modal
+const inspectorModal = document.getElementById('inspector-modal');
+inspectorModal.style.height = '45vh';
+const resizeHandle = document.createElement('div');
+resizeHandle.id = 'inspector-resize-handle';
+inspectorModal.appendChild(resizeHandle);
+
+let isResizing = false;
+let startY = 0;
+let startHeight = 0;
+
+resizeHandle.addEventListener('mousedown', function(e) {
+    isResizing = true;
+    startY = e.clientY;
+    startHeight = inspectorModal.offsetHeight;
+    document.body.style.cursor = 'ns-resize';
+    document.body.style.userSelect = 'none';
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (!isResizing) return;
+    const deltaY = startY - e.clientY;
+    inspectorModal.style.height = `${startHeight + deltaY}px`;
+});
+
+document.addEventListener('mouseup', function() {
+    if (isResizing) {
+        isResizing = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+    }
+});
