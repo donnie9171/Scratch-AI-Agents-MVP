@@ -6,7 +6,7 @@ body{
 
 #cut-tooltip {
     position: fixed;
-    top: 16px;
+    top: 55px;
     left: 50%;
     transform: translateX(-50%);
     background: #ff5a5a;
@@ -555,3 +555,20 @@ pre {
 .hide-button:hover {
     background: #4052c7;
 }
+
+#versionNumber {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10001;
+    background: #212228;
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 999px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    cursor: pointer;
+}       

@@ -8,6 +8,8 @@
     <title>MEW: Multi-Agent Exploration Workbench</title>
 </head>
 <body>
+    <button id="versionNumber" class="version-number" onclick="window.open('https://fireworks-studios.gitbook.io/fireworks-studios/mew-multi-agent-exploration-workbench', '_blank')">MEW v0</button>
+
     <div id="controls" class="floating-menu">
         <button id="save-nodes" class="button">Save</button>
         <button id="load-nodes" class="button">Load</button>
@@ -65,7 +67,7 @@
     <script src="helper/setupReceiverNode.js"></script>
     <script src="nodeEditor/dragAndDrop.js"></script>
     <script src="nodeEditor/loadNodes.js"></script>
-    <script src="nodeEditor/saveLoadModal.js"></script>
+    <script src="components/saveModal.js"></script>
     <script src="nodeEditor/inspector/inspectorModal.js"></script>
     <script src="nodeEditor/nodeCreation.js"></script>
     <script src="nodeEditor/dragNodeConnections.js"></script>
@@ -118,7 +120,7 @@
             </div>
         </div>
     </div>
-    <script src="nodeEditor/loadProjectModal.js"></script>
+    <script src="components/loadProjectModal.js"></script>
     <script src="components/DropdownMenu.js"></script>
     <script src="components/loadDropdown.js"></script>
 </body>

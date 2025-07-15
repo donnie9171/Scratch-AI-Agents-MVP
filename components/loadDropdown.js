@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', function() {
                         label: 'Rock Paper Scissors',
                         id: 'dropdown-demo-rps',
                         onClick: function() {
-                            fetch('demo_rockPaperScissors.json').then(r => r.json()).then(obj => {
+                            fetch('/demoProjects/demo_rockPaperScissors.json').then(r => r.json()).then(obj => {
                                 if (!obj.metadata) obj.metadata = {};
                                 if (!obj.metadata.projectName) obj.metadata.projectName = 'Rock Paper Scissors Demo';
                                 localStorage.setItem('nodes', JSON.stringify(obj));
@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', function() {
                         label: 'Default Demo',
                         id: 'dropdown-demo-default',
                         onClick: function() {
-                            fetch('data.json').then(r => r.json()).then(obj => {
+                            fetch('/demoProjects/data.json').then(r => r.json()).then(obj => {
                                 if (!obj.metadata) obj.metadata = {};
                                 if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
                                 localStorage.setItem('nodes', JSON.stringify(obj));
