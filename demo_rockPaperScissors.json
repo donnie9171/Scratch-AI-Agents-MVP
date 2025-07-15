@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "projectName": "Rock Paper Scissors Game",
+    "projectName": "demo_rockPaperScissors",
     "lastScratchProjectId": "1194432805",
     "selectedNode": "comment1752453178537"
   },
@@ -17,7 +17,7 @@
       ],
       "data": {
         "label": "P1 System prompt",
-        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nInclude some short reasoning then enclose your choice in <output> </output> tags like this: <output>scissors</output> \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \n\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. You MUST pick a valid move in your response to start the game):"
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \n\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. You MUST pick a valid move in your response to start the game):"
       },
       "position": {
         "top": 380,

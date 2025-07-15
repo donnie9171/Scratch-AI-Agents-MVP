@@ -1,0 +1,30 @@
+/* DropdownMenu.css - styles for reusable dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    z-index: 9999;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 4px 0;
+    display: none;
+    min-width: 180px;
+    width: auto;
+    max-width: 320px;
+}
+.dropdown-menu-option {
+    width: 100%;
+    min-width: 180px;
+    text-align: left;
+    padding: 10px 22px;
+    background: none;
+    border: none;
+    color: #140052;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 0;
+    transition: background 0.15s;
+}
+.dropdown-menu-option:hover, .dropdown-menu-option:focus {
+    background: #c1cbff;
+    outline: none;
+}

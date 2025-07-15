@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="components/DropdownMenu.css">
     <title>MEW: Multi-Agent Exploration Workbench</title>
 </head>
 <body>
@@ -27,8 +28,11 @@
 
     <div id="json-modal">
         <div id="json-modal-content">
+
+            <input id="json-modal-project-name" type="text" placeholder="Project name (for download)" style="font-size:1.2em; width:90%; padding:4px; border-radius:6px; border:1px solid #888; background:#18192a; color:#fff; margin-bottom:10px;">
             <textarea id="json-modal-text"></textarea>
             <div id="json-modal-buttons">
+                <button id="download-json-modal" class="button">Download JSON</button>
                 <button id="copy-json-modal" class="button">Copy</button>
                 <button id="close-json-modal" class="button">Close</button>
             </div>
@@ -104,5 +108,18 @@
     <script src="runScripts/runBroadcasterNode.js"></script>
     <script src="runScripts/runManager.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <div id="load-project-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center;">
+        <div style="background:#212228; padding:20px; border-radius:8px; max-width:90vw; max-height:80vh; display:flex; flex-direction:column;">
+            <textarea id="load-project-text" style="background-color:#18192a; color:#fff; width:60vw; height:40vh; font-family:monospace; font-size:14px; margin-bottom:10px;"></textarea>
+            <div style="display:flex; gap:10px; justify-content:flex-end;">
+                <button id="load-project-confirm" class="button">Load</button>
+                <button id="close-load-project" class="button">Close</button>
+            </div>
+        </div>
+    </div>
+    <script src="nodeEditor/loadProjectModal.js"></script>
+    <script src="components/DropdownMenu.js"></script>
+    <script src="components/loadDropdown.js"></script>
 </body>
 </html>
