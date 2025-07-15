@@ -32,6 +32,11 @@ function showInspector(node) {
     const card = document.querySelector(`.card[data-id="${node.id}"]`);
     if (card) card.classList.add('selected');
 
+    // Update selectedNode in metadata
+    let saveObj = JSON.parse(localStorage.getItem('nodes')) || { metadata: {}, nodes: window.nodeData };
+    saveObj.metadata.selectedNode = node.id;
+    localStorage.setItem('nodes', JSON.stringify(saveObj));
+
     // Editable label input
     document.getElementById('inspector-title').innerHTML = `
         <input id="inspector-label-input" type="text" value="${node.data?.label || node.id}" style="font-size:1.2em; width:90%; padding:4px; border-radius:6px; border:1px solid #888; background:#18192a; color:#fff;">
@@ -185,6 +190,7 @@ localStorage.setItem('nodes', JSON.stringify(saveObj));
     // Remove selection highlight
     document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
     currentInspectedNodeId = null;
+    clearSelectedNode();
 };
 
 document.getElementById('close-inspector').onclick = function() {
@@ -193,6 +199,7 @@ document.getElementById('close-inspector').onclick = function() {
     // Remove selection highlight
     document.querySelectorAll('.card.selected').forEach(el => el.classList.remove('selected'));
     currentInspectedNodeId = null;
+    clearSelectedNode();
 };
 
 document.getElementById('run-inspector').onclick = function() {
@@ -261,3 +268,9 @@ document.addEventListener('mouseup', function() {
         document.body.style.userSelect = '';
     }
 });
+
+function clearSelectedNode() {
+    let saveObj = JSON.parse(localStorage.getItem('nodes')) || { metadata: {}, nodes: window.nodeData };
+    saveObj.metadata.selectedNode = null;
+    localStorage.setItem('nodes', JSON.stringify(saveObj));
+}

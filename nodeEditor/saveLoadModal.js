@@ -5,9 +5,16 @@ document.getElementById('load-nodes').onclick = function() {
 
 document.getElementById('save-nodes').onclick = function() {
     if (window.nodeData) {
+        // Get selectedNode from localStorage if present
+        let selectedNode = null;
+        try {
+            const saveObj = JSON.parse(localStorage.getItem('nodes'));
+            selectedNode = saveObj?.metadata?.selectedNode || null;
+        } catch (e) {}
         const saveObj = {
             metadata: {
-                lastScratchProjectId: window.lastScratchProjectId || null
+                lastScratchProjectId: window.lastScratchProjectId || null,
+                selectedNode: selectedNode
             },
             nodes: window.nodeData
         };

@@ -26,6 +26,14 @@ window.loadNodes = function() {
             const input = document.getElementById('scratch-project-id');
             if (input) input.value = window.lastScratchProjectId;
         }
+        // Select and open inspector for selectedNode if present
+        const selectedNodeId = saveObj.metadata?.selectedNode || null;
+        if (selectedNodeId) {
+            const selectedNode = window.nodeData.find(n => n.id === selectedNodeId);
+            if (selectedNode && window.showInspector) {
+                setTimeout(() => window.showInspector(selectedNode), 100); // Delay to ensure DOM is ready
+            }
+        }
     } else {
         fetch('data.json')
         .then(res => res.json())
@@ -47,6 +55,14 @@ window.loadNodes = function() {
                 }
                 const input = document.getElementById('scratch-project-id');
                 if (input) input.value = window.lastScratchProjectId;
+            }
+            // Select and open inspector for selectedNode if present
+            const selectedNodeId = saveObj.metadata?.selectedNode || null;
+            if (selectedNodeId) {
+                const selectedNode = window.nodeData.find(n => n.id === selectedNodeId);
+                if (selectedNode && window.showInspector) {
+                    setTimeout(() => window.showInspector(selectedNode), 100);
+                }
             }
         });
     }

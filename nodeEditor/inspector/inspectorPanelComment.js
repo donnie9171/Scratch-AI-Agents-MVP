@@ -5,8 +5,8 @@ window.inspectorToolPanels['comment'] = function(node, panelEl) {
                 <textarea id="markdown-editor" style="font-family: monospace;">${node.data.markdown || ''}</textarea>
             </div>
             <div id="resize-handle" style="width: 5px; cursor: ew-resize; background: #5269ff; position: relative;">
-                <button id="hide-editor" class="hide-button" style="position: absolute; left: -35px; top: 50%; transform: translateY(-50%);">&lt;</button>
-                <button id="hide-preview" class="hide-button" style="position: absolute; right: -35px; top: 50%; transform: translateY(-50%);">&gt;</button>
+                <button id="hide-editor" class="hide-button left" style="position: absolute;  top: 50%; transform: translateY(-50%);">◀</button>
+                <button id="hide-preview" class="hide-button right" style="position: absolute; top: 50%; transform: translateY(-50%);">▶</button>
             </div>
             <div id="comment-preview" style="flex: 1; padding: 10px; overflow: auto;">
                 <div id="markdown-preview">${marked.parse(node.data.markdown || '')}</div>
@@ -41,8 +41,10 @@ window.inspectorToolPanels['comment'] = function(node, panelEl) {
     let startEditorWidth = 0;
 
     resizeHandle.addEventListener('mousedown', function(e) {
+        // Only start resizing if the handle itself is clicked, not the buttons
+        if (e.target !== resizeHandle) return;
         isResizing = true;
-        startX = e.clientX;
+        startX = e.clientX + 20;
         startEditorWidth = editorDiv.offsetWidth;
         document.body.style.cursor = 'ew-resize';
         document.body.style.userSelect = 'none';
@@ -50,11 +52,20 @@ window.inspectorToolPanels['comment'] = function(node, panelEl) {
 
     document.addEventListener('mousemove', function(e) {
         if (!isResizing) return;
+        // Ensure both panels are visible while resizing
+        if (editorDiv.style.display === 'none') {
+            editorDiv.style.display = '';
+            editorDiv.style.flex = `0 0 1px`;
+        }
+        if (previewDiv.style.display === 'none') {
+            previewDiv.style.display = '';
+        }
         const deltaX = e.clientX - startX;
         const newEditorWidth = startEditorWidth + deltaX;
         const containerWidth = panelEl.querySelector('#comment-panel-container').offsetWidth;
-        const maxEditorWidth = containerWidth - 50; // Ensure preview has a minimum width
-        if (newEditorWidth > 50 && newEditorWidth < maxEditorWidth) {
+        const minPanelWidth = 0; // Allow resizing to 0px
+        const maxEditorWidth = containerWidth - minPanelWidth;
+        if (newEditorWidth > minPanelWidth && newEditorWidth < maxEditorWidth) {
             editorDiv.style.flex = `0 0 ${newEditorWidth}px`;
             previewDiv.style.flex = `1 1 0`;
         }
