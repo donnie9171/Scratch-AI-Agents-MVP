@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
-    "node-fetch": "^3.4.1"
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {},
-  "main": "src/{index.js,functions/*.js}"
+  "main": "src/index.js"
 }

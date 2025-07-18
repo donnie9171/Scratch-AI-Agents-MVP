@@ -30,6 +30,7 @@ app.http('openaiRelay', {
                 body: JSON.stringify(payload)
             });
             const result = await response.json();
+            // context.log('OpenAI response:', JSON.stringify(result, null, 2));
             return { status: response.status, body: result };
         } catch (err) {
             context.log('OpenAI relay error:', err);
