@@ -30,7 +30,11 @@ methods: ['POST'],
             });
             const result = await response.json();
             context.log('OpenAI response:', JSON.stringify(result, null, 2));
-            return { status: response.status, body: result };
+            return {
+                status: response.status,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(result)
+            };
         } catch (err) {
             context.log('OpenAI relay error:', err);
             return { status: 500, body: 'Error relaying to OpenAI API.' };

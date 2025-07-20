@@ -39,7 +39,8 @@ function addNewNode(type, subtype) {
         data: { 
             label: subtype 
                 ? (subtype.charAt(0).toUpperCase() + subtype.slice(1) + ' Tool') 
-                : (type.charAt(0).toUpperCase() + type.slice(1))
+                : (type.charAt(0).toUpperCase() + type.slice(1)),
+            ...(type === 'agent' ? { model: 'gpt-3.5-turbo' } : {})
         },
         position
     };

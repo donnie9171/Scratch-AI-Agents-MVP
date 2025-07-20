@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "projectName": "demo_rockPaperScissors",
     "lastScratchProjectId": "1194432805",
-    "selectedNode": "comment1752453178537"
+    "selectedNode": null,
+    "projectName": "Untitled MEW Project"
   },
   "nodes": [
     {
@@ -17,7 +17,7 @@
       ],
       "data": {
         "label": "P1 System prompt",
-        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \n\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. You MUST pick a valid move in your response to start the game):"
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \n\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. You MUST pick a valid move in your response to start the game)\n\nWhat is your move?"
       },
       "position": {
         "top": 380,
@@ -35,7 +35,8 @@
         "tool1751511728857"
       ],
       "data": {
-        "label": "Player 1"
+        "label": "Player 1",
+        "model": "gpt-3.5-turbo"
       },
       "position": {
         "top": 448,
@@ -161,7 +162,8 @@
         "tool1752063744885"
       ],
       "data": {
-        "label": "cheating bot"
+        "label": "cheating bot",
+        "model": "gpt-3.5-turbo"
       },
       "position": {
         "top": 376,
