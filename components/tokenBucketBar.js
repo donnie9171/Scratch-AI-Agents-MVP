@@ -6,13 +6,17 @@ window.currentTokenBucketInfo = null;
 
 // Retrieve last estimated tokens from localStorage on startup
 function getStoredTokenBucket() {
-    try {
-        const stored = localStorage.getItem('tokenBucketEstimate');
-        if (stored) {
-            return JSON.parse(stored);
-        }
-    } catch (e) {}
-    return null;
+    if (!localStorage.getItem('tokenBucketEstimate')) {
+        console.log('Initializing token bucket estimate in localStorage');
+        storeTokenBucketEstimate({
+            userId: 'unknown',
+            tokensRemaining: MAX_TOKENS,
+            lastRefill: Date.now(),
+            maxTokens: MAX_TOKENS,
+            refillRate: REFILL_RATE
+        });
+    }
+    return JSON.parse(localStorage.getItem('tokenBucketEstimate'));
 }
 
 function storeTokenBucketEstimate(estimateObj) {
@@ -92,12 +96,6 @@ function updateTokenBucketBar(tokenBucket) {
     animateRefill();
 }
 
-updateTokenBucketBar(getStoredTokenBucket() || {
-    userId: 'unknown',
-    tokensRemaining: MAX_TOKENS,
-    lastRefill: Date.now(),
-    maxTokens: MAX_TOKENS,
-    refillRate: REFILL_RATE
-});
+updateTokenBucketBar(getStoredTokenBucket());
 
 window.updateTokenBucketBar = updateTokenBucketBar;
