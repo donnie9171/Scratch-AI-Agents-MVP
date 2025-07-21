@@ -1,7 +1,77 @@
+#cut-tooltip.shake {
+    animation: shake-tooltip 0.5s;
+}
+
+@keyframes shake-tooltip {
+    0% { transform: translateX(-50%) translateY(0); }
+    20% { transform: translateX(-55%) translateY(0); }
+    40% { transform: translateX(-45%) translateY(0); }
+    60% { transform: translateX(-55%) translateY(0); }
+    80% { transform: translateX(-45%) translateY(0); }
+    100% { transform: translateX(-50%) translateY(0); }
+}
+/* Transparent scrollbars for all elements */
+::-webkit-scrollbar {
+    width: 12px;
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(120,120,120,0.25);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* For Firefox */
+* {
+    scrollbar-color: rgba(120,120,120,0.25) transparent;
+    scrollbar-width: thin;
+}
 body{
-  padding: 0;
-  margin: 0;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.tokenBucketBar {
+    width: 180px;
+    height: 28px;
+    background: #d68c2a;
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6c4a00;
+    padding: 0 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tokenBucketBar-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #ffe066;
+    border-radius: 999px;
+    z-index: 1;
+    transition: width 0.3s;
+}
+
+.tokenBucketBar-text {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #6c4a00;
+    letter-spacing: 0.5px;
 }
 
 #cut-tooltip {
@@ -468,6 +538,7 @@ body.inspector-open #scroll-area {
     z-index: 10;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     pointer-events: none;
+    color: #fff;
 }
 
 .spin {
@@ -557,11 +628,6 @@ pre {
 }
 
 #versionNumber {
-    position: fixed;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10001;
     background: #212228;
     color: #fff;
     padding: 6px 18px;
