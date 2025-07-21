@@ -1,5 +1,27 @@
 // loadDropdown.js - logic for the Load button dropdown menu
 window.addEventListener('DOMContentLoaded', function() {
+    // Auto-load Starter Demo if first time (no nodes in localStorage)
+    try {
+        const nodesObj = JSON.parse(localStorage.getItem('nodes'));
+        if (!nodesObj || !nodesObj.nodes || nodesObj.nodes.length === 0) {
+            fetch('/demoProjects/starter-demo.json').then(r => r.json()).then(obj => {
+                if (!obj.metadata) obj.metadata = {};
+                if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
+                localStorage.setItem('nodes', JSON.stringify(obj));
+                if (window.loadNodes) window.loadNodes();
+                closeInspectorAndClearScratchIfNeeded(obj);
+            });
+        }
+    } catch (e) {
+        // If localStorage is corrupted, fallback to demo
+        fetch('/demoProjects/starter-demo.json').then(r => r.json()).then(obj => {
+            if (!obj.metadata) obj.metadata = {};
+            if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
+            localStorage.setItem('nodes', JSON.stringify(obj));
+            if (window.loadNodes) window.loadNodes();
+            closeInspectorAndClearScratchIfNeeded(obj);
+        });
+    }
     const loadBtn = document.getElementById('load-nodes');
     function closeInspectorAndClearScratchIfNeeded(objOverride) {
         // Use objOverride if provided, otherwise read from localStorage
@@ -50,26 +72,24 @@ window.addEventListener('DOMContentLoaded', function() {
                 label: 'Load demo',
                 id: 'dropdown-load-demo',
                 submenu: [
-                    {
-                        label: 'Rock Paper Scissors',
-                        id: 'dropdown-demo-rps',
+                    {   label: 'Starter Demo',
+                        id: 'dropdown-demo-default',
                         onClick: function() {
-                            fetch('/demoProjects/demo_rockPaperScissors.json').then(r => r.json()).then(obj => {
+                            fetch('/demoProjects/starter-demo.json').then(r => r.json()).then(obj => {
                                 if (!obj.metadata) obj.metadata = {};
-                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Rock Paper Scissors Demo';
+                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
                                 localStorage.setItem('nodes', JSON.stringify(obj));
                                 window.loadNodes();
                                 closeInspectorAndClearScratchIfNeeded(obj);
                             });
                         }
                     },
-                    {
-                        label: 'Default Demo',
-                        id: 'dropdown-demo-default',
+                    {   label: 'Rock Paper Scissors Demo',
+                        id: 'dropdown-demo-rps',
                         onClick: function() {
-                            fetch('/demoProjects/data.json').then(r => r.json()).then(obj => {
+                            fetch('/demoProjects/rock-paper-scissors-demo.json').then(r => r.json()).then(obj => {
                                 if (!obj.metadata) obj.metadata = {};
-                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
+                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Rock Paper Scissors Demo';
                                 localStorage.setItem('nodes', JSON.stringify(obj));
                                 window.loadNodes();
                                 closeInspectorAndClearScratchIfNeeded(obj);

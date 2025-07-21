@@ -1,8 +1,8 @@
 {
   "metadata": {
     "lastScratchProjectId": "1194432805",
-    "selectedNode": null,
-    "projectName": "Untitled MEW Project"
+    "selectedNode": "comment1752453178537",
+    "projectName": "rock-paper-scissors-demo"
   },
   "nodes": [
     {
@@ -197,7 +197,7 @@
       "outputs": [],
       "data": {
         "label": "READ ME :0",
-        "markdown": "# Hello! Please read this first!\n## Introduction\nWelcome to MEW, an experimental project exploring what a node based AI system could look like in Scratch!\n## Basic navigation\n- **Loading sample projects:** Click the \"Load\" button on the top left corner to load different projects. I recommend loading and exploring the sample projects in order to get the hang of how things work step by step.\n\n- **Running sample projects:** Click on the green flag on the stage in the top right to start a project. Feel free to check out what the projects look like on Scratch! Their project ids are visible in the textbox up top.\n\n- **Creating your own projects:** Click \"Load\" then choose \"Empty Project\" to create a blank project.\n\n- **Saving your projects:** Currently, there is no backend for project data so you need to export and keep your project data safe by clicking on the \"Save\" button in the top left corner then clicking \"Copy\" to copy the project data as text to your clipboard. Paste this somewhere you can easily find. \n\n- **Inspecting and editing nodes:** You can inspect and configure nodes by clicking on them. An inspector will pop up and present you with different options depending on the node type. \n\n## Feedback\nYou can send in your feedback and any comments via the \"Feedback\" button at the top left. You can also include the project file if you'd like. If you have any fun creations and experiments, please also send them my way with the form! Excited to see what everyone comes up with!\n\n****\n\n## Nodes\nHere is some basic documentation about each node type and how they currently work.\n### Overall node running system"
+        "markdown": "Hello! This is a slightly more complicated demo to push the limits (ceiling?) of the system and just a fun proof of concept for using Mew for more complicated things to come!\n\nHere we have 2 bots playing rock paper scissors against each other:\n- the first bot (player 1) is an honest bot. it only has access to the previous game history and needs to make a play based on that.\n- the second bot (cheating bot) is cheating (*gasp*)\n\nStart the Scratch project and click on the auto button. It will ask you how many rounds you want the bots to play and you can input something from 1~10 (go higher than 10 and you'll run out of the 5000 token limit i think - do try to break it tho! i want to find and fix these problems as early as I can!)\n\nThis project started with simulating 2 honest bots with different system prompts but i soon realized it was so boring because the results were just 1/3 win 1/3 lose 1/3 tie all the time, so i wanted to see if making one cheat would make things more interesting.\n\nInitially, the agent nodes were connected to a llama3.2 running locally on my computer and the results of the cheating bot was so inconsistent I wanted to see how it was still losing so much. that's why the scratch project plots out the win rates over time. \n\nUnfortunately, since switching to gpt 3.5 turbo, the cheating bot's performance has become much more consistent and predictable and now the win rate chart looks rather redundant. One interesting future step for this experiment is to test out different models of llms against each other and see which one scores the highest on the all important rock-paper-scissors-benchmark."
       },
       "position": {
         "top": 256,

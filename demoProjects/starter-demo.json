@@ -1,0 +1,288 @@
+{
+  "metadata": {
+    "lastScratchProjectId": "1198803240",
+    "selectedNode": "comment1753097292319",
+    "projectName": "starter-demo"
+  },
+  "nodes": [
+    {
+      "id": "comment1753097292319",
+      "type": "comment",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [],
+      "data": {
+        "label": "Read me first! Experiment 1: ",
+        "markdown": "# Hello! Welcome to MEW!\nThis is the first ever playtest *ever!* If you're even seeing this on your own machine this would have been a win!\n\n Click on the blue Agent node then click the green Run button to start the first experiment!"
+      },
+      "position": {
+        "top": 72,
+        "left": 494
+      }
+    },
+    {
+      "id": "tool1753097862346",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1753097864867"
+      ],
+      "data": {
+        "label": "Input (Notepad)",
+        "notepadContent": "Tell me something about mew in one sentence."
+      },
+      "position": {
+        "top": 75,
+        "left": 684
+      }
+    },
+    {
+      "id": "agent1753097864867",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1753097862346"
+      ],
+      "outputs": [
+        "tool1753097919091"
+      ],
+      "data": {
+        "label": "Agent ",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 75,
+        "left": 866
+      }
+    },
+    {
+      "id": "tool1753097919091",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "agent1753097864867"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Output"
+      },
+      "position": {
+        "top": 75,
+        "left": 1039
+      }
+    },
+    {
+      "id": "comment1753098179974",
+      "type": "comment",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [],
+      "data": {
+        "label": "Experiment 2:",
+        "markdown": "This experiment shows that you can get variable values from inside Scratch using the Variable tool node!"
+      },
+      "position": {
+        "top": 267,
+        "left": 89
+      }
+    },
+    {
+      "id": "tool1753098211969",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1753098254167"
+      ],
+      "data": {
+        "label": "Input",
+        "notepadContent": "Tell me something about the following pokemon in one sentence: ",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 266,
+        "left": 259
+      }
+    },
+    {
+      "id": "agent1753098254167",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1753098211969",
+        "tool1753098932324"
+      ],
+      "outputs": [
+        "tool1753098263415"
+      ],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 267,
+        "left": 461
+      }
+    },
+    {
+      "id": "tool1753098263415",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "agent1753098254167"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Output",
+        "model": "gpt-3.5-turbo",
+        "notepadContent": "Squirtle is a Water-type Pokémon known for shooting powerful water attacks from its shell on its back."
+      },
+      "position": {
+        "top": 267,
+        "left": 656
+      }
+    },
+    {
+      "id": "tool1753098932324",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "agent1753098254167"
+      ],
+      "data": {
+        "label": "Get variable values from inside Scratch!",
+        "variableName": "pokemon name"
+      },
+      "position": {
+        "top": 412,
+        "left": 253
+      }
+    },
+    {
+      "id": "tool1753099074096",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "receiver1753099156500"
+      ],
+      "outputs": [
+        "agent1753099213436"
+      ],
+      "data": {
+        "label": "Input",
+        "notepadContent": "Tell me something about the following pokemon in one sentence: "
+      },
+      "position": {
+        "top": 505,
+        "left": 799
+      }
+    },
+    {
+      "id": "comment1753099076569",
+      "type": "comment",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [],
+      "data": {
+        "label": "Experiment 3:",
+        "markdown": "This experiment shows that you can receive and broadcast messages to communicate with the Scratch project!"
+      },
+      "position": {
+        "top": 511,
+        "left": 498
+      }
+    },
+    {
+      "id": "tool1753099108676",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "agent1753099213436"
+      ],
+      "data": {
+        "label": "Get pokemon name var from Scratch",
+        "variableName": "pokemon name"
+      },
+      "position": {
+        "top": 647,
+        "left": 803
+      }
+    },
+    {
+      "id": "receiver1753099156500",
+      "type": "receiver",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [
+        "tool1753099074096"
+      ],
+      "data": {
+        "label": "Broadcast Receiver",
+        "receiverMessage": "who's that pokemon!"
+      },
+      "position": {
+        "top": 504,
+        "left": 643
+      }
+    },
+    {
+      "id": "agent1753099213436",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1753099074096",
+        "tool1753099108676"
+      ],
+      "outputs": [
+        "tool1753099251910"
+      ],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 508,
+        "left": 993
+      }
+    },
+    {
+      "id": "tool1753099251910",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1753099213436"
+      ],
+      "outputs": [
+        "broadcaster1753099302164"
+      ],
+      "data": {
+        "label": "Put values back into Scratch variables!",
+        "variableName": "pokedex response"
+      },
+      "position": {
+        "top": 510,
+        "left": 1165
+      }
+    },
+    {
+      "id": "broadcaster1753099302164",
+      "type": "broadcaster",
+      "toolType": null,
+      "inputs": [
+        "tool1753099251910"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Broadcast messages back into scratch!",
+        "broadcastMessage": "response ready!"
+      },
+      "position": {
+        "top": 512,
+        "left": 1335
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-let MAX_TOKENS = 500;
+let MAX_TOKENS = 5000;
 let REFILL_RATE = 10; // tokens per second
 
 let tokenBucketTimeoutId = null;
