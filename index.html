@@ -98,6 +98,18 @@
         </svg>
     </button>
     <input id="scratch-project-id" type="text" placeholder="Enter Scratch Project ID or URL">
+    <button id="goto-scratch-project" class="button" onclick="(function(){
+        var input = document.getElementById('scratch-project-id');
+        var val = input ? input.value.trim() : '';
+        var projectId = val;
+        // If user pasted a full URL, extract the project ID
+        var match = val.match(/(projects\/|#)(\d+)/);
+        if (match) projectId = match[2];
+        // Fallback to default if empty
+        if (!projectId) projectId = '1197188623';
+        var url = 'https://scratch.mit.edu/projects/' + projectId;
+        window.open(url, '_blank');
+    })()">Go to project</button>
     <button id="load-scratch-project" class="button">Load</button>
 </div>
     <iframe
