@@ -38,6 +38,8 @@ function getRunnerForNode(node) {
             return new window.RunReceiverNode(node, runtimeState);
         case 'broadcaster':
             return new window.RunBroadcasterNode(node, runtimeState);
+        case 'comment':
+            return new window.RunCommentNode(node, runtimeState);
         default:
             return new window.RunNode(node, runtimeState); // fallback
     }
@@ -167,6 +169,9 @@ async function runNodeCluster(nodeId){
         } catch (e) {
             runtimeState.setNodeState(node.id, { runStatus: "error" });
             window.updateNodeRunStatusBadge(node);
+            // make sure the execution stops on error
+            console.error(`Error running node ${node.id}:`, e);
+            break;
         }
     }
 }

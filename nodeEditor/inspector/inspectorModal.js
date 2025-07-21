@@ -214,23 +214,13 @@ function updateAgentPanel() {
     if (!panelEl) {
         return;
     }
-    const promptEl = panelEl.querySelector('#agent-prompt');
-    const inferenceEl = panelEl.querySelector('#agent-inference');
-
-    if (!promptEl || !inferenceEl) {
-        return;
-    }
-
-    if (window.runtimeState.getNodeState(window.currentInspectedNodeId) && window.runtimeState.getNodeState(window.currentInspectedNodeId).prompt) {
-        promptEl.textContent = window.runtimeState.getNodeState(window.currentInspectedNodeId).prompt;
-    } else {
-        promptEl.textContent = 'No prompt set';
-    }
-
-    if (window.runtimeState.getNodeState(window.currentInspectedNodeId) && window.runtimeState.getNodeState(window.currentInspectedNodeId).inference) {
-        inferenceEl.textContent = window.runtimeState.getNodeState(window.currentInspectedNodeId).inference;
-    } else {
-        inferenceEl.textContent = 'No inference yet';
+    // Find the currently inspected node
+    const nodeId = window.currentInspectedNodeId;
+    const node = window.nodeData?.find(n => n.id === nodeId);
+    if (!node) return;
+    // Re-render the agent panel
+    if (window.inspectorToolPanels['agent']) {
+        window.inspectorToolPanels['agent'](node, panelEl);
     }
 }
 

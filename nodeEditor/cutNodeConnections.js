@@ -10,6 +10,8 @@ function setCutMode(active) {
         document.body.classList.add('cut-mode');
         cutBtn.textContent = 'Exit Cut Mode';
         document.getElementById('cut-tooltip').style.display = 'block';
+        document.getElementById('cut-tooltip').textContent =
+              "Cut mode: Click on something to remove it. Press Escape to exit.";
     } else {
         document.body.classList.remove('cut-mode');
         cutBtn.textContent = 'Cut Mode';

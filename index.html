@@ -10,6 +10,16 @@
 <body>
     <button id="versionNumber" class="version-number" onclick="window.open('https://fireworks-studios.gitbook.io/fireworks-studios/mew-multi-agent-exploration-workbench', '_blank')">MEW v0.1</button>
 
+    <div id="top-center-bar" style="display:flex; flex-direction:row; align-items:center; justify-content:center; position:fixed; top:12px; left:50%; transform:translateX(-50%); z-index:10001; gap:16px;">
+        <div style="display:flex; flex-direction:row; align-items:center; gap:16px;">
+            <button id="versionNumber" class="version-number" onclick="window.open('https://fireworks-studios.gitbook.io/fireworks-studios/mew-multi-agent-exploration-workbench', '_blank')">MEW v0.1</button>
+            <div id="tokenBucketBar" class="tokenBucketBar">
+                <div class="tokenBucketBar-fill" style="width:80%"></div>
+                <div class="tokenBucketBar-text">Tokens: 50/1000</div>
+            </div>
+        </div>
+    </div>
+
     <div id="controls" class="floating-menu">
         <button id="save-nodes" class="button">Save</button>
         <button id="load-nodes" class="button">Load</button>
@@ -101,13 +111,15 @@
         allowfullscreen>
     </iframe>
     <script src="scratchIframe.js"></script>
-
+    <script src="helper/userId.js"></script>
+    <script src="components/tokenBucketBar.js"></script>
     <script src="runScripts/runNode.js"></script>
     <script src="runScripts/runVariableNode.js"></script>
     <script src="runScripts/runTextNode.js"></script>
     <script src="runScripts/runAgentNode.js"></script>
     <script src="runScripts/runReceiverNode.js"></script>
     <script src="runScripts/runBroadcasterNode.js"></script>
+    <script src="runScripts/runCommentNode.js"></script>
     <script src="runScripts/runManager.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
