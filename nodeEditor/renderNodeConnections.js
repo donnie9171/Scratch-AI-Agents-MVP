@@ -75,6 +75,72 @@ window.updateConnections = function() {
             }
             ctx.stroke();
             ctx.setLineDash([]);
+
+            // Bezier control points
+            const cp1x = x1 + dx;
+            const cp1y = y1;
+            const cp2x = x2 - dx;
+            const cp2y = y2;
+            // Position and derivative functions
+            function cubicBezier(t, p0, p1, p2, p3) {
+                const mt = 1 - t;
+                return mt * mt * mt * p0 + 3 * mt * mt * t * p1 + 3 * mt * t * t * p2 + t * t * t * p3;
+            }
+            function cubicBezierDerivative(t, p0, p1, p2, p3) {
+                const mt = 1 - t;
+                return 3 * mt * mt * (p1 - p0) + 6 * mt * t * (p2 - p1) + 3 * t * t * (p3 - p2);
+            }
+            // Approximate curve length by sampling
+            let prevX = x1, prevY = y1, curveLen = 0;
+            const steps = 50;
+            const points = [{x: x1, y: y1, t: 0}];
+            for (let i = 1; i <= steps; i++) {
+                const t = i / steps;
+                const px = cubicBezier(t, x1, cp1x, cp2x, x2);
+                const py = cubicBezier(t, y1, cp1y, cp2y, y2);
+                curveLen += Math.hypot(px - prevX, py - prevY);
+                points.push({x: px, y: py, t});
+                prevX = px; prevY = py;
+            }
+            // Center triangle at midpoint
+            const baseDist = 20; // distance from tip to base center
+            const baseWidth = 12; // width of base
+            // Find t for tip: t = midpoint + baseDist/(2*curveLen)
+            let midIdx = Math.floor(points.length / 2);
+            let midT = points[midIdx].t;
+            let tipT = midT;
+            let dist = 0;
+            for (let i = midIdx; i < points.length - 1; i++) {
+                const segLen = Math.hypot(points[i+1].x - points[i].x, points[i+1].y - points[i].y);
+                dist += segLen;
+                if (dist >= baseDist/2) {
+                    tipT = points[i+1].t;
+                    break;
+                }
+            }
+            const tipX = cubicBezier(tipT, x1, cp1x, cp2x, x2);
+            const tipY = cubicBezier(tipT, y1, cp1y, cp2y, y2);
+            const dxTangent = cubicBezierDerivative(tipT, x1, cp1x, cp2x, x2);
+            const dyTangent = cubicBezierDerivative(tipT, y1, cp1y, cp2y, y2);
+            const angle = Math.atan2(dyTangent, dxTangent);
+            // Base center at midpoint
+            const baseCenterX = cubicBezier(midT, x1, cp1x, cp2x, x2);
+            const baseCenterY = cubicBezier(midT, y1, cp1y, cp2y, y2);
+            // Perpendicular angle
+            const perpAngle = angle + Math.PI / 2;
+            // Left and right base points
+            const leftX = baseCenterX + (baseWidth / 2) * Math.cos(perpAngle);
+            const leftY = baseCenterY + (baseWidth / 2) * Math.sin(perpAngle);
+            const rightX = baseCenterX - (baseWidth / 2) * Math.cos(perpAngle);
+            const rightY = baseCenterY - (baseWidth / 2) * Math.sin(perpAngle);
+
+            ctx.beginPath();
+            ctx.moveTo(tipX, tipY);
+            ctx.lineTo(leftX, leftY);
+            ctx.lineTo(rightX, rightY);
+            ctx.closePath();
+            ctx.fillStyle = isHovered ? '#ff5a5a' : 'white';
+            ctx.fill();
         });
     });
     if (window.currentInspectedNodeId && window.nodeData) {
