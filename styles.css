@@ -251,7 +251,7 @@ body.cut-mode .node-point.connecting {
     padding: 10px;
     margin: 15px;
     position: absolute;
-    background: #23243a;
+    background: #ffffffdf;
     border-radius: 100px;
     z-index: 10;
     display: flex;
