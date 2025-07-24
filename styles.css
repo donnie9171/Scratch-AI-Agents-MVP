@@ -1,3 +1,36 @@
+/* Comment panel resize handle default and hover color */
+#resize-handle {
+    background: #888888a2;
+    transition: background 0.2s;
+}
+#resize-handle:hover {
+    background: #5269ff;
+}
+/* Node creation button colors */
+#new-receiver.button, #new-broadcaster.button {
+    background: #ffab19;
+    color: #fff;
+}
+#new-agent.button {
+    background: #5269ff;
+    color: #fff;
+}
+#new-variable-tool.button {
+    background: #ff8c17;
+    color: #fff;
+}
+#new-notepad-tool.button {
+    background: #5ac05b;
+    color: #fff;
+}
+#new-costume-tool.button {
+    background: #9965ff;
+    color: #fff;
+}
+#new-comment.button {
+    background: #ffe646;
+    color: #333;
+}
 #cut-tooltip.shake {
     animation: shake-tooltip 0.5s;
 }
@@ -218,7 +251,7 @@ body.cut-mode .node-point.connecting {
     padding: 10px;
     margin: 15px;
     position: absolute;
-    background: rgba(255, 255, 255, 0.8);
+    background: #23243a;
     border-radius: 100px;
     z-index: 10;
     display: flex;
@@ -581,23 +614,27 @@ pre {
 }
 
 #inspector-resize-handle {
-    width: 40px;
+    width: 100vw;
     height: 5px;
-    background: #888;
+    background: none;
+    transition: background 0.2s;
     position: absolute;
-    top: 5px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0px;
     cursor: ns-resize;
-    border-radius: 3px;
 }
+
+#inspector-resize-handle:hover {
+    background: #5269ff;
+}
+
 
 #inspector-tool-panel.node-type-comment {
     padding: 0;
 }
 
 .hide-button {
-    background: #5269ff;
+        background: #515151;
+    transition: background 0.2s;
     border: none;
     width: 20px;
     height: 25px;
@@ -623,7 +660,7 @@ pre {
     border-bottom-right-radius: 8px;
 }
 .hide-button:hover {
-    background: #4052c7;
+    background: #5269ff;
 }
 
 #versionNumber {

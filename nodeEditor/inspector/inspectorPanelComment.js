@@ -4,7 +4,7 @@ window.inspectorToolPanels['comment'] = function(node, panelEl) {
             <div id="comment-editor" style="flex: 1; padding: 10px; overflow: auto;">
                 <textarea id="markdown-editor" style="font-family: monospace;">${node.data.markdown || ''}</textarea>
             </div>
-            <div id="resize-handle" style="width: 5px; cursor: ew-resize; background: #5269ff; position: relative;">
+            <div id="resize-handle" style="width: 5px; cursor: ew-resize; position: relative;">
                 <button id="hide-editor" class="hide-button left" style="position: absolute;  top: 50%; transform: translateY(-50%);">◀</button>
                 <button id="hide-preview" class="hide-button right" style="position: absolute; top: 50%; transform: translateY(-50%);">▶</button>
             </div>
