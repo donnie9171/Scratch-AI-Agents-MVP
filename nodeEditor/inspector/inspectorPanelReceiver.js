@@ -1,27 +1,47 @@
 window.inspectorToolPanels["receiver"] = function (node, panelEl) {
-  panelEl.innerHTML = `
-    <div>
-      <p>Receive Message:</p>
-      <input type="text" id="receive-message-input" value="${
-        node.data?.receiverMessage || ""
-      }" style="margin-bottom: 12px;">
-    </div>
-  `;
+    // Render panel immediately with placeholder dropdown, then update when VM is ready
+    panelEl.innerHTML = `
+        <div>
+            <p>Receive Message:</p>
+            <select id="receive-message-select" style="margin-bottom: 12px;" disabled>
+                <option>Waiting for VM to load...</option>
+            </select>
+        </div>
+    `;
 
-  const inputEl = panelEl.querySelector("#receive-message-input");
+    function updateDropdown(broadcastNames) {
+        const select = panelEl.querySelector('#receive-message-select');
+        if (!select) return;
+        select.innerHTML = broadcastNames.length === 0
+            ? `<option>(no broadcasts found)</option>`
+            : broadcastNames.map(name => `<option value="${name}" ${node.data?.receiverMessage === name ? 'selected' : ''}>${name}</option>`).join('');
+        select.disabled = false;
+        select.addEventListener('change', function(e) {
+            node.data.receiverMessage = e.target.value;
+            const saveObj = {
+                metadata: {
+                    lastScratchProjectId: window.lastScratchProjectId || null
+                },
+                nodes: window.nodeData
+            };
+            localStorage.setItem('nodes', JSON.stringify(saveObj));
+            // re-register listener with new value
+            setupReceiverNode(node);
+        });
+    }
 
-  inputEl.addEventListener("input", function (e) {
-  node.data.receiverMessage = e.target.value;
-
-  const saveObj = {
-    metadata: {
-      lastScratchProjectId: window.lastScratchProjectId || null,
-    },
-    nodes: window.nodeData,
-  };
-  localStorage.setItem("nodes", JSON.stringify(saveObj));
-
-  // re-register listener with new value
-  setupReceiverNode(node);
-});
+    function waitForVMAndUpdate(attempts = 0) {
+        if (typeof window.checkVMReady === 'function' && window.checkVMReady()) {
+            let broadcastNames = [];
+            if (typeof window.getScratchBroadcastNames === 'function') {
+                broadcastNames = window.getScratchBroadcastNames();
+            }
+            updateDropdown(broadcastNames);
+        } else if (attempts < 30) {
+            setTimeout(() => waitForVMAndUpdate(attempts + 1), 100);
+        } else {
+            updateDropdown([]);
+        }
+    }
+    waitForVMAndUpdate();
 };

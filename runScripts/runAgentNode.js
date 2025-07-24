@@ -75,15 +75,8 @@ class RunAgentNode extends window.RunNode {
         console.error(errorText);
       }
     } else if (model === "gpt-3.5-turbo") {
-      if (
-        window.location.hostname === "localhost" ||
-        window.location.hostname === "127.0.0.1"
-      ) {
-        url = "http://localhost:7071/api/oai1";
-      } else {
-        url =
+      url =
           "https://multiagent-exploration-workbench-c8htdxerg6d9faa0.uksouth-01.azurewebsites.net/api/oai1";
-      }
       payload = {
         endpoint: "https://api.openai.com/v1/chat/completions",
         payload: {

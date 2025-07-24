@@ -417,11 +417,6 @@ body.inspector-open #scroll-area {
     flex: 0 0 auto;
 }
 
-#inspector-details {
-    padding: 10px;
-    width: 100%;
-}
-
 #scratch-iframe-bar {
     position: fixed;
     top: 16px;
@@ -470,6 +465,9 @@ body.inspector-open #scroll-area {
 }
 
 #inspector-details {
+    display: none; /* Hide by default, logging node data is too overwhelming and not really used most of the time */
+    padding: 10px;
+    width: 100%;
     flex: 1 1 0;
     min-width: 0;
     padding-right: 16px;
@@ -504,7 +502,8 @@ body.inspector-open #scroll-area {
 }
 
 .variable-badge {
-    display: inline-block;
+    /* display: inline-block; the get set badges confuse people more */
+    display: none;
     padding: 4px 14px;
     border-radius: 999px;
     font-size: 1em;

@@ -1,14 +1,12 @@
 window.inspectorToolPanels['tool:variable'] = function(node, panelEl) {
-    const getChecked = isVariableToolGet(node) ? 'checked' : '';
-    const setChecked = isVariableToolSet(node) ? 'checked' : '';
-    const getLabel = isVariableToolGet(node) ? 'Get' : 'Get (not connected)';
-    const setLabel = isVariableToolSet(node) ? 'Set' : 'Set (not connected)';
+    // Render panel immediately with placeholder dropdown, then update when VM is ready
     const content = window.getScratchVariableValue(node.data?.variableName);
-
     panelEl.innerHTML = `
         <div>
             <p>Target variable:</p>
-            <input type="text" id="variable-name-input" value="${node.data?.variableName || ''}" style="margin-bottom: 12px;">
+            <select id="variable-name-select" style="margin-bottom: 12px;" disabled>
+                <option>Waiting for VM to load...</option>
+            </select>
             <div>
                 <span class="variable-badge ${isVariableToolSet(node) ? 'on' : 'off'}">
                     ${isVariableToolSet(node) ? 'Set' : 'Set (not connected)'}
@@ -26,16 +24,40 @@ window.inspectorToolPanels['tool:variable'] = function(node, panelEl) {
             </div>
         </div>
     `;
-    panelEl.querySelector('#variable-name-input').addEventListener('input', function(e) {
-        node.data.variableName = e.target.value;
-        const saveObj = {
-    metadata: {
-        lastScratchProjectId: window.lastScratchProjectId || null
-    },
-    nodes: window.nodeData
-};
-localStorage.setItem('nodes', JSON.stringify(saveObj));
-    });
+
+    function updateDropdown(variableNames) {
+        const select = panelEl.querySelector('#variable-name-select');
+        if (!select) return;
+        select.innerHTML = variableNames.length === 0
+            ? `<option>(no variables found)</option>`
+            : variableNames.map(name => `<option value="${name}" ${node.data?.variableName === name ? 'selected' : ''}>${name}</option>`).join('');
+        select.disabled = false;
+        select.addEventListener('change', function(e) {
+            node.data.variableName = e.target.value;
+            const saveObj = {
+                metadata: {
+                    lastScratchProjectId: window.lastScratchProjectId || null
+                },
+                nodes: window.nodeData
+            };
+            localStorage.setItem('nodes', JSON.stringify(saveObj));
+        });
+    }
+
+    function waitForVMAndUpdate(attempts = 0) {
+        if (typeof window.checkVMReady === 'function' && window.checkVMReady()) {
+            let variableNames = [];
+            if (typeof window.getScratchVariableNames === 'function') {
+                variableNames = window.getScratchVariableNames();
+            }
+            updateDropdown(variableNames);
+        } else if (attempts < 30) {
+            setTimeout(() => waitForVMAndUpdate(attempts + 1), 100);
+        } else {
+            updateDropdown([]);
+        }
+    }
+    waitForVMAndUpdate();
 };
 
 function isVariableToolGet(node) {

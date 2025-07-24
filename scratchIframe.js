@@ -1,3 +1,67 @@
+// Returns true if the Scratch VM is ready
+window.checkVMReady = function() {
+    return !!(
+        window.scaffolding &&
+        window.scaffolding.vm &&
+        window.scaffolding.vm.runtime &&
+        window.scaffolding.vm.runtime.targets &&
+        window.scaffolding.vm.runtime.targets.length > 0
+    );
+}
+// Returns a list of all variable names in the Scratch VM
+window.getScratchVariableNames = function() {
+    let variableNames = [];
+    try {
+        if (
+            window.scaffolding &&
+            window.scaffolding.vm &&
+            window.scaffolding.vm.runtime &&
+            window.scaffolding.vm.runtime.targets
+        ) {
+            const targets = window.scaffolding.vm.runtime.targets;
+            for (const target of targets) {
+                if (target.variables) {
+                    for (const [id, variable] of Object.entries(target.variables)) {
+                        let varName = variable.name || (Array.isArray(variable) ? variable[0] : undefined);
+                        // Only include variables with type === ''
+                        if (varName && (variable.type === '' || variable.type === 'list' || variable.type === undefined)) {
+                            variableNames.push(varName);
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {}
+    // Remove duplicates
+    return Array.from(new Set(variableNames));
+}
+
+window.getScratchBroadcastNames = function() {
+    let broadcastNames = [];
+    try {
+        if (
+            window.scaffolding &&
+            window.scaffolding.vm &&
+            window.scaffolding.vm.runtime &&
+            window.scaffolding.vm.runtime.targets
+        ) {
+            const targets = window.scaffolding.vm.runtime.targets;
+            for (const target of targets) {
+                if (target.variables) {
+                    for (const [id, variable] of Object.entries(target.variables)) {
+                        let varName = variable.name || (Array.isArray(variable) ? variable[0] : undefined);
+                        // Only include broadcasts with type === 'broadcast_msg'
+                        if (varName && variable.type === 'broadcast_msg') {
+                            broadcastNames.push(varName);
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {}
+    // Remove duplicates
+    return Array.from(new Set(broadcastNames));
+}
 window.reloadScratchIframe = function(projectId) {
     const iframe = document.getElementById('scratch-iframe');
     if (!iframe) return;
