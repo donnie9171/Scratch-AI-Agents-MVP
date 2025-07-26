@@ -78,7 +78,6 @@ class RunAgentNode extends window.RunNode {
       url =
           "https://multiagent-exploration-workbench-c8htdxerg6d9faa0.uksouth-01.azurewebsites.net/api/oai1";
       payload = {
-        endpoint: "https://api.openai.com/v1/chat/completions",
         payload: {
           model: "gpt-3.5-turbo",
           messages: [{ role: "user", content: question }],

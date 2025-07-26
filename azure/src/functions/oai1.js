@@ -72,7 +72,8 @@ methods: ['POST'],
     } catch (e) {
       return { status: 400, body: 'Invalid JSON body.' };
     }
-    const { endpoint, payload } = body;
+    const endpoint = "https://api.openai.com/v1/chat/completions";
+    const { payload } = body;
     const apiKey = process.env.OPENAI_API_KEY;
     if (!endpoint || !payload) {
       return { status: 400, body: 'Missing endpoint or payload.' };
