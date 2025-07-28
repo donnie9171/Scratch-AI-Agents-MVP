@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "OPENAI_API_KEY": "...",
+    "TABLE_STORAGE_CONNECTION_STRING": "...",
+    "AzureWebJobsStorage": "...",
+    "FUNCTIONS_WORKER_RUNTIME": "node"
+  },
+  "Host": {
+    "CORS": "http://127.0.0.1:5501"
+  }
+}

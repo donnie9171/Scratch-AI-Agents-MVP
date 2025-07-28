@@ -75,8 +75,7 @@ class RunAgentNode extends window.RunNode {
         console.error(errorText);
       }
     } else if (model === "gpt-3.5-turbo") {
-      url =
-          "https://multiagent-exploration-workbench-c8htdxerg6d9faa0.uksouth-01.azurewebsites.net/api/oai1";
+      url = AZURE_SOURCE + "/api/oai1";
       payload = {
         payload: {
           model: "gpt-3.5-turbo",
