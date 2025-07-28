@@ -1,3 +1,86 @@
+
+// Shared function to wait for VM readiness and call a callback with the appropriate names
+window.waitForVMAndUpdate = function(getNamesFn, updateDropdownFn, attempts = 0) {
+    if (typeof window.checkVMReady === "function" && window.checkVMReady()) {
+        let names = [];
+        if (typeof getNamesFn === "function") {
+            names = getNamesFn();
+        }
+        updateDropdownFn(names);
+    } else {
+        setTimeout(() => window.waitForVMAndUpdate(getNamesFn, updateDropdownFn, attempts + 1), 100);
+    }
+};
+// Returns the current costume or backdrop name for a given target name, using project JSON from TurboWarp proxy
+// Usage: window.getScratchCurrentCostumeName(targetName, callback)
+window.getScratchCurrentCostumeName = function(targetName, callback) {
+    if (window.scaffolding && window.scaffolding.vm && typeof window.scaffolding.vm.toJSON === 'function') {
+        let projectJsonRaw = window.scaffolding.vm.toJSON();
+        let projectJson;
+        if (typeof projectJsonRaw === 'string') {
+            projectJson = JSON.parse(projectJsonRaw);
+        } else if (projectJsonRaw instanceof ArrayBuffer || projectJsonRaw instanceof Uint8Array) {
+            // Convert buffer to string, then parse
+            const str = new TextDecoder().decode(projectJsonRaw);
+            projectJson = JSON.parse(str);
+        } else {
+            projectJson = projectJsonRaw; // Already an object
+        }
+
+        if (projectJson.targets) {
+            for (const target of projectJson.targets) {
+                if (target.name === targetName) {
+                    // For stage, use costumes array and currentCostume index
+                    if (target.isStage && Array.isArray(target.costumes) && typeof target.currentCostume === 'number') {
+                        const costume = target.costumes[target.currentCostume];
+                        if (costume && costume.name) {
+                            callback(costume.name);
+                            return;
+                        }
+                    }
+                    // For sprite, use costumes array and currentCostume index
+                    if (!target.isStage && Array.isArray(target.costumes) && typeof target.currentCostume === 'number') {
+                        const costume = target.costumes[target.currentCostume];
+                        if (costume && costume.name) {
+                            callback(costume.name);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        // If no target found or no costumes, return empty string
+        callback('no costume found');
+    } else {
+        console.warn('Scratch VM or toJSON() not available');
+    }
+}
+// Returns a list of all target names (sprites and stage) in the Scratch VM
+window.getScratchTargetNames = function() {
+    let targetNames = [];
+    try {
+        if (
+            window.scaffolding &&
+            window.scaffolding.vm &&
+            window.scaffolding.vm.runtime &&
+            window.scaffolding.vm.runtime.targets
+        ) {
+            const targets = window.scaffolding.vm.runtime.targets;
+            for (const target of targets) {
+                if (target && target.sprite && target.sprite.name) {
+                    targetNames.push(target.sprite.name);
+                } else if (target && target.isStage && target.isStage === true && target.name) {
+                    // Stage target
+                    targetNames.push(target.name);
+                } else if (target && target.name) {
+                    targetNames.push(target.name);
+                }
+            }
+        }
+    } catch (e) {}
+    // Remove duplicates
+    return Array.from(new Set(targetNames));
+}
 // Returns true if the Scratch VM is ready
 window.checkVMReady = function() {
     return !!(

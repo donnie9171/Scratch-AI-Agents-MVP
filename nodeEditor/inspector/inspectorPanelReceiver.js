@@ -30,18 +30,5 @@ window.inspectorToolPanels["receiver"] = function (node, panelEl) {
         });
     }
 
-    function waitForVMAndUpdate(attempts = 0) {
-        if (typeof window.checkVMReady === 'function' && window.checkVMReady()) {
-            let broadcastNames = [];
-            if (typeof window.getScratchBroadcastNames === 'function') {
-                broadcastNames = window.getScratchBroadcastNames();
-            }
-            updateDropdown(broadcastNames);
-        } else if (attempts < 30) {
-            setTimeout(() => waitForVMAndUpdate(attempts + 1), 100);
-        } else {
-            updateDropdown([]);
-        }
-    }
-    waitForVMAndUpdate();
+    window.waitForVMAndUpdate(window.getScratchBroadcastNames, updateDropdown);
 };
