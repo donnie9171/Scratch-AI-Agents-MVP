@@ -44,20 +44,7 @@ window.inspectorToolPanels['tool:variable'] = function(node, panelEl) {
         });
     }
 
-    function waitForVMAndUpdate(attempts = 0) {
-        if (typeof window.checkVMReady === 'function' && window.checkVMReady()) {
-            let variableNames = [];
-            if (typeof window.getScratchVariableNames === 'function') {
-                variableNames = window.getScratchVariableNames();
-            }
-            updateDropdown(variableNames);
-        } else if (attempts < 30) {
-            setTimeout(() => waitForVMAndUpdate(attempts + 1), 100);
-        } else {
-            updateDropdown([]);
-        }
-    }
-    waitForVMAndUpdate();
+    window.waitForVMAndUpdate(window.getScratchVariableNames, updateDropdown);
 };
 
 function isVariableToolGet(node) {

@@ -16,9 +16,9 @@ document.getElementById('new-notepad-tool').onclick = function() {
     addNewNode('tool', 'notepad');
 };
 
-// document.getElementById('new-costume-tool').onclick = function() {
-//     addNewNode('tool', 'costume');
-// };
+document.getElementById('new-costume-tool').onclick = function() {
+    addNewNode('tool', 'costume');
+};
 
 // Add handler for new comment button
 document.getElementById('new-comment').onclick = function() {
