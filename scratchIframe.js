@@ -1,4 +1,31 @@
 
+// Sets the costume of a sprite or stage by name
+window.setScratchCostumeName = function(targetName, costumeName) {
+    try {
+        if (
+            window.scaffolding &&
+            window.scaffolding.vm &&
+            window.scaffolding.vm.runtime &&
+            window.scaffolding.vm.runtime.targets
+        ) {
+            const targets = window.scaffolding.vm.runtime.targets;
+            for (const target of targets) {
+                if (target.getName() === targetName && Array.isArray(target.getCostumes())) {
+                    const index = target.getCostumes().findIndex(c => c.name === costumeName);
+                    if (index !== -1) {
+                        target.currentCostume = index;
+                        target.setCostume(index);
+                        return true;
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Error setting costume:', e);
+    }
+    return false;
+};
+
 // Shared function to wait for VM readiness and call a callback with the appropriate names
 window.waitForVMAndUpdate = function(getNamesFn, updateDropdownFn, attempts = 0) {
     if (typeof window.checkVMReady === "function" && window.checkVMReady()) {

@@ -30,6 +30,7 @@ function getRunnerForNode(node) {
         case 'tool':
             if (node.toolType === 'variable') return new window.RunVariableNode(node, runtimeState);
             if (node.toolType === 'notepad') return new window.RunTextNode(node, runtimeState);
+            if (node.toolType === 'costume') return new window.RunCostumeNode(node, runtimeState);
             // Add more tool types as needed
             break;
         case 'agent':
