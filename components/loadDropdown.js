@@ -84,6 +84,18 @@ window.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     },
+                    {   label: 'BMO Chatbot Demo',
+                        id: 'dropdown-demo-bmo',
+                        onClick: function() {
+                            fetch('/demoProjects/bmo-chatbot-demo.json').then(r => r.json()).then(obj => {
+                                if (!obj.metadata) obj.metadata = {};
+                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
+                                localStorage.setItem('nodes', JSON.stringify(obj));
+                                window.loadNodes();
+                                closeInspectorAndClearScratchIfNeeded(obj);
+                            });
+                        }
+                    },
                     {   label: 'Rock Paper Scissors Demo',
                         id: 'dropdown-demo-rps',
                         onClick: function() {
