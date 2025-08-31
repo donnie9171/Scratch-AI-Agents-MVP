@@ -17,7 +17,7 @@ class RunAgentNode extends window.RunNode {
     }
 
     const model = this.node.data?.model || "gpt-3.5-turbo";
-    let url, payload;
+    let url, messages;
     if (model === "llama-3.2") {
       url = "http://localhost:11434/api/chat";
       payload = {

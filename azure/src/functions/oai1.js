@@ -76,7 +76,7 @@ methods: ['POST'],
     const { messages } = body;
     const payload = {
       model: "gpt-3.5-turbo",
-      messages
+      messages: messages
     };
     const apiKey = process.env.OPENAI_API_KEY;
     if (!endpoint || !payload) {
