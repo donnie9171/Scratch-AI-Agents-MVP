@@ -76,19 +76,20 @@ class RunAgentNode extends window.RunNode {
       }
     } else if (model === "gpt-3.5-turbo") {
       url = AZURE_SOURCE + "/api/oai1";
-      payload = {
-        payload: {
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: question }],
-        },
-      };
+      // payload = {
+      //   payload: {
+      //     model: "gpt-3.5-turbo",
+      //     messages: [{ role: "user", content: question }],
+      //   },
+      // };
+      messages = [{ role: "user", content: question }];
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "x-api-key": userId,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(messages),
       });
 
       let inference = "";
