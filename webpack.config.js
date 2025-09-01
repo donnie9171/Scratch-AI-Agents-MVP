@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -26,11 +27,18 @@ module.exports = {
     './runScripts/runManager.js',
     './components/loadProjectModal.js',
     './components/DropdownMenu.js',
-    './components/loadDropdown.js'
+    './components/loadDropdown.js',
   ],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
   },
-  mode: 'production'
+  mode: 'production',
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'nodeEditor/inspector/', to: 'nodeEditor/inspector/' }
+      ]
+    })
+  ]
 };
