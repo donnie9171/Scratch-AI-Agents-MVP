@@ -1,5 +1,3 @@
-import { setupReceiverNode } from "../../helper/setupReceiverNode";
-
 window.inspectorToolPanels["receiver"] = function (node, panelEl) {
     // Render panel immediately with placeholder dropdown, then update when VM is ready
     panelEl.innerHTML = `

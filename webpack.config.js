@@ -37,7 +37,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'nodeEditor/inspector/', to: 'nodeEditor/inspector/' }
+        { from: 'nodeEditor/inspector/', to: 'nodeEditor/inspector/' },
+        { from: 'components/*.css', to: 'components/[name][ext]' }
       ]
     })
   ]

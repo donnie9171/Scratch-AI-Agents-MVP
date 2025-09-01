@@ -17,5 +17,5 @@ function setupReceiverNode(node) {
     node._currentBroadcastListener = listener;
   }
 }
-
+window.setupReceiverNode = setupReceiverNode;
 export { setupReceiverNode }
