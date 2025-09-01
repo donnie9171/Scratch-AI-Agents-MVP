@@ -1,0 +1,17 @@
+{
+  "name": "scratch-ai-agents-mvp",
+  "version": "1.0.0",
+  "description": "This project includes a static vanilla JS frontend (`index.html`) and an Azure Function backend for API proxying and token usage tracking (in the `azure` folder).",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1"
+  }
+}

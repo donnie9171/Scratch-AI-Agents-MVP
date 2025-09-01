@@ -1,3 +1,5 @@
+import { setupReceiverNode } from "../helper/setupReceiverNode";
+
 window.loadNodes = function() {
     let saveObj;
     const saved = localStorage.getItem('nodes');

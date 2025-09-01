@@ -73,19 +73,6 @@
         </div>
     </div>
     <div id="cut-tooltip">Cut mode: Click on something to remove it. Press Escape to exit.</div>
-    <!-- <script src="llmAgents/ollama.js"></script> -->
-    <script src="helper/setupReceiverNode.js"></script>
-    <script src="nodeEditor/dragAndDrop.js"></script>
-    <script src="nodeEditor/loadNodes.js"></script>
-    <script src="components/saveModal.js"></script>
-    <script src="nodeEditor/inspector/inspectorModal.js"></script>
-    <script src="nodeEditor/nodeCreation.js"></script>
-    <script src="nodeEditor/dragNodeConnections.js"></script>
-    <script src="nodeEditor/cutNodeConnections.js"></script>
-    <script src="nodeEditor/renderNodeConnections.js"></script>
-    <script>
-        window.loadNodes();
-    </script>
 <div id="scratch-iframe-bar">
     <button id="GreenFlagBtn" class="button" title="Green Flag" style="background:#4caf50; color:#fff; border-radius:50%; width:36px; height:36px; padding:0; display:flex; align-items:center; justify-content:center;">
         <svg width="18" height="18" viewBox="0 0 448 512" fill="white" style="display:block;">
@@ -122,20 +109,6 @@
         scrolling="no"
         allowfullscreen>
     </iframe>
-    <script src="scratchIframe.js"></script>
-    <script src="config.js"></script>
-    <script src="helper/userId.js"></script>
-    <script src="components/tokenBucketBar.js"></script>
-    <script src="runScripts/runNode.js"></script>
-    <script src="runScripts/runVariableNode.js"></script>
-    <script src="runScripts/runTextNode.js"></script>
-    <script src="runScripts/runAgentNode.js"></script>
-    <script src="runScripts/runReceiverNode.js"></script>
-    <script src="runScripts/runBroadcasterNode.js"></script>
-    <script src="runScripts/runCommentNode.js"></script>
-    <script src="runScripts/runCostumeNode.js"></script>
-    <script src="runScripts/runManager.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <div id="load-project-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center;">
         <div style="background:#212228; padding:20px; border-radius:8px; max-width:90vw; max-height:80vh; display:flex; flex-direction:column;">
@@ -146,8 +119,14 @@
             </div>
         </div>
     </div>
-    <script src="components/loadProjectModal.js"></script>
+    <!-- <script src="components/loadProjectModal.js"></script>
     <script src="components/DropdownMenu.js"></script>
-    <script src="components/loadDropdown.js"></script>
+    <script src="components/loadDropdown.js"></script> -->
+
+    <script src="dist/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        window.loadNodes();
+    </script>
 </body>
 </html>
