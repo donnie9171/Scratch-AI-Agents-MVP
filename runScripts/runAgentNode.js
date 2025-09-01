@@ -89,7 +89,7 @@ class RunAgentNode extends window.RunNode {
           "Content-Type": "application/json",
           "x-api-key": userId,
         },
-        body: JSON.stringify(messages),
+        body: JSON.stringify({messages}),
       });
 
       let inference = "";
