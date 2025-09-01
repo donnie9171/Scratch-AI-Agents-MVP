@@ -38,7 +38,8 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'nodeEditor/inspector/', to: 'nodeEditor/inspector/' },
-        { from: 'components/*.css', to: 'components/[name][ext]' }
+        { from: 'components/*.css', to: 'components/[name][ext]' },
+        { from: 'demoProjects/*.json', to: 'demoProjects/[name][ext]' }
       ]
     })
   ]

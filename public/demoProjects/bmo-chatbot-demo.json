@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "lastScratchProjectId": "1202475998",
+    "selectedNode": "agent1753800650751",
+    "projectName": "bmo-chatbot-demo"
+  },
+  "nodes": [
+    {
+      "id": "broadcaster1753798290206",
+      "type": "broadcaster",
+      "toolType": null,
+      "inputs": [
+        "tool1753800674847"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Broadcaster",
+        "broadcastMessage": "assistant responded"
+      },
+      "position": {
+        "top": 458,
+        "left": 1105
+      }
+    },
+    {
+      "id": "receiver1753798300488",
+      "type": "receiver",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [
+        "tool1753798314979"
+      ],
+      "data": {
+        "label": "Receiver",
+        "receiverMessage": "user responded"
+      },
+      "position": {
+        "top": 411,
+        "left": 174
+      }
+    },
+    {
+      "id": "tool1753798314979",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "receiver1753798300488"
+      ],
+      "outputs": [
+        "agent1753798378115"
+      ],
+      "data": {
+        "label": "get conversation",
+        "variableName": "conversation"
+      },
+      "position": {
+        "top": 441,
+        "left": 348
+      }
+    },
+    {
+      "id": "agent1753798378115",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1753798382525",
+        "tool1753798314979"
+      ],
+      "outputs": [
+        "tool1753798413701",
+        "agent1753800650751"
+      ],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 410,
+        "left": 560
+      }
+    },
+    {
+      "id": "tool1753798382525",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1753798378115"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "notepadContent": "system: you are friendly BMO chatbot. Respond playfully and in character but only give SHORT, one sentence responses."
+      },
+      "position": {
+        "top": 274,
+        "left": 358
+      }
+    },
+    {
+      "id": "tool1753798413701",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1753798378115"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Variable Tool",
+        "variableName": "assistant response",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 494,
+        "left": 758
+      }
+    },
+    {
+      "id": "agent1753800650751",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1753800706268",
+        "agent1753798378115"
+      ],
+      "outputs": [
+        "tool1753800674847"
+      ],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 333,
+        "left": 759
+      }
+    },
+    {
+      "id": "tool1753800674847",
+      "type": "tool",
+      "toolType": "costume",
+      "inputs": [
+        "agent1753800650751"
+      ],
+      "outputs": [
+        "broadcaster1753798290206"
+      ],
+      "data": {
+        "label": "Costume Tool",
+        "spriteName": "bmo1",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 344,
+        "left": 921
+      }
+    },
+    {
+      "id": "tool1753800706268",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1753800650751"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "notepadContent": "analyze the following response and pick a corresponding costume to match the tone of the response. Make sure you only respond in one word and you can only pick from the following options: \nBlissful, Surprised, Happy, Angry, Worried, Skeptical. what is your pick for the following piece of text response: "
+      },
+      "position": {
+        "top": 262,
+        "left": 589
+      }
+    }
+  ]
+}

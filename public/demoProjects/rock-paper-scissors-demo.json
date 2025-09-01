@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "lastScratchProjectId": "1194432805",
+    "selectedNode": "comment1752453178537",
+    "projectName": "rock-paper-scissors-demo"
+  },
+  "nodes": [
+    {
+      "id": "tool1751511660236",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "receiver1751553306965"
+      ],
+      "outputs": [
+        "tool1751512844517"
+      ],
+      "data": {
+        "label": "P1 System prompt",
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \n\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. You MUST pick a valid move in your response to start the game)\n\nWhat is your move?"
+      },
+      "position": {
+        "top": 380,
+        "left": 308
+      }
+    },
+    {
+      "id": "agent1751511695715",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1751512844517"
+      ],
+      "outputs": [
+        "tool1751511728857"
+      ],
+      "data": {
+        "label": "Player 1",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 448,
+        "left": 652
+      }
+    },
+    {
+      "id": "tool1751511728857",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1751511695715"
+      ],
+      "outputs": [
+        "agent1752063728055"
+      ],
+      "data": {
+        "label": "P1's choice",
+        "variableName": "P1 Choice"
+      },
+      "position": {
+        "top": 467,
+        "left": 820
+      }
+    },
+    {
+      "id": "tool1751512844517",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "tool1751511660236",
+        "tool1751551991923"
+      ],
+      "outputs": [
+        "agent1751511695715"
+      ],
+      "data": {
+        "label": "Parse input debug",
+        "notepadContent": "You are a world champion rock-paper-scissors strategist.\n\nPlay rock, paper, scissors with me. \nYour available moves are: rock, paper, or scissors. \nInclude some short reasoning then enclose your choice in <output> </output> tags like this: <output>scissors</output> \nAlways respond with your choice in ONE WORD ONLY in all lowercase (rock, paper, or scissors). \n\n\nYou are player 1. The opponent is player 2. \n\nUse the provided game history to analyze player 2's patterns and predict their next move. Look for biases, streaks, or tendencies in player 2’s past moves, considering the last 3 moves most heavily.\n\nChoose the move that maximizes your chance of winning.\n\nHere is the game history (if there is nothing after this it means you are in the first round. You MUST pick a valid move in your response to start the game):"
+      },
+      "position": {
+        "top": 427,
+        "left": 492
+      }
+    },
+    {
+      "id": "tool1751551991923",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "tool1751512844517"
+      ],
+      "data": {
+        "label": "get game history",
+        "variableName": "Game History"
+      },
+      "position": {
+        "top": 552,
+        "left": 305
+      }
+    },
+    {
+      "id": "receiver1751553306965",
+      "type": "receiver",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [
+        "tool1751511660236"
+      ],
+      "data": {
+        "label": "start workflow",
+        "receiverMessage": "start workflow"
+      },
+      "position": {
+        "top": 477,
+        "left": 78
+      }
+    },
+    {
+      "id": "broadcaster1751555553556",
+      "type": "broadcaster",
+      "toolType": null,
+      "inputs": [
+        "tool1752063744885"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "check",
+        "broadcastMessage": "check"
+      },
+      "position": {
+        "top": 538,
+        "left": 1417
+      }
+    },
+    {
+      "id": "tool1752063579963",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [],
+      "outputs": [
+        "agent1752063728055"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "notepadContent": "You are a cheating rock-paper-scissors bot. \nYou always see the opponent’s move before choosing your own move. Your goal is to always win.\n\nHere are the rules you follow to decide your move:\n- If the opponent plays rock, you play paper.\n- If the opponent plays paper, you play scissors.\n- If the opponent plays scissors, you play rock.\n\nYour available moves are: rock, paper, or scissors. \nAlways respond with your choice in ONE WORD ONLY in all lowercase. \nDo not include any explanation, punctuation, or text besides your choice.\n\nWhat is your move? \n(Answer with only one word.)\n\nThe opponent played: \n"
+      },
+      "position": {
+        "top": 322,
+        "left": 840
+      }
+    },
+    {
+      "id": "agent1752063728055",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1752063579963",
+        "tool1751511728857"
+      ],
+      "outputs": [
+        "tool1752063744885"
+      ],
+      "data": {
+        "label": "cheating bot",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 376,
+        "left": 1026
+      }
+    },
+    {
+      "id": "tool1752063744885",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1752063728055"
+      ],
+      "outputs": [
+        "broadcaster1751555553556"
+      ],
+      "data": {
+        "label": "Variable Tool",
+        "variableName": "P2 Choice"
+      },
+      "position": {
+        "top": 482,
+        "left": 1215
+      }
+    },
+    {
+      "id": "comment1752453178537",
+      "type": "comment",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [],
+      "data": {
+        "label": "READ ME :0",
+        "markdown": "Hello! This is a slightly more complicated demo to push the limits (ceiling?) of the system and just a fun proof of concept for using Mew for more complicated things to come!\n\nHere we have 2 bots playing rock paper scissors against each other:\n- the first bot (player 1) is an honest bot. it only has access to the previous game history and needs to make a play based on that.\n- the second bot (cheating bot) is cheating (*gasp*)\n\nStart the Scratch project and click on the auto button. It will ask you how many rounds you want the bots to play and you can input something from 1~3 (go higher than that and you'll run out of the 1000 token limit i think - do try to break it tho! i want to find and fix these problems as early as I can!)\n\nThis project started with simulating 2 honest bots with different system prompts but i soon realized it was so boring because the results were just 1/3 win 1/3 lose 1/3 tie all the time, so i wanted to see if making one cheat would make things more interesting.\n\nInitially, the agent nodes were connected to a llama3.2 running locally on my computer and the results of the cheating bot was so inconsistent I wanted to see how it was still losing so much. that's why the scratch project plots out the win rates over time. \n\nUnfortunately, since switching to gpt 3.5 turbo, the cheating bot's performance has become much more consistent and predictable and now the win rate chart looks rather redundant. One interesting future step for this experiment is to test out different models of llms against each other and see which one scores the highest on the all important rock-paper-scissors-benchmark."
+      },
+      "position": {
+        "top": 256,
+        "left": 619
+      }
+    }
+  ]
+}
