@@ -1,11 +1,6 @@
 window.inspectorToolPanels["tool:costume"] = function (node, panelEl) {
   // Render panel immediately with placeholder dropdown, then update when VM is ready
   // Render panel with placeholder for costume name
-  const selectedTarget = node.data?.spriteName || "";
-  const projectId =
-    window.lastScratchProjectId ||
-    document.getElementById("scratch-project-id")?.value ||
-    "";
   panelEl.innerHTML = `
         <div>
             <p>Target:</p>

@@ -1,29 +1,5 @@
 // loadDropdown.js - logic for the Load button dropdown menu
-window.addEventListener('DOMContentLoaded', function() {
-    // Auto-load Starter Demo if first time (no nodes in localStorage)
-    try {
-        const nodesObj = JSON.parse(localStorage.getItem('nodes'));
-        if (!nodesObj || !nodesObj.nodes || nodesObj.nodes.length === 0) {
-            fetch('/demoProjects/starter-demo.json').then(r => r.json()).then(obj => {
-                if (!obj.metadata) obj.metadata = {};
-                if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
-                localStorage.setItem('nodes', JSON.stringify(obj));
-                if (window.loadNodes) window.loadNodes();
-                closeInspectorAndClearScratchIfNeeded(obj);
-            });
-        }
-    } catch (e) {
-        // If localStorage is corrupted, fallback to demo
-        fetch('/demoProjects/starter-demo.json').then(r => r.json()).then(obj => {
-            if (!obj.metadata) obj.metadata = {};
-            if (!obj.metadata.projectName) obj.metadata.projectName = 'Untitled MEW Project';
-            localStorage.setItem('nodes', JSON.stringify(obj));
-            if (window.loadNodes) window.loadNodes();
-            closeInspectorAndClearScratchIfNeeded(obj);
-        });
-    }
-    const loadBtn = document.getElementById('load-nodes');
-    function closeInspectorAndClearScratchIfNeeded(objOverride) {
+function closeInspectorAndClearScratchIfNeeded(objOverride) {
         // Use objOverride if provided, otherwise read from localStorage
         let saveObj = objOverride || null;
         if (!saveObj) {
@@ -43,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function() {
         // Clear Scratch project field if lastScratchProjectId is null
         if (!saveObj || !saveObj.metadata || saveObj.metadata.lastScratchProjectId == null) {
             const scratchInput = document.getElementById('scratch-project-id');
-            if (scratchInput) scratchInput.value = '1197188623'; // fallback for if no project ID is set
+            if (scratchInput) scratchInput.value = "scratch.mit.edu/projects/" + '1197188623'; // fallback for if no project ID is set
             // Reload the Scratch iframe to clear the VM
             if (window.reloadScratchIframe) window.reloadScratchIframe('1197188623');
         }
@@ -55,17 +31,27 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+window.addEventListener('DOMContentLoaded', function() {
+    // Auto-load blank if first time (no nodes in localStorage)
+    try {
+        const nodesObj = JSON.parse(localStorage.getItem('nodes'));
+        if (!nodesObj || !nodesObj.nodes || nodesObj.nodes.length === 0) {
+            window.loadBlankProject();
+        }
+    } catch (e) {
+        // If localStorage is corrupted, fallback to blank
+        window.loadBlankProject();
+    }
+    const loadBtn = document.getElementById('load-nodes');
+
     new DropdownMenu({
         trigger: loadBtn,
         options: [
             {
                 label: 'New empty project',
                 id: 'dropdown-new-empty',
-                onClick: function() {
-                    const obj = { nodes: [], metadata: { lastScratchProjectId: "1197188623", projectName: "Untitled MEW Project" } };
-                    localStorage.setItem('nodes', JSON.stringify(obj));
-                    window.loadNodes();
-                    closeInspectorAndClearScratchIfNeeded(obj);
+                onClick: function (){
+                    window.loadBlankProject();
                 }
             },
             {
@@ -156,3 +142,10 @@ window.addEventListener('DOMContentLoaded', function() {
         zIndex: 9999
     });
 });
+
+window.loadBlankProject = function(){
+    const obj = { nodes: [], metadata: { lastScratchProjectId: "1197188623", projectName: "Untitled MEW Project" } };
+                    localStorage.setItem('nodes', JSON.stringify(obj));
+                    window.loadNodes();
+                    closeInspectorAndClearScratchIfNeeded(obj);
+}

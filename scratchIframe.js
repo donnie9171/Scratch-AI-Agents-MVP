@@ -221,7 +221,7 @@ window.addEventListener('DOMContentLoaded', function() {
     // Fallback to legacy
     if (!lastId) lastId = localStorage.getItem('lastScratchProjectId');
     if (lastId) {
-        document.getElementById('scratch-project-id').value = lastId;
+        document.getElementById('scratch-project-id').value = "scratch.mit.edu/projects/" + lastId;
         window.lastScratchProjectId = lastId;
         window.reloadScratchIframe(lastId);
     }

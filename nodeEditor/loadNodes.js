@@ -26,7 +26,7 @@ window.loadNodes = function() {
             }
             // Also update the input field if present
             const input = document.getElementById('scratch-project-id');
-            if (input) input.value = window.lastScratchProjectId;
+            if (input) input.value = "scratch.mit.edu/projects/" + window.lastScratchProjectId;
         }
         // Select and open inspector for selectedNode if present
         const selectedNodeId = saveObj.metadata?.selectedNode || null;
@@ -37,6 +37,7 @@ window.loadNodes = function() {
             }
         }
     } else {
+        console.log("No saved nodes found in localStorage, loading blank");
         fetch('data.json')
         .then(res => res.json())
         .then(saveObj => {
@@ -56,7 +57,7 @@ window.loadNodes = function() {
                     window.reloadScratchIframe(window.lastScratchProjectId);
                 }
                 const input = document.getElementById('scratch-project-id');
-                if (input) input.value = window.lastScratchProjectId;
+                if (input) input.value = "scratch.mit.edu/projects/" + window.lastScratchProjectId;
             }
             // Select and open inspector for selectedNode if present
             const selectedNodeId = saveObj.metadata?.selectedNode || null;
