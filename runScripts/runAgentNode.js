@@ -3,10 +3,8 @@ import { AZURE_SOURCE } from "../helper/azureConfig";
 
 class RunAgentNode extends window.RunNode {
   async run() {
-    const prompt =
-      "Play rock, paper, scissors with me. Your options are rock, paper, and scissors only. Always respond with your choice in ONE WORD ONLY and in all lowercase (either rock, paper, or scissors)."; // example prompt
     let question =
-      "You are player 1 and the opponent is player 2. The game history is attached after this. What's your next move? P1: rock, P2: paper, Winner: P2,P1: paper, P2: scissors, Winner: P2,P1: rock, P2: scissors, Winner: P1,P1: paper, P2: rock, Winner: P1,P1: scissors, P2: paper, Winner: P1"; // what we send to the model
+      "Hello world!"; // fallback question
 
     if (this.node.inputs && this.node.inputs.length > 0) {
       // If there are inputs, we can process them
