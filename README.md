@@ -1,3 +1,12 @@
+## Now using webpack as of September 2025
+at root,
+```sh
+npm run build
+cd public
+```
+host on liveserver to port: 5501
+
+
 ## Getting Started
 
 This project includes a static vanilla JS frontend (`index.html`) and an Azure Function backend for API proxying and token usage tracking (in the `azure` folder).
