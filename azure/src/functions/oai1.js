@@ -179,13 +179,15 @@ app.http('refillBucket', {
 
     return {
       status: 200,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message: "Tokens refilled!",
         tokenBucket: {
           userId,
           tokensRemaining: bucket.tokens,
           lastRefill: bucket.lastRefill,
-          maxTokens: MAX_TOKENS
+          maxTokens: MAX_TOKENS,
+          refillRate: REFILL_RATE
         }
       })
     };
