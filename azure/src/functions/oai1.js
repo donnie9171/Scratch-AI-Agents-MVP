@@ -3,8 +3,8 @@ const { TableClient, AzureNamedKeyCredential } = require("@azure/data-tables");
 
 // Config
 const TABLE_NAME = "TokenBuckets";
-const MAX_TOKENS = 1000; // e.g., 30,000 tokens per minute
-const REFILL_RATE = 1; // tokens per second
+const MAX_TOKENS = 10000; 
+const REFILL_RATE = 5; // tokens per second
 
 // Helper: get user ID (customize as needed)
 function getUserId(request) {
