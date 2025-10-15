@@ -12,4 +12,12 @@ if (!userId) {
   localStorage.setItem("agentUserId", userId);
 }
 
+// Display userId in the #userID div
+window.addEventListener('DOMContentLoaded', () => {
+  const userIdDiv = document.getElementById('userID');
+  if (userIdDiv) {
+    userIdDiv.textContent = userId;
+  }
+});
+
 export { userId };
