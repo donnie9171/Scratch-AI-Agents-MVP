@@ -99,3 +99,28 @@ function updateTokenBucketBar(tokenBucket) {
 updateTokenBucketBar(getStoredTokenBucket());
 
 window.updateTokenBucketBar = updateTokenBucketBar;
+
+import { userId } from "../helper/userId";
+import { AZURE_SOURCE } from "../helper/azureConfig";
+
+document.getElementById('refill-tokens').addEventListener('click', async () => {
+  try {
+    url = AZURE_SOURCE + "/api/refillBucket";
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': userId // or however your backend identifies users
+      }
+    });
+    const result = await response.json();
+    if (response.ok) {
+      alert('Tokens refilled!');
+      window.updateTokenBucketBar(result.tokenBucket);
+    } else {
+      alert(result.message || 'Refill failed. You may not be whitelisted.');
+    }
+  } catch (err) {
+    alert('Error contacting server.');
+  }
+});

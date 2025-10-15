@@ -12,6 +12,11 @@ function getUserId(request) {
   return request.headers.get("x-api-key") || request.headers.get("x-forwarded-for") || "anonymous";
 }
 
+function isWhitelisted(userId) {
+  const whitelist = (process.env.WHITELISTED_USERID || '').split(',').map(u => u.trim());
+  return whitelist.includes(userId);
+}
+
 // Helper: refill bucket
 function refillTokens(bucket) {
   const now = Date.now();
@@ -137,4 +142,52 @@ methods: ['POST'],
       })
     };
     }
+});
+
+app.http('refillBucket', {
+  methods: ['POST'],
+  authLevel: 'anonymous',
+  handler: async (request, context) => {
+    const connectionString = process.env.TABLE_STORAGE_CONNECTION_STRING;
+    const tableClient = TableClient.fromConnectionString(connectionString, TABLE_NAME);
+
+    const userId = getUserId(request);
+
+    if (!isWhitelisted(userId)) {
+      return { status: 403, body: 'User not whitelisted for refill.' };
+    }
+
+    // Fetch or create bucket
+    let bucket;
+    try {
+      bucket = await tableClient.getEntity("TokenBucket", userId);
+    } catch (e) {
+      bucket = {
+        partitionKey: "TokenBucket",
+        rowKey: userId,
+        tokens: MAX_TOKENS,
+        lastRefill: Date.now()
+      };
+      await tableClient.createEntity(bucket);
+    }
+
+    // Refill tokens
+    bucket.tokens = MAX_TOKENS;
+    bucket.lastRefill = Date.now();
+
+    await tableClient.updateEntity(bucket, "Replace");
+
+    return {
+      status: 200,
+      body: JSON.stringify({
+        message: "Tokens refilled!",
+        tokenBucket: {
+          userId,
+          tokensRemaining: bucket.tokens,
+          lastRefill: bucket.lastRefill,
+          maxTokens: MAX_TOKENS
+        }
+      })
+    };
+  }
 });
