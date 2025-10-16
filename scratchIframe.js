@@ -227,26 +227,26 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.getElementById('GreenFlagBtn').onclick = function() {
-    const iframe = document.getElementById('scratch-iframe');
-    if (iframe && iframe.contentWindow && typeof iframe.contentWindow.start === 'function') {
-        iframe.contentWindow.start();
-    } else if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({type: 'start'}, '*');
-    }
-    // Return focus to the iframe
-    if (iframe) iframe.focus();
-};
-document.getElementById('StopBtn').onclick = function() {
-    const iframe = document.getElementById('scratch-iframe');
-    if (iframe && iframe.contentWindow && typeof iframe.contentWindow.stop === 'function') {
-        iframe.contentWindow.stop();
-    } else if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({type: 'stop'}, '*');
-    }
-    // Return focus to the iframe
-    if (iframe) iframe.focus();
-};
+// document.getElementById('GreenFlagBtn').onclick = function() {
+//     const iframe = document.getElementById('scratch-iframe');
+//     if (iframe && iframe.contentWindow && typeof iframe.contentWindow.start === 'function') {
+//         iframe.contentWindow.start();
+//     } else if (iframe && iframe.contentWindow) {
+//         iframe.contentWindow.postMessage({type: 'start'}, '*');
+//     }
+//     // Return focus to the iframe
+//     if (iframe) iframe.focus();
+// };
+// document.getElementById('StopBtn').onclick = function() {
+//     const iframe = document.getElementById('scratch-iframe');
+//     if (iframe && iframe.contentWindow && typeof iframe.contentWindow.stop === 'function') {
+//         iframe.contentWindow.stop();
+//     } else if (iframe && iframe.contentWindow) {
+//         iframe.contentWindow.postMessage({type: 'stop'}, '*');
+//     }
+//     // Return focus to the iframe
+//     if (iframe) iframe.focus();
+// };
 
 const iframe = document.getElementById('scratch-iframe');
 iframe.addEventListener('load', function() {
