@@ -1,5 +1,5 @@
-let MAX_TOKENS = 10000;
-let REFILL_RATE = 5; // tokens per second
+let MAX_TOKENS = 1000;
+let REFILL_RATE = 1; // tokens per second
 
 let tokenBucketTimeoutId = null;
 window.currentTokenBucketInfo = null;
