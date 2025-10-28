@@ -11,6 +11,11 @@ function setupReceiverNode(node) {
     const listener = function (event) {
       if (event.data.type === "scratchBroadcast" && event.data.message === messageName) {
         console.log(`[Node ${node.id}] received broadcast:`, messageName);
+        // check if the cluster is already running to avoid duplicate runs
+        if(window.runningClusters && window.runningClusters[identifyClusterForNode(node.id)]) {
+          console.log(`[Node ${node.id}] Cluster ${identifyClusterForNode(node.id)} is already running, skipping execution.`);
+          return;
+        }
         window.runNodeCluster(node.id);
       }
     };

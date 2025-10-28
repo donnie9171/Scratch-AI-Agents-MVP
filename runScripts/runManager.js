@@ -85,6 +85,19 @@ function findClusters(nodes) {
     return clusters;
 }
 
+function identifyClusterForNode(nodeId) {
+    const nodes = window.nodeData;
+    const clusters = findClusters(nodes);
+    for (let i = 0; i < clusters.length; i++) {
+        if (clusters[i].some(n => n.id === nodeId)) {
+            return i;
+        }
+    }
+    return -1; // Not found
+}
+
+window.identifyClusterForNode = identifyClusterForNode;
+
 // Helper: Topological sort for a cluster
 function topologicalSort(cluster) {
     const sorted = [];
@@ -110,6 +123,9 @@ function topologicalSort(cluster) {
     }
     return sorted;
 }
+
+window.runningClusters = {}; // To track running clusters
+console.log("Initialized window.runningClusters", window.runningClusters);
 
 async function runNodeCluster(nodeId){
     const nodes = window.nodeData;
@@ -154,6 +170,8 @@ async function runNodeCluster(nodeId){
         return;
     }
     const ordered = topologicalSort(clusters[clusterIdx]);
+    window.runningClusters[clusterIdx] = true;
+    console.log("Running clusters: ", window.runningClusters);
     for (const node of ordered){
         runtimeState.setNodeState(node.id, { runStatus: "queued" });
         window.updateNodeRunStatusBadge(node);
@@ -175,6 +193,8 @@ async function runNodeCluster(nodeId){
             break;
         }
     }
+    delete window.runningClusters[clusterIdx];
+    console.log("Running clusters: ", window.runningClusters);
 }
 
 window.runNodeCluster = runNodeCluster;
