@@ -403,7 +403,7 @@ body.cut-mode .node-point.connecting {
     display: none;
     position: fixed;
     left: 0;
-    bottom: 0;
+    bottom: 40px;
     width: 100vw;
     background: #23243a;
     color: #fff;
@@ -731,3 +731,12 @@ textarea {
     color: inherit;
 }
 /* Add more types as needed */
+.footerbackground{
+    background-color: #212228;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}

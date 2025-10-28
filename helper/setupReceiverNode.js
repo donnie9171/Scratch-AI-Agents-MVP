@@ -1,4 +1,5 @@
 function setupReceiverNode(node) {
+  console.log(`[Node ${node.id}] Setting up receiver for message:`, node.data?.receiverMessage);
   // Clean up any existing listener
   if (node._currentBroadcastListener) {
     window.removeEventListener("message", node._currentBroadcastListener);

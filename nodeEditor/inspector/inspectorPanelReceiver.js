@@ -28,6 +28,16 @@ window.inspectorToolPanels["receiver"] = function (node, panelEl) {
             // re-register listener with new value
             setupReceiverNode(node);
         });
+        node.data.receiverMessage = select.value;
+            const saveObj = {
+                metadata: {
+                    lastScratchProjectId: window.lastScratchProjectId || null
+                },
+                nodes: window.nodeData
+            };
+            localStorage.setItem('nodes', JSON.stringify(saveObj));
+            // re-register listener with new value
+            setupReceiverNode(node);
     }
 
     window.waitForVMAndUpdate(window.getScratchBroadcastNames, updateDropdown);

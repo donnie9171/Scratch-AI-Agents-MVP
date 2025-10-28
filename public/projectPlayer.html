@@ -203,6 +203,7 @@
               { type: 'scratchBroadcast', message: opts.BROADCAST_OPTION },
               '*'
             );
+            console.log("window.parent message posted")
           }
         }
         return originalStartHats.call(this, opcode, opts, ...rest);

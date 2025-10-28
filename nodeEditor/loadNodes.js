@@ -1,6 +1,7 @@
 import { setupReceiverNode } from "../helper/setupReceiverNode";
 
 window.loadNodes = function() {
+    console.log("Loading nodes");
     let saveObj;
     const saved = localStorage.getItem('nodes');
     if (saved) {
