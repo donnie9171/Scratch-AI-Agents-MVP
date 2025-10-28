@@ -20,7 +20,38 @@ window.initConnections = function(nodes) {
     window.updateConnections();
 };
 
+function resizeContainerToFitNodes(padding = 50) {
+    const container = document.getElementById('container');
+    const cards = container.querySelectorAll('.card');
+    if (cards.length === 0) return;
+
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const left = rect.left - containerRect.left + card.offsetLeft;
+        const top = rect.top - containerRect.top + card.offsetTop;
+        minX = Math.min(minX, left);
+        minY = Math.min(minY, top);
+        maxX = Math.max(maxX, left + rect.width);
+        maxY = Math.max(maxY, top + rect.height);
+    });
+
+    // Ensure minimum size and add padding
+    const width = Math.max(maxX - minX + padding, 800);
+    const height = Math.max(maxY - minY + padding, 600);
+
+    container.style.minWidth = width + 'px';
+    container.style.minHeight = height + 'px';
+
+    // Also update canvas size
+    const canvas = document.getElementById('connections');
+    canvas.width = container.scrollWidth;
+    canvas.height = container.scrollHeight;
+}
+
 window.updateConnections = function() {
+    resizeContainerToFitNodes();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     nodeData.forEach(node => {
         const fromEl = nodeElements[node.id];

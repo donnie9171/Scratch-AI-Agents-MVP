@@ -674,3 +674,60 @@ pre {
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
     cursor: pointer;
 }       
+
+.notepadInputToken {
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    cursor: grab;
+    user-select: none;
+    margin-bottom: 2px;
+    background: #5269ff;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tool-type-notepad  {
+    background-color: #5ac05b;
+}
+
+.tool-type-variable  {
+    background-color: #ff8c17;
+}
+
+@keyframes blink-caret {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+.notepad-drop-placeholder {
+    background: orange;
+    border-radius: 1px;
+}
+
+textarea {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: monospace;
+    font-size: inherit;
+    color: inherit;
+    width: auto;
+}
+
+.notepad-word-token {
+    display: inline-block;
+    padding: 2px 4px;
+    margin: 1px 0px;
+    border-radius: 4px;
+    background: transparent;
+    font-family: monospace;
+    cursor: text;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+/* Add more types as needed */
