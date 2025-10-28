@@ -1,17 +1,10 @@
 // Use the existing canvas variable if already declared
 var canvas = window.canvas || document.getElementById('connections');
+const container = document.getElementById('container');
+canvas.width = container.scrollWidth;
+canvas.height = container.scrollHeight;
 window.canvas = canvas;
 const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-    const container = document.getElementById('container');
-    const canvas = document.getElementById('connections');
-    canvas.width = container.scrollWidth;
-    canvas.height = container.scrollHeight;
-    if (window.updateConnections) window.updateConnections();
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
 let nodeData = [];
 let nodeElements = {};

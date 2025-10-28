@@ -35,7 +35,6 @@ document.addEventListener('keydown', function(e) {
 
 // Use the existing canvas variable if already declared
 var canvas = window.canvas || document.getElementById('connections');
-window.canvas = canvas;
 
 canvas.addEventListener('mousemove', function(e) {
     if (!window.cutMode) return;
