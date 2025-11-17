@@ -105,7 +105,7 @@ import { userId } from "../helper/userId";
 
 let url = AZURE_SOURCE + "/api/refillBucket";
 
-document.getElementById('refill-tokens').addEventListener('click', async () => {
+document.getElementById('refill-tokens')?.addEventListener('click', async () => {
   try {
     const response = await fetch(url, {
       method: 'POST',
