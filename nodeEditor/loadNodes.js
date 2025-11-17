@@ -93,6 +93,9 @@ function renderNodes(nodes) {
             } else if (node.toolType === 'costume') {
                 icon = '🎭';
                 toolColor = '#9965ff';
+            } else if (node.toolType === 'gate') {
+                icon = '🚪';
+                toolColor = '#ff4949';
             } else {
                 icon = '🛠️';
                 toolColor = '#5abd13';

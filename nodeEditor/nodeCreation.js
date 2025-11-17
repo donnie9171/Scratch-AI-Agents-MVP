@@ -20,6 +20,10 @@ document.getElementById('new-costume-tool').onclick = function() {
     addNewNode('tool', 'costume');
 };
 
+document.getElementById('new-gate').onclick = function() {
+    addNewNode('tool', 'gate');
+};
+
 // Add handler for new comment button
 document.getElementById('new-comment').onclick = function() {
     addNewNode('comment');

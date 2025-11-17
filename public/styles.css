@@ -31,6 +31,10 @@
     background: #ffe646;
     color: #333;
 }
+#new-gate.button {
+    background: #ff4949;
+    color: #fff;
+}
 #cut-tooltip.shake {
     animation: shake-tooltip 0.5s;
 }
@@ -334,6 +338,12 @@ body.cut-mode .node-point.connecting {
 .card.tool[data-tool-type="costume"] {
     background-color: #9965ff !important;
     border-color: #9965ff !important;
+}
+.card.tool[data-tool-type="gate"] {
+    background-color: #ff4949 !important;
+    border-color: #ff4949 !important;
+    border-bottom-left-radius: 100px !important; 
+    border-bottom-right-radius: 100px !important;
 }
 .card.receiver {
     background-color: #ffab19;
@@ -697,6 +707,10 @@ pre {
 
 .tool-type-variable  {
     background-color: #ff8c17;
+}
+
+.tool-type-gate{
+    background-color: #ff4949;
 }
 
 @keyframes blink-caret {

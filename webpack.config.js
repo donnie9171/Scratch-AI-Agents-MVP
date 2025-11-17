@@ -24,6 +24,7 @@ module.exports = {
     './runScripts/runBroadcasterNode.js',
     './runScripts/runCommentNode.js',
     './runScripts/runCostumeNode.js',
+    './runScripts/runGateNode.js',
     './runScripts/runManager.js',
     './components/loadProjectModal.js',
     './components/DropdownMenu.js',
