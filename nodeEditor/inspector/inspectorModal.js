@@ -207,6 +207,90 @@ document.getElementById('run-inspector').onclick = function() {
     window.runNodeCluster(currentInspectedNodeId);
 }
 
+/**
+ * Duplicates the entire cluster connected to the given node.
+ * Shifts the new cluster down to avoid overlap, assigns new IDs, and saves.
+ * @param {Object} node - The node to duplicate the cluster from.
+ */
+window.duplicateNodeCluster = function(node) {
+    if (!window.nodeData || !node) return;
+
+    // 1. Find all nodes in the cluster (BFS)
+    const clusterIds = new Set();
+    const queue = [node.id];
+    while (queue.length) {
+        const nid = queue.shift();
+        if (clusterIds.has(nid)) continue;
+        clusterIds.add(nid);
+        const n = window.nodeData.find(n => n.id === nid);
+        if (!n) continue;
+        // Add connected nodes (inputs and outputs)
+        (n.inputs || []).forEach(id => { if (!clusterIds.has(id)) queue.push(id); });
+        (n.outputs || []).forEach(id => { if (!clusterIds.has(id)) queue.push(id); });
+    }
+
+    // 2. Duplicate nodes and assign new IDs
+    const oldToNewId = {};
+    const newNodes = [];
+    clusterIds.forEach(oldId => {
+        const orig = window.nodeData.find(n => n.id === oldId);
+        if (!orig) return;
+        const newNode = JSON.parse(JSON.stringify(orig));
+        // Assign new unique ID
+        newNode.id = crypto.randomUUID ? crypto.randomUUID() : 'node-' + Math.random().toString(36).slice(2);
+        oldToNewId[oldId] = newNode.id;
+        newNodes.push(newNode);
+    });
+
+    // 3. Update connections in duplicated nodes
+    newNodes.forEach(n => {
+        n.inputs = (n.inputs || []).map(id => oldToNewId[id] || id);
+        n.outputs = (n.outputs || []).map(id => oldToNewId[id] || id);
+    });
+
+    // 4. Calculate bounding box of original cluster (top/left)
+    let minTop = Infinity, maxTop = -Infinity;
+    clusterIds.forEach(id => {
+        const n = window.nodeData.find(n => n.id === id);
+        if (n && n.position && typeof n.position.top === 'number') {
+            minTop = Math.min(minTop, n.position.top);
+            maxTop = Math.max(maxTop, n.position.top);
+        }
+    });
+    const margin = 150;
+    const shiftTop = (maxTop - minTop) + margin;
+
+    // 5. Shift new nodes down so their minTop aligns with original maxTop + margin
+    const newClusterMinTop = Math.min(...newNodes.map(n => n.position && typeof n.position.top === 'number' ? n.position.top : Infinity));
+    newNodes.forEach(n => {
+        if (n.position && typeof n.position.top === 'number') {
+            n.position.top = n.position.top - newClusterMinTop + maxTop + margin;
+        }
+    });
+
+    // 6. Add new nodes to nodeData and save
+    window.nodeData.push(...newNodes);
+    const saveObj = {
+        metadata: {
+            lastScratchProjectId: window.lastScratchProjectId || null
+        },
+        nodes: window.nodeData
+    };
+    localStorage.setItem('nodes', JSON.stringify(saveObj));
+    if (window.loadNodes) window.loadNodes();
+
+    // Optionally, select one of the new nodes or provide feedback
+    // alert('Cluster duplicated!');
+};
+
+document.getElementById('duplicate-inspector').onclick = function() {
+    if (!currentInspectedNodeId || !window.nodeData) return;
+    const node = window.nodeData.find(n => n.id === currentInspectedNodeId);
+    if (node) {
+        window.duplicateNodeCluster(node);
+    }
+}
+
 window.showInspector = showInspector;
 
 function updateAgentPanel() {
