@@ -26,7 +26,17 @@ window.inspectorToolPanels["broadcaster"] = function (node, panelEl) {
             };
             localStorage.setItem('nodes', JSON.stringify(saveObj));
         });
-    }
 
+        // Immediately set and register after initial population
+        node.data.broadcastMessage = select.value;
+        const saveObj = {
+            metadata: {
+                lastScratchProjectId: window.lastScratchProjectId || null
+            },
+            nodes: window.nodeData
+        };
+        localStorage.setItem('nodes', JSON.stringify(saveObj));
+        if (window.setupBroadcasterNode) window.setupBroadcasterNode(node);
+    }
     window.waitForVMAndUpdate(window.getScratchBroadcastNames, updateDropdown);
 };
