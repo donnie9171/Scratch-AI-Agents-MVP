@@ -454,7 +454,8 @@ body.inspector-open #scroll-area {
 
 #close-inspector,
 #delete-inspector,
-#run-inspector {
+#run-inspector,
+#duplicate-inspector {
     margin: 10px;
     margin-left: 0px;
     flex: 0 0 auto;
