@@ -93,6 +93,30 @@ window.addEventListener('DOMContentLoaded', function() {
                                 closeInspectorAndClearScratchIfNeeded(obj);
                             });
                         }
+                    },
+                    {   label: 'Rap Battle Bots Demo',
+                        id: 'dropdown-demo-rap-battle-bots',
+                        onClick: function() {
+                            fetch('/demoProjects/rap-battle-bots-demo.json').then(r => r.json()).then(obj => {
+                                if (!obj.metadata) obj.metadata = {};
+                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Rap Battle Bots Demo';
+                                localStorage.setItem('nodes', JSON.stringify(obj));
+                                window.loadNodes();
+                                closeInspectorAndClearScratchIfNeeded(obj);
+                            });
+                        }
+                    },
+                    {   label: 'Prompt Injection Demo',
+                        id: 'dropdown-demo-prompt-injection',
+                        onClick: function() {
+                            fetch('/demoProjects/prompt-injection-demo.json').then(r => r.json()).then(obj => {
+                                if (!obj.metadata) obj.metadata = {};
+                                if (!obj.metadata.projectName) obj.metadata.projectName = 'Prompt Injection Demo';
+                                localStorage.setItem('nodes', JSON.stringify(obj));
+                                window.loadNodes();
+                                closeInspectorAndClearScratchIfNeeded(obj);
+                            });
+                        }
                     }
                 ]
             },

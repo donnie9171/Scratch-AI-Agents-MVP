@@ -1,0 +1,278 @@
+{
+  "metadata": {
+    "lastScratchProjectId": "1229505834",
+    "selectedNode": "tool1760585849440",
+    "projectName": "rap-battle-bots-demo"
+  },
+  "nodes": [
+    {
+      "id": "agent1760583381092",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1760583465715"
+      ],
+      "outputs": [
+        "tool1760583725945"
+      ],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 580,
+        "left": 852
+      }
+    },
+    {
+      "id": "tool1760583452373",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "tool1760583465715"
+      ],
+      "data": {
+        "label": "blue name",
+        "variableName": "BLUE NAME"
+      },
+      "position": {
+        "top": 646,
+        "left": 404
+      }
+    },
+    {
+      "id": "tool1760583458300",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "tool1760583465715"
+      ],
+      "data": {
+        "label": "red name",
+        "variableName": "RED NAME"
+      },
+      "position": {
+        "top": 793,
+        "left": 404
+      }
+    },
+    {
+      "id": "tool1760583465715",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "tool1760583452373",
+        "tool1760583458300",
+        "receiver1760584063193"
+      ],
+      "outputs": [
+        "agent1760583381092"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "notepadContent": "You are a funny robot rapper in a robot rap battle. You are {{blue name}} and your opponent is {{red name}}. \nWrite 2 funny sentences of rap that rhyme with each other, referencing your opponent or your special traits. Keep it short and snappy—no more than 10 words per line."
+      },
+      "position": {
+        "top": 557,
+        "left": 655
+      }
+    },
+    {
+      "id": "tool1760583725945",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1760583381092"
+      ],
+      "outputs": [
+        "broadcaster1760583744530"
+      ],
+      "data": {
+        "label": "Variable Tool",
+        "variableName": "BLUE RAP"
+      },
+      "position": {
+        "top": 580,
+        "left": 1050
+      }
+    },
+    {
+      "id": "broadcaster1760583744530",
+      "type": "broadcaster",
+      "toolType": null,
+      "inputs": [
+        "tool1760583725945"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Broadcaster",
+        "broadcastMessage": "BLUE DONE THINKING"
+      },
+      "position": {
+        "top": 582,
+        "left": 1218
+      }
+    },
+    {
+      "id": "receiver1760584063193",
+      "type": "receiver",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [
+        "tool1760583465715"
+      ],
+      "data": {
+        "label": "Receiver",
+        "receiverMessage": "BLUE THINK"
+      },
+      "position": {
+        "top": 534,
+        "left": 197
+      }
+    },
+    {
+      "id": "receiver1760585670430",
+      "type": "receiver",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [
+        "tool1760585814433"
+      ],
+      "data": {
+        "label": "Receiver",
+        "receiverMessage": "RED THINK"
+      },
+      "position": {
+        "top": 1135,
+        "left": 955
+      }
+    },
+    {
+      "id": "tool1760585757570",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "tool1760585814433"
+      ],
+      "data": {
+        "label": "red",
+        "variableName": "RED NAME"
+      },
+      "position": {
+        "top": 1272,
+        "left": 1113
+      }
+    },
+    {
+      "id": "tool1760585779199",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [],
+      "outputs": [
+        "tool1760585814433"
+      ],
+      "data": {
+        "label": "blue",
+        "variableName": "BLUE NAME"
+      },
+      "position": {
+        "top": 1413,
+        "left": 1223
+      }
+    },
+    {
+      "id": "tool1760585814433",
+      "type": "tool",
+      "toolType": "notepad",
+      "inputs": [
+        "tool1760585757570",
+        "tool1760585779199",
+        "receiver1760585670430"
+      ],
+      "outputs": [
+        "agent1760585843848"
+      ],
+      "data": {
+        "label": "Notepad Tool",
+        "notepadContent": "You are a funny robot rapper in a robot rap battle. You are {{red}} and your opponent is {{blue}}. \nWrite 2 funny sentences of rap that rhyme with each other, referencing your opponent or your special traits. Keep it short and snappy—no more than 10 words per line."
+      },
+      "position": {
+        "top": 1249,
+        "left": 1460
+      }
+    },
+    {
+      "id": "agent1760585843848",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [
+        "tool1760585814433"
+      ],
+      "outputs": [
+        "tool1760585849440"
+      ],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 1252,
+        "left": 1624
+      }
+    },
+    {
+      "id": "tool1760585849440",
+      "type": "tool",
+      "toolType": "variable",
+      "inputs": [
+        "agent1760585843848"
+      ],
+      "outputs": [
+        "broadcaster1760585862658"
+      ],
+      "data": {
+        "label": "Variable Tool",
+        "variableName": "RED RAP"
+      },
+      "position": {
+        "top": 1240,
+        "left": 1784
+      }
+    },
+    {
+      "id": "broadcaster1760585862658",
+      "type": "broadcaster",
+      "toolType": null,
+      "inputs": [
+        "tool1760585849440"
+      ],
+      "outputs": [],
+      "data": {
+        "label": "Broadcaster",
+        "broadcastMessage": "RED DONE THINKING"
+      },
+      "position": {
+        "top": 1245,
+        "left": 1982
+      }
+    },
+    {
+      "id": "agent1761616719183",
+      "type": "agent",
+      "toolType": null,
+      "inputs": [],
+      "outputs": [],
+      "data": {
+        "label": "Agent",
+        "model": "gpt-3.5-turbo"
+      },
+      "position": {
+        "top": 3247,
+        "left": 582
+      }
+    }
+  ]
+}
