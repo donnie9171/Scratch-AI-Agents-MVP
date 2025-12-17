@@ -24,6 +24,10 @@ document.getElementById('new-gate').onclick = function() {
     addNewNode('tool', 'gate');
 };
 
+document.getElementById('new-servo-tool').onclick = function() {
+    addNewNode('tool', 'servo');
+};
+
 // Add handler for new comment button
 document.getElementById('new-comment').onclick = function() {
     addNewNode('comment');

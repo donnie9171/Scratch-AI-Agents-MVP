@@ -96,6 +96,9 @@ function renderNodes(nodes) {
             } else if (node.toolType === 'gate') {
                 icon = '🚪';
                 toolColor = '#ff4949';
+            } else if (node.toolType === 'servo') {
+                icon = '🌀';
+                toolColor = '#4fccf3';
             } else {
                 icon = '🛠️';
                 toolColor = '#5abd13';

@@ -35,6 +35,10 @@
     background: #ff4949;
     color: #fff;
 }
+#new-servo-tool.button {
+    background: #4fccf3;
+    color: #fff;
+}
 #cut-tooltip.shake {
     animation: shake-tooltip 0.5s;
 }
@@ -344,6 +348,10 @@ body.cut-mode .node-point.connecting {
     border-color: #ff4949 !important;
     border-bottom-left-radius: 100px !important; 
     border-bottom-right-radius: 100px !important;
+}
+.card.tool[data-tool-type="servo"] {
+    background-color: #4fccf3 !important;
+    border-color: #4fccf3 !important;
 }
 .card.receiver {
     background-color: #ffab19;

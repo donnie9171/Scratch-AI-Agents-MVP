@@ -14,5 +14,8 @@
     "copy-webpack-plugin": "^13.0.1",
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "simple-web-serial": "^1.4.1"
   }
 }
