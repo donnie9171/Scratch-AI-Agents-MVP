@@ -99,6 +99,9 @@ function renderNodes(nodes) {
             } else if (node.toolType === 'servo') {
                 icon = '🌀';
                 toolColor = '#4fccf3';
+            } else if (node.toolType === 'audio-observer') {
+                icon = '🔊';
+                toolColor = '#d062d2';
             } else {
                 icon = '🛠️';
                 toolColor = '#5abd13';

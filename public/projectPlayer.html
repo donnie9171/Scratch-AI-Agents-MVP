@@ -371,6 +371,60 @@
         scaffolding.vm.runtime.audioEngine.inputNode.gain.value = 1
       }
 
+      // After scaffolding and vm are ready
+      const audioEngine = vm.runtime.audioEngine;
+      const audioCtx = audioEngine.audioContext || audioEngine.context;
+
+function observeSpriteAudioMagnitude(vm, audioCtx, spriteName = "Global") {
+    let audioNode = null;
+    let analyser = null;
+    let poller = null;
+
+    function tryAttachAnalyser() {
+        if (spriteName === "Global") {
+            audioNode = vm.runtime.audioEngine.inputNode;
+        } else {
+            const spriteTarget = vm.runtime.targets.find(
+                t => t.sprite && t.sprite.name === spriteName
+            );
+            console.log(spriteTarget.audioPlayer)
+            if (spriteTarget && spriteTarget.audioPlayer && spriteTarget.audioPlayer.inputNode) {
+                audioNode = spriteTarget.audioPlayer.inputNode;
+            }
+        }
+
+        if (audioNode) {
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 256;
+            audioNode.connect(analyser);
+
+            function pollMagnitude() {
+                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteTimeDomainData(dataArray);
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) {
+                    const val = (dataArray[i] - 128) / 128;
+                    sum += val * val;
+                }
+                const rms = Math.sqrt(sum / dataArray.length);
+                // console.log(`[${spriteName}] Audio Magnitude:`, rms);
+                window.audioMagnitude = rms;
+                requestAnimationFrame(pollMagnitude);
+            }
+            pollMagnitude();
+            if (poller) clearInterval(poller);
+        } else {
+            // Try again in 500ms
+            console.log("polling for audioPlayer inputNode again in 500ms")
+            if (!poller) {
+                poller = setInterval(tryAttachAnalyser, 500);
+            }
+        }
+    }
+
+    tryAttachAnalyser();
+}
+
       // turbo mode code
       // pauseBtn.addEventListener('click', () => {
       //   scaffolding.vm.runtime.turboMode = !scaffolding.vm.runtime.turboMode
@@ -488,6 +542,7 @@
         launchScreen.addEventListener("click", () => {
           launchScreen.hidden = true;
           scaffolding.start();
+          observeSpriteAudioMagnitude(vm, audioCtx, "Global");
         });
         launchScreen.focus();
       };

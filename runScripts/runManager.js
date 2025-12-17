@@ -33,6 +33,7 @@ function getRunnerForNode(node) {
             if (node.toolType === 'costume') return new window.RunCostumeNode(node, runtimeState);
             if (node.toolType === 'gate') return new window.RunGateNode(node, runtimeState);
             if (node.toolType === 'servo') return new window.RunServoNode(node, runtimeState);
+            if (node.toolType === 'audio-observer') return new window.RunAudioObserverNode(node, runtimeState);
             // Add more tool types as needed
             break;
         case 'agent':

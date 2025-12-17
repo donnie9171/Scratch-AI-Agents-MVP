@@ -28,6 +28,10 @@ document.getElementById('new-servo-tool').onclick = function() {
     addNewNode('tool', 'servo');
 };
 
+document.getElementById('new-audio-observer-tool').onclick = function() {
+    addNewNode('tool', 'audio-observer');
+};
+
 // Add handler for new comment button
 document.getElementById('new-comment').onclick = function() {
     addNewNode('comment');
