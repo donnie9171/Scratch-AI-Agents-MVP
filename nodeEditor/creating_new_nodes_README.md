@@ -7,7 +7,9 @@ This document outlines the general process for adding a new node type to the Scr
 ## 1. **Define the Node Type**
 - Choose a unique type identifier (e.g., `tool:audio-observer`).
 - Add the new type to your node creation logic (e.g., in `nodeCreation.js`).
-- Provide a way to create the node in the UI (button, menu, etc.).
+- Provide a way to create the node in the UI:
+    - Add a button in index.html
+    - Change the color for the button in styles.css (it uses the id to reference)
 
 ## 2. **Update Node Rendering in loadNodes.js**
 - Update the `renderNodes` function in `loadNodes.js` to recognize and properly render your new node type.
@@ -23,6 +25,8 @@ This document outlines the general process for adding a new node type to the Scr
 - Create a `Run[NodeType]Node` class in `runScripts/`.
 - Implement the `run()` method to perform the node’s main function.
 - Set the node’s output value using `this.setOutputValue(...)`.
+- Add the new function to the list at runManager.js
+- Add the run script to the webpack.config.js 
 
 ## 5. **Integrate with Node Graph**
 - Ensure the node can connect to other nodes as inputs/outputs as needed.

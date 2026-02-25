@@ -43,6 +43,10 @@
     background: #d062d2;
     color: #fff;
 }
+#new-microphone-tool.button {
+    background: #ff1717;
+    color: #fff;
+}
 #cut-tooltip.shake {
     animation: shake-tooltip 0.5s;
 }
@@ -360,6 +364,10 @@ body.cut-mode .node-point.connecting {
 .card.tool[data-tool-type="audio-observer"] {
     background-color: #d062d2 !important;
     border-color: #d062d2 !important;
+}
+.card.tool[data-tool-type="microphone"] {
+    background-color: #ff1717 !important;
+    border-color: #ff1717 !important;
 }
 .card.receiver {
     background-color: #ffab19;

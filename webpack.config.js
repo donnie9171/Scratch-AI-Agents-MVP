@@ -28,6 +28,7 @@ module.exports = {
     './runScripts/runGateNode.js',
     './runScripts/runServoNode.js',
     './runScripts/runAudioObserverNode.js',
+    './runScripts/runMicrophoneNode.js',
     './runScripts/runManager.js',
     './components/loadProjectModal.js',
     './components/DropdownMenu.js',

@@ -102,7 +102,11 @@ function renderNodes(nodes) {
             } else if (node.toolType === 'audio-observer') {
                 icon = '🔊';
                 toolColor = '#d062d2';
-            } else {
+            } else if (node.toolType === 'microphone') {
+                icon = '🎤';
+                toolColor = '#ff1717';
+            }
+            else {
                 icon = '🛠️';
                 toolColor = '#5abd13';
             }

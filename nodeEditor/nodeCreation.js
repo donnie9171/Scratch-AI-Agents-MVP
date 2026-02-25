@@ -32,6 +32,10 @@ document.getElementById('new-audio-observer-tool').onclick = function() {
     addNewNode('tool', 'audio-observer');
 };
 
+document.getElementById('new-microphone-tool').onclick = function() {
+    addNewNode('tool', 'microphone');
+};
+
 // Add handler for new comment button
 document.getElementById('new-comment').onclick = function() {
     addNewNode('comment');

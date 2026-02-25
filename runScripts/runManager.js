@@ -34,6 +34,7 @@ function getRunnerForNode(node) {
             if (node.toolType === 'gate') return new window.RunGateNode(node, runtimeState);
             if (node.toolType === 'servo') return new window.RunServoNode(node, runtimeState);
             if (node.toolType === 'audio-observer') return new window.RunAudioObserverNode(node, runtimeState);
+            if (node.toolType === 'microphone') return new window.RunMicrophoneNode(node, runtimeState);
             // Add more tool types as needed
             break;
         case 'agent':
@@ -57,6 +58,7 @@ async function runNodeById(nodeId) {
         return;
     }
     const runner = getRunnerForNode(node);
+    // Default: no triggering input node for manual/cluster run
     await runner.run();
 }
 
@@ -179,15 +181,28 @@ async function runNodeCluster(nodeId){
         runtimeState.setNodeState(node.id, { runStatus: "queued" });
         window.updateNodeRunStatusBadge(node);
     }
-    for (const node of ordered) {
+    // Track which node triggered each node (for passing triggeringInputNodeId)
+    const triggeredBy = {};
+    // The first node in the cluster is triggered manually (no input)
+    for (let i = 0; i < ordered.length; i++) {
+        const node = ordered[i];
         const runner = getRunnerForNode(node);
         const el = document.querySelector(`.card[data-id="${node.id}"]`);
         runtimeState.setNodeState(node.id, { runStatus: "running" });
         window.updateNodeRunStatusBadge(node);
         try {
-            await runner.run();
+            // Pass the triggering node's ID if available
+            const triggerId = triggeredBy[node.id];
+            await runner.run(triggerId);
             runtimeState.setNodeState(node.id, { runStatus: "complete" });
             window.updateNodeRunStatusBadge(node);
+            // After running, mark all outputs as triggered by this node
+            if (node.outputs && node.outputs.length > 0) {
+                for (const outId of node.outputs) {
+                    // Only set if not already set (first trigger wins)
+                    if (!triggeredBy[outId]) triggeredBy[outId] = node.id;
+                }
+            }
         } catch (e) {
             runtimeState.setNodeState(node.id, { runStatus: "error" });
             window.updateNodeRunStatusBadge(node);
