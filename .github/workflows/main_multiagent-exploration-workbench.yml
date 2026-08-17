@@ -43,21 +43,21 @@ jobs:
           name: node-app
           path: .
 
-  deploy:
-    runs-on: windows-latest
-    needs: build
+  # deploy:
+  #   runs-on: windows-latest
+  #   needs: build
     
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: node-app
+  #   steps:
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: node-app
       
-      - name: 'Run Azure Functions Action'
-        uses: Azure/functions-action@v1
-        id: fa
-        with:
-          app-name: 'multiagent-exploration-workbench'
-          slot-name: 'Production'
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C797446ED124B708A2C8B296CF2016F }}
+  #     - name: 'Run Azure Functions Action'
+  #       uses: Azure/functions-action@v1
+  #       id: fa
+  #       with:
+  #         app-name: 'multiagent-exploration-workbench'
+  #         slot-name: 'Production'
+  #         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+  #         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C797446ED124B708A2C8B296CF2016F }}
